@@ -1,4 +1,5 @@
 html, body {
+    
     margin: 0;
     overflow: hidden;
     display:flex;
@@ -14,15 +15,22 @@ header,main,nav{
 
 header{
     font-size: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    height:var(--header-height);
+}
+footer{
+    height:var(--footer-height);
+    background-color: aquamarine;
 }
 
+:root {
+    --header-height: 50px;
+    --footer-height: 10px;
+    --scroll-width: 25px;
+}
 
-
-.row-holder{
+#row-holder{
+    height: calc(100vh - var(--header-height) - var(--footer-height));
     width: 100%;
-    background-color: bisque;
 }
 
 .row-thing{
@@ -31,5 +39,5 @@ header{
 }
 
 .colHex{
-    margin-left: 30px;
+    /* margin-left: 30px; */
 }

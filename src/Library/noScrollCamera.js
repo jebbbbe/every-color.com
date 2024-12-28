@@ -9,6 +9,7 @@ export class noScrollCamera{
         this.setTemplate()
         this.updateHeight()
         this.updateRowSize()
+        this.updateRowCount()
     }
     setTemplate(){
         this.template = document.querySelector("." + this.rowClass).cloneNode(true)
@@ -26,13 +27,32 @@ export class noScrollCamera{
         const elem = document.querySelector("." + this.rowClass)
         this.rowSize = elem.clientHeight
     }
+    updateRowCount(){
+        const elem = document.getElementById( this.class )
+        this.rowCount = elem.children.length
+    }
     resize(){
-        let prevHeight = this.height
-        let rowHeight = this.rowSize
+        let currCount = this.rowCount
+        // let prevHeight = this.height
+        // let rowHeight = this.rowSize
         this.updateHeight()
         this.updateRowSize()
+        this.updateRowCount()
 
-       this.addRows(25)
+        this.rowCount = Math.floor( this.height/ this.rowSize)
+        console.log("rowCount")
+        console.log(this.rowCount)
+        console.log(this.height)
+        console.log(this.rowSize)
+        if(this.rowCount > currCount){
+            this.addRows(this.rowCount-currCount)
+        }else if (this.rowCount < currCount){
+            this.removeRows(currCount-this.rowCount)
+        }
+
+        // console.log(this.rowCount)
+
+        // this.addRows(25)
 
     }
     addRows(count){

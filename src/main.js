@@ -39,6 +39,10 @@ window.addEventListener('wheel', () => {
     scene.randomizeColors()
 });
 
+window.addEventListener('resize', () => {
+    camera.resize()
+});
+
 
 function remapColor(color) {
     // Ensure the input is within the valid range
