@@ -39,11 +39,11 @@ export class noScrollCamera{
         this.updateRowSize()
         this.updateRowCount()
 
-        this.rowCount = Math.floor( this.height/ this.rowSize)
+        this.rowCount = Math.floor( this.height/ this.rowSize) //-1
         console.log("rowCount")
         console.log(this.rowCount)
-        console.log(this.height)
-        console.log(this.rowSize)
+        // console.log(this.height)
+        // console.log(this.rowSize)
         if(this.rowCount > currCount){
             this.addRows(this.rowCount-currCount)
         }else if (this.rowCount < currCount){

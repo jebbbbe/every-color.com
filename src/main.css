@@ -24,7 +24,7 @@ footer{
 
 :root {
     --header-height: 50px;
-    --footer-height: 10px;
+    --footer-height: 0px;
     --scroll-width: 25px;
 }
 
