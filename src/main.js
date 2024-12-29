@@ -8,12 +8,13 @@ let scrollManager;
 
 const mainClass = "row-holder"
 const rowClass = "row-thing"
-const camera = new noScrollCamera(mainClass,rowClass)
-// const controls = new noScrollControls(mainClass)
+const scrollFactor = 10
+const startPos = 16777216 - 100
+const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,startPos)
 const scene = new htmlScene(mainClass)
 
 camera.resize()
-scene.randomizeColors()
+scene.updateColors(camera.position)
 
 
 let c1 = 0x000000
@@ -35,8 +36,10 @@ console.log(unmapColor(remapColor(c2)).toString(16).padStart(6, '0'));
 console.log(unmapColor(remapColor(c3)).toString(16).padStart(6, '0')); 
 
 
-window.addEventListener('wheel', () => {
-    scene.randomizeColors()
+window.addEventListener('wheel', (event) => {
+    // console.log(event.wheelDeltaY)
+    camera.updatePosition(event.wheelDeltaY)
+    scene.updateColors(camera.position)
 });
 
 window.addEventListener('resize', () => {

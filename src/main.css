@@ -36,6 +36,14 @@ footer{
 .row-thing{
     width: 100vw;
     background-color:red;
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;  
+}
+.row-thing > div {
+    flex: 1; /* Make child divs take equal space */
+    text-align: center; /* Center text inside each child div */
 }
 
 .colHex{

@@ -1,15 +1,18 @@
 const template = document.querySelector
 
-
+const absoluteMin = 0
+const absoluteMax = 16777216 - 1// 256 * 256 * 256
 export class noScrollCamera{
-    constructor(cssClass, rowCssClass){
+    constructor(cssClass, rowCssClass, scrollFactor = 1, startPos =0){
         this.class = cssClass
         this.rowClass = rowCssClass
-        
+        this.scrollFactor = scrollFactor
+        this.position = startPos
         this.setTemplate()
         this.updateHeight()
         this.updateRowSize()
         this.updateRowCount()
+        this.updatePosition()
     }
     setTemplate(){
         this.template = document.querySelector("." + this.rowClass).cloneNode(true)
@@ -70,5 +73,12 @@ export class noScrollCamera{
                 break;
             }
         }
+    }
+    updatePosition(delta = 0){
+        this.position += -delta * this.scrollFactor
+        this.position = Math.max(absoluteMin, this.position)
+        this.position = Math.min(absoluteMax - this.rowCount, this.position) // unsure
+        console.log(this.position)
+        return this.position
     }
 }
