@@ -20,10 +20,9 @@ const scrollbar = new noScrollBar();
 
 camera.resize()
 scene.updateColors(camera.position)
-// removeLoader()
+removeLoader()
 
 function removeLoader(){
-    console.log("REMOVE LOADER")
     const loader = document.querySelector(".loader")
     loader.style.background = "rgba(255, 255, 255, 0)";
     setTimeout(() => {
@@ -47,48 +46,77 @@ function scrollbarMouseDown(e){
     scrollbar.handleMouseDown(e)
     document.addEventListener("mousemove", scrollbarMouseMove);
     document.addEventListener("mouseup", scrollbarMouseUp);
-}
-function scrollbarMouseMove(e){
-    const update = scrollbar.handleMouseMove(e)
-    if(update){
-        const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
-        camera.setPosition(newPos)
-        scene.updateColors(newPos)
+    function scrollbarMouseMove(e){
+        const update = scrollbar.handleMouseMove(e)
+        if(update){
+            const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+            camera.setPosition(newPos)
+            scene.updateColors(newPos)
+        }
+    }
+    function scrollbarMouseUp(){
+        scrollbar.handleMouseUp()
+        document.removeEventListener("mousemove", scrollbarMouseMove);
+        document.removeEventListener("mouseup", scrollbarMouseUp);
     }
 }
-function scrollbarMouseUp(){
-    scrollbar.handleMouseUp()
-    document.removeEventListener("mousemove", scrollbarMouseMove);
-    document.removeEventListener("mouseup", scrollbarMouseUp);
+function scrollbarTouchStart(e){
+    scrollbar.handleMouseDown(e)
+    document.addEventListener("touchmove", scrollbarMouseMove);
+    document.addEventListener("touchend", scrollbarMouseUp);
+    function scrollbarMouseMove(e){
+        const update = scrollbar.handleMouseMove(e)
+        if(update){
+            const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+            camera.setPosition(newPos)
+            scene.updateColors(newPos)
+        }
+    }
+    function scrollbarMouseUp(){
+        scrollbar.handleMouseUp()
+        document.removeEventListener("touchmove", scrollbarMouseMove);
+        document.removeEventListener("touchend", scrollbarMouseUp);
+    }
 }
+
+function syncSetPosition(pos){
+    camera.setPosition(pos)
+    scene.updateColors(camera.position)
+    scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
+}
+
 // Event listeners
 window.addEventListener("resize", resize);
 window.addEventListener('wheel', e => mouseWheel(e))
 scrollbar.thumb.addEventListener("mousedown", scrollbarMouseDown);
-
-
+scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// need sto be added to the body???s
 window.addEventListener('keydown', e => {
-    
-    if(e.key === "ArrowUp"){
-        console.log(e.key)
-        
-    }else if(e.key === "PageUp"){
-        console.log(e.key)
-        
-    }else if(e.key === "Home"){
-        console.log(e.key)
-        
-    }else if(e.key === "ArrowDown"){
-        console.log(e.key)
-        
-    }else if(e.key === "PageDown"){
-        console.log(e.key)
-
-    }else if(e.key === "End"){
-        console.log(e.key)
-
+    let pos = undefined
+    switch(e.key){
+        case "ArrowUp":
+            pos = camera.position - 1
+            break
+        case "PageUp":
+            pos = camera.position - camera.rowCount + 1
+            break
+        case "Home":
+            pos = constants.absoluteMin
+            break
+        case "ArrowDown":
+            pos = camera.position + 1
+            break
+        case "PageDown":
+            pos = camera.position + camera.rowCount - 1
+            break
+        case "End":
+            console.error("not implement corectly...")
+            pos = constants.absoluteMax
+            break
+        default:
+            return;
     }
-})
+    syncSetPosition(pos)
+})  
 
 
 

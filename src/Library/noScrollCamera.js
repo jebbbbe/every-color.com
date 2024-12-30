@@ -42,7 +42,7 @@ export class noScrollCamera{
         this.updateRowSize()
         this.updateRowCount()
 
-        this.rowCount = Math.floor( this.height/ this.rowSize) -1//-1
+        this.rowCount = Math.floor( this.height/ this.rowSize) -2//-1
         // console.log("rowCount")
         // console.log(this.rowCount)
         // console.log(this.height)
@@ -76,12 +76,15 @@ export class noScrollCamera{
     }
     updatePosition(delta = 0){
         this.position += -delta * this.scrollFactor
-        this.position = Math.max(constants.absoluteMin, this.position)
-        this.position = Math.min(constants.absoluteMax - this.rowCount, this.position) // unsure
-        // console.log(this.position)
+        this.sanitizePosition()
         return this.position
     }
     setPosition(location){
         this.position = location
+        this.sanitizePosition()
+    }
+    sanitizePosition(){
+        this.position = Math.max(constants.absoluteMin, this.position)
+        this.position = Math.min(constants.absoluteMax - this.rowCount, this.position) // unsure
     }
 }
