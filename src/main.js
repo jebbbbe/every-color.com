@@ -109,7 +109,6 @@ window.addEventListener('keydown', e => {
             pos = camera.position + camera.rowCount - 1
             break
         case "End":
-            console.error("not implement corectly...")
             pos = constants.absoluteMax
             break
         default:
