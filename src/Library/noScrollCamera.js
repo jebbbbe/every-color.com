@@ -15,7 +15,7 @@ export class noScrollCamera{
     }
     setTemplate(){
         const parent = document.getElementById(this.class)
-        this.template = parent.querySelector("." + this.rowClass).cloneNode(true)
+        this.template = document.querySelector("." + this.rowClass).cloneNode(true)
         // console.log("template")
         // console.log(this.template)
     }
