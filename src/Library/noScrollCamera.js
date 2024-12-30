@@ -36,8 +36,6 @@ export class noScrollCamera{
     }
     resize(){
         let currCount = this.rowCount
-        // let prevHeight = this.height
-        // let rowHeight = this.rowSize
         this.updateHeight()
         this.updateRowSize()
         this.updateRowCount()
@@ -52,11 +50,6 @@ export class noScrollCamera{
         }else if (this.rowCount < currCount){
             this.removeRows(currCount-this.rowCount)
         }
-
-        // console.log(this.rowCount)
-
-        // this.addRows(25)
-
     }
     addRows(count){
         const elem = document.getElementById( this.class )
