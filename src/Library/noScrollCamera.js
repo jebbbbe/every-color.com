@@ -78,6 +78,6 @@ export class noScrollCamera{
     }
     sanitizePosition(){
         this.position = Math.max(constants.absoluteMin, this.position)
-        this.position = Math.min(constants.absoluteMax - this.rowCount, this.position) // unsure
+        this.position = Math.min(constants.absoluteMax - this.rowCount +1, this.position) // unsure
     }
 }
