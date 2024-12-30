@@ -20,38 +20,84 @@ const scrollbar = new noScrollBar();
 
 camera.resize()
 scene.updateColors(camera.position)
-console.log("REMOVE LOADER")
+// removeLoader()
+
+function removeLoader(){
+    console.log("REMOVE LOADER")
+    const loader = document.querySelector(".loader")
+    loader.style.background = "rgba(255, 255, 255, 0)";
+    setTimeout(() => {
+        loader.remove();
+    }, 1000); // 1000 milliseconds = 1 second
+}
 
 
 
-// Event listeners
-window.addEventListener("resize", () => {
+function resize(){
     camera.resize()
     scrollbar.handleResize()
     scene.updateColors(camera.position)
-});
-
-scrollbar.thumb.addEventListener("mousedown", (e) => {
+}
+function mouseWheel(e){
+    camera.updatePosition(e.wheelDeltaY)
+    scene.updateColors(camera.position)
+    scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
+}
+function scrollbarMouseDown(e){
     scrollbar.handleMouseDown(e)
-});
-
-document.addEventListener("mousemove", (e) => {
+    document.addEventListener("mousemove", scrollbarMouseMove);
+    document.addEventListener("mouseup", scrollbarMouseUp);
+}
+function scrollbarMouseMove(e){
     const update = scrollbar.handleMouseMove(e)
     if(update){
         const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
         camera.setPosition(newPos)
         scene.updateColors(newPos)
     }
-});
-
-document.addEventListener("mouseup", () => {
+}
+function scrollbarMouseUp(){
     scrollbar.handleMouseUp()
-});
+    document.removeEventListener("mousemove", scrollbarMouseMove);
+    document.removeEventListener("mouseup", scrollbarMouseUp);
+}
+// Event listeners
+window.addEventListener("resize", resize);
+window.addEventListener('wheel', e => mouseWheel(e))
+scrollbar.thumb.addEventListener("mousedown", scrollbarMouseDown);
 
-window.addEventListener('wheel', (event) => {
-    camera.updatePosition(event.wheelDeltaY)
-    scene.updateColors(camera.position)
-    scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
-});
 
+window.addEventListener('keydown', e => {
+    
+    if(e.key === "ArrowUp"){
+        console.log(e.key)
+        
+    }else if(e.key === "PageUp"){
+        console.log(e.key)
+        
+    }else if(e.key === "Home"){
+        console.log(e.key)
+        
+    }else if(e.key === "ArrowDown"){
+        console.log(e.key)
+        
+    }else if(e.key === "PageDown"){
+        console.log(e.key)
+
+    }else if(e.key === "End"){
+        console.log(e.key)
+
+    }
+})
+
+
+
+
+
+scrollbar.scrollbar.addEventListener("click", (e) => {
+    scrollbar.handleScrollbarClick(e)
+    const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+    camera.setPosition(newPos)
+    scene.updateColors(newPos)
+});
 
