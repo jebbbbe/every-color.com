@@ -1,69 +1,72 @@
+import {constants} from "./constants.js"
+
 export class noScrollControls {
-  constructor() {
-    const scrollbar = document.querySelector(".custom-scrollbar");
-    const thumb = document.querySelector(".scroll-thumb");
-    const contentHeight = document.body.scrollHeight - window.innerHeight;
-    let isDragging = false;
-    let startY, startTop;
+    constructor() {
+        this.scrollbar = null;
+        this.thumb = null;
+        this.isDragging = false;
+        this.startY = 0;
+        this.startTop = 0;
+        this.contentHeight = document.body.scrollHeight - window.innerHeight;
+        this.scrollPosition = 0
+        this.createScrollbar();
+        this.updateThumbHeight();
+        this.updateThumbPosition();
+    }
+    createScrollbar() {
+        this.scrollbar = document.querySelector(".custom-scrollbar");
+        this.thumb = document.querySelector(".scroll-thumb");
+    }
+    updateThumbHeight() {
+        const thumbHeight = Math.min(
+        Math.max((window.innerHeight / document.body.scrollHeight) * window.innerHeight,10),50);
+        this.thumb.style.height = thumbHeight + "px";
+    }
+    handleResize() {
+        this.contentHeight = document.body.scrollHeight - window.innerHeight;
+        this.updateThumbHeight();
+        this.updateThumbPosition();
+    }
+    updateThumbPosition(newpos = undefined) {
+        if(!newpos){
+            this.scrollPosition = window.scrollY / this.contentHeight;
+        }
+        this.thumb.style.top = this.scrollPosition * (window.innerHeight - this.thumb.offsetHeight) + "px";
+        // console.log(this.scrollPosition.toFixed(2)); // Log the scroll percentage (0 to 1)
+        return this.scrollPosition
+    }
 
-    // Ensure the thumb height is calculated and set
-    const updateThumbHeight = () => {
-      const thumbHeight = Math.min(
-        Math.max(
-          (window.innerHeight / document.body.scrollHeight) *
-            window.innerHeight,
-          10
-        ), // Minimum of 10px
-        50 // Maximum of 50px
-      );
-      thumb.style.height = thumbHeight + "px";
-    };
-
-    // Update the thumb's position on the scrollbar
-    const updateThumbPosition = () => {
-      const scrollPosition = window.scrollY / contentHeight;
-      thumb.style.top =
-        scrollPosition * (window.innerHeight - thumb.offsetHeight) + "px";
-      console.log(scrollPosition.toFixed(2)); // Log the scroll percentage (0 to 1)
-    };
-
-    thumb.addEventListener("mousedown", (e) => {
-      isDragging = true;
-      startY = e.clientY;
-      startTop = parseInt(window.getComputedStyle(thumb).top, 10);
-      document.body.style.userSelect = "none"; // Disable text selection
-    });
-
-    document.addEventListener("mousemove", (e) => {
-      if (isDragging) {
-        const deltaY = e.clientY - startY;
-        const newTop = Math.min(
-          Math.max(startTop + deltaY, 0),
-          window.innerHeight - thumb.offsetHeight
+    handleScroll(e) {
+        const deltaY = e.deltaY;
+        const newScrollY = Math.min(
+          Math.max(window.scrollY + deltaY, 0),
+          this.contentHeight
         );
-        thumb.style.top = newTop + "px";
-        const scrollPercentage =
-          newTop / (window.innerHeight - thumb.offsetHeight);
-        window.scrollTo(0, scrollPercentage * contentHeight);
-        console.log(scrollPercentage.toFixed(2)); // Log the scroll percentage (0 to 1)
+        this.updateThumbPosition();
       }
-    });
-
-    document.addEventListener("mouseup", () => {
-      isDragging = false;
-      document.body.style.userSelect = ""; // Re-enable text selection
-    });
-
-    // Update thumb height and position on resize or scroll
-    window.addEventListener("resize", () => {
-      updateThumbHeight();
-      updateThumbPosition();
-    });
-
-    window.addEventListener("scroll", updateThumbPosition);
-
-    // Initialize scrollbar
-    updateThumbHeight();
-    updateThumbPosition();
-  }
+    handleMouseDown(e) {
+        this.isDragging = true;
+        this.startY = e.clientY;
+        this.startTop = parseInt(window.getComputedStyle(this.thumb).top, 10);
+        document.body.style.userSelect = "none"; // Disable text selection
+    }
+    handleMouseMove(e) {
+        if (this.isDragging) {
+            const deltaY = e.clientY - this.startY;
+            const newTop = Math.min( Math.max(this.startTop + deltaY, 0), window.innerHeight - this.thumb.offsetHeight );
+            this.thumb.style.top = newTop + "px";
+            this.scrollPosition = newTop / (window.innerHeight - this.thumb.offsetHeight);
+            // console.log(this.scrollPosition.toFixed(2)); // Log the scroll percentage (0 to 1)
+            return this.scrollPosition
+        }
+    }
+    handleMouseUp() {
+        this.isDragging = false;
+        document.body.style.userSelect = ""; // Re-enable text selection
+    }
+    setScrollPosition(percentage) {
+        this.scrollPosition = Math.min(Math.max(percentage, 0), 1); // Clamp percentage between 0 and 1
+        // console.log(this.scrollPosition)
+        this.updateThumbPosition(this.scrollPosition);
+    }
 }

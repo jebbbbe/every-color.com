@@ -1,3 +1,5 @@
+import {constants} from "./constants.js"
+
 export class htmlScene{
     constructor(cssClass){
         this.setHTMLArray(cssClass)
@@ -13,20 +15,20 @@ export class htmlScene{
             const element = this.htmlArray[i]
             const indexOffset = i + offset
             const randomColor = getRandomColor()
-            const hexIndex = "#" + (indexOffset).toString(16).padStart(6, '0');
+            const hexIndex = (indexOffset).toString(16).padStart(6, '0');
 
             const index = element.querySelector(".index")
             const hexNum = element.querySelector(".hexNum")
             const colHex = element.querySelector(".colHex")
 
             // const newColor = randomColor
-            const newColor = hexIndex
+            const newColor = "#" + hexIndex
 
             element.style.backgroundColor = newColor
             element.style.color = getOppositeColor(newColor)
             index.innerHTML = indexOffset.toString(10).padStart(8,"0")
-            hexNum.innerHTML = newColor
-            // colHex.innerHTML = randomColor
+            hexNum.innerHTML = "0x" + hexIndex
+            colHex.innerHTML = "#" + hexIndex  
         }
     }
 }

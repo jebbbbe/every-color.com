@@ -1,92 +1,57 @@
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollControls } from "/Library/noScrollControls.js"
 import { htmlScene } from "/Library/htmlScene.js"
+import { constants } from "/Library/constants.js"
+
+// export const constants = {
+//     absoluteMin: 0,
+//     absoluteMax:16777216 - 1,// 256 * 256 * 256
+//     start:0,//16777216 - 100,
+// }
 
 
-
-let scrollManager;
 
 const mainClass = "row-holder"
 const rowClass = "row-thing"
 const scrollFactor = 10
-const startPos = 16777216 - 100
-const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,startPos)
+const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass)
-const controls = new noScrollControls()
+const scrollbar = new noScrollControls();
 
 camera.resize()
 scene.updateColors(camera.position)
 
 
-let c1 = 0x000000
-let c2 = 0xFFFFFF
-let c3 = 0x123456
-console.log("")
-console.log("")
-console.log("")
-console.log(c1.toString(16).padStart(6, '0'))
-console.log(c2.toString(16).padStart(6, '0'))
-console.log(c3.toString(16).padStart(6, '0'))
-console.log("")
-console.log(remapColor(c1).toString(16).padStart(6, '0'));
-console.log(remapColor(c2).toString(16).padStart(6, '0'));
-console.log(remapColor(c3).toString(16).padStart(6, '0')); 
-console.log("")
-console.log(unmapColor(remapColor(c1)).toString(16).padStart(6, '0'));
-console.log(unmapColor(remapColor(c2)).toString(16).padStart(6, '0'));
-console.log(unmapColor(remapColor(c3)).toString(16).padStart(6, '0')); 
 
 
-window.addEventListener('wheel', (event) => {
-    // console.log(event.wheelDeltaY)
-    camera.updatePosition(event.wheelDeltaY)
+// Event listeners
+window.addEventListener("resize", () => {
+    camera.resize()
+    scrollbar.handleResize()
     scene.updateColors(camera.position)
 });
 
-window.addEventListener('resize', () => {
-    camera.resize()
+scrollbar.thumb.addEventListener("mousedown", (e) => {
+    scrollbar.handleMouseDown(e)
 });
 
-
-function remapColor(color) {
-    // Ensure the input is within the valid range
-    if (color < 0x000000 || color > 0xFFFFFF) {
-        throw new Error("Color out of range. Must be between 0x000000 and 0xFFFFFF.");
+document.addEventListener("mousemove", (e) => {
+    const update = scrollbar.handleMouseMove(e)
+    if(update){
+        const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+        camera.setPosition(newPos)
+        scene.updateColors(newPos)
     }
+});
 
-    // Use a large prime number and multiplier for scrambling
-    const prime = 0x343FD; // Example prime number
-    const multiplier = 0x5A5A5A; // Must have a modular multiplicative inverse mod 0x1000000
+document.addEventListener("mouseup", () => {
+    scrollbar.handleMouseUp()
+});
 
-    // Perform modular multiplication and ensure the result stays within the 24-bit range
-    return ((color * multiplier) + prime) % 0x1000000;
-}
-
-function unmapColor(color) {
-    // Ensure the input is within the valid range
-    if (color < 0x000000 || color > 0xFFFFFF) {
-        throw new Error("Color out of range. Must be between 0x000000 and 0xFFFFFF.");
-    }
-
-    // The same prime used in remapColor
-    const prime = 0x343FD;
-    const multiplier = 0x5A5A5A;
-
-    // Modular multiplicative inverse of the multiplier mod 0x1000000
-    const inverseMultiplier = 0xF0E0D1; // Precomputed inverse of 0x5A5A5A mod 0x1000000
-
-    // Reverse the modular multiplication
-    return ((color - prime + 0x1000000) * inverseMultiplier) % 0x1000000;
-}
-
-
-
-
-
-
-
-
-
-
+window.addEventListener('wheel', (event) => {
+    camera.updatePosition(event.wheelDeltaY)
+    scene.updateColors(camera.position)
+    scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
+});
 
 

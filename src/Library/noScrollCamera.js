@@ -1,7 +1,6 @@
-const template = document.querySelector
+import {constants} from "./constants.js"
 
-const absoluteMin = 0
-const absoluteMax = 16777216 - 1// 256 * 256 * 256
+
 export class noScrollCamera{
     constructor(cssClass, rowCssClass, scrollFactor = 1, startPos =0){
         this.class = cssClass
@@ -15,7 +14,8 @@ export class noScrollCamera{
         this.updatePosition()
     }
     setTemplate(){
-        this.template = document.querySelector("." + this.rowClass).cloneNode(true)
+        const parent = document.getElementById(this.class)
+        this.template = parent.querySelector("." + this.rowClass).cloneNode(true)
         // console.log("template")
         // console.log(this.template)
     }
@@ -42,9 +42,9 @@ export class noScrollCamera{
         this.updateRowSize()
         this.updateRowCount()
 
-        this.rowCount = Math.floor( this.height/ this.rowSize) //-1
-        console.log("rowCount")
-        console.log(this.rowCount)
+        this.rowCount = Math.floor( this.height/ this.rowSize) -1//-1
+        // console.log("rowCount")
+        // console.log(this.rowCount)
         // console.log(this.height)
         // console.log(this.rowSize)
         if(this.rowCount > currCount){
@@ -76,9 +76,12 @@ export class noScrollCamera{
     }
     updatePosition(delta = 0){
         this.position += -delta * this.scrollFactor
-        this.position = Math.max(absoluteMin, this.position)
-        this.position = Math.min(absoluteMax - this.rowCount, this.position) // unsure
-        console.log(this.position)
+        this.position = Math.max(constants.absoluteMin, this.position)
+        this.position = Math.min(constants.absoluteMax - this.rowCount, this.position) // unsure
+        // console.log(this.position)
         return this.position
+    }
+    setPosition(location){
+        this.position = location
     }
 }
