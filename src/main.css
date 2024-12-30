@@ -1,5 +1,4 @@
 html, body {
-    
     margin: 0;
     overflow: hidden;
     display:flex;
@@ -49,3 +48,28 @@ footer{
 .colHex{
     /* margin-left: 30px; */
 }
+
+.custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .scroll-thumb:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }

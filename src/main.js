@@ -12,6 +12,7 @@ const scrollFactor = 10
 const startPos = 16777216 - 100
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,startPos)
 const scene = new htmlScene(mainClass)
+const controls = new noScrollControls()
 
 camera.resize()
 scene.updateColors(camera.position)
