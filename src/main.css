@@ -24,7 +24,7 @@ footer{
 :root {
     --header-height: 50px;
     --footer-height: 0px;
-    --scroll-width: 25px;
+    --scroll-width: 12px;
 }
 
 #row-holder{
@@ -40,36 +40,33 @@ footer{
     justify-content: space-between;
     align-items: center;  
 }
+
 .row-thing > div {
     flex: 1; /* Make child divs take equal space */
     text-align: center; /* Center text inside each child div */
 }
 
-/* .colHex{ */
-    /* margin-left: 30px; */
-/* } */
-
 .custom-scrollbar {
     position: fixed;
     top: 0;
     right: 0;
-    width: 12px;
+    width: var(--scroll-width);
     height: 100%;
-    background: rgba(255, 255, 255, 1);
+    background: rgba(235, 235, 235, 1);
     z-index: 1000;
-  }
+}
 
-  .scroll-thumb {
+.scroll-thumb {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 6px;
+    /* border-radius: 6px; */
     cursor: pointer;
     transition: background 0.2s;
-  }
+}
 
-  .scroll-thumb:hover {
+.scroll-thumb:hover {
     background: rgba(0, 0, 0, 0.7);
-  }
+}

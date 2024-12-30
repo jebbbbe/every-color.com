@@ -1,5 +1,5 @@
 import { noScrollCamera } from "/Library/noScrollCamera.js"
-import { noScrollControls } from "/Library/noScrollControls.js"
+import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
 import { constants } from "/Library/constants.js"
 
@@ -16,11 +16,11 @@ const rowClass = "row-thing"
 const scrollFactor = 10
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass)
-const scrollbar = new noScrollControls();
+const scrollbar = new noScrollBar();
 
 camera.resize()
 scene.updateColors(camera.position)
-
+console.log("REMOVE LOADER")
 
 
 
