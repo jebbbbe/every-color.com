@@ -1,30 +1,28 @@
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
-import { constants,hashTypes } from "/Library/constants.js"
+import { constants,hashTypes,colorBlindTypes } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dropdown.js"
-// export const constants = {
-//     absoluteMin: 0,
-//     absoluteMax:16777216 - 1,// 256 * 256 * 256
-//     start:0,//16777216 - 100,
-// }
-
 
 
 const mainClass = "row-holder"
 const rowClass = "row-thing"
-const dropdownClass = "myForm"
-const scrollFactor = 10
-const defaultHash = hashTypes.none
-const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start,defaultHash)
+const scrollFactor = 8
+const defaultHash = hashTypes.gradientI
+const defaultColorBlind = colorBlindTypes.none
+const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash)
-const scrollbar = new noScrollBar();
+const scrollbar = new noScrollBar(constants.start);
 
 camera.resize()
 scene.updateColors(camera.position)
 removeLoader()
-const dropdown = new DynamicDropdown(dropdownClass,hashTypes,dropdownUpdate)
+const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate,defaultHash)
+const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate   ,defaultColorBlind)
 
+function logg(v){
+    console.log(v)
+}
 
 
 //setupfunctions
@@ -35,9 +33,13 @@ function removeLoader(){
         loader.remove();
     }, 1000); // 1000 milliseconds = 1 second
 }
-function dropdownUpdate(newVal){
-    scene.setHashFunction(newVal)
-    scene.updateColors()
+function hashSelectUpdate(newVal){
+    scene.setHashFunction(hashTypes[newVal])
+    scene.updateColors(camera.position)
+}
+function colorSelectUpdate(newVal){
+    scene.setColorBlindMode(colorBlindTypes[newVal])
+    scene.updateColors(camera.position)
 }
 
 //update Functions

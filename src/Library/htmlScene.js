@@ -1,4 +1,4 @@
-import { constants,hashTypes } from "./constants.js";
+import { constants,hashTypes, colorBlindTypes } from "./constants.js";
 import * as hashes from "./hash.js"
 import { hexToColorNames } from "./cssColors.js"
 
@@ -7,6 +7,7 @@ export class htmlScene {
         this.setHTMLArray(cssClass);
         this.displayMode = displayMode
         this.setHashFunction()
+        this.setColorBlindMode(colorBlindTypes.none)
     }
     setHTMLArray(cssClass) {
         this.class = cssClass;
@@ -22,11 +23,34 @@ export class htmlScene {
             this.hash = i => i
         }else if ( this.displayMode === hashTypes.random ){
             this.hash = i => randomHexColor()
-        }else if ( this.displayMode === hashTypes.gradient ){
+        }else if ( this.displayMode === hashTypes.gradientI ){
             this.hash = i =>  hashes.mapToGradient(i)
             this.rehash = i => hashes.unmapToGradient(i)
         }
-
+    }
+    setColorBlindMode(newMode = undefined){
+        if(newMode !== undefined){
+            this.colorBlindMode = newMode
+        }
+        switch (this.colorBlindMode) {
+            case colorBlindTypes.none:
+                this.colorAsist = undefined
+                break;
+            case colorBlindTypes.protanopia:
+                this.colorAsist = hashes.protanopia
+                break;
+            case colorBlindTypes.deuteranopia:
+                this.colorAsist = hashes.deuteranopia
+                break;
+            case colorBlindTypes.tritanopia:
+                this.colorAsist = hashes.tritanopia
+                break;
+            case colorBlindTypes.monochromacy:
+                this.colorAsist = hashes.monochromacy
+                break;
+            default:
+                throw new Error("Unsupported colorblind type");
+        }
     }
     updateColors(offset = 0) {
         for (let i = 0; i < this.htmlArray.length; i++) {
@@ -35,24 +59,27 @@ export class htmlScene {
             const hexIndex = "0x" + index.toString(16).padStart(6, "0");
             const decIndex = index.toString(10).padStart(8, "0");
             const hexNumber = getHexidecimal(index)
-            const mappedHex = this.hash(hexNumber)
-            const newColor = hexidecimalToString(mappedHex);
+            let mappedHex = this.hash(hexNumber)
+            
             let remappedHex = ""
-            let colorName = ""
-
             if(this.rehash){
                 remappedHex = this.rehash(mappedHex)
                 remappedHex = hexidecimalToString(remappedHex)
             }
+            if(this.colorBlindMode !== colorBlindTypes.none){
+                var colOverwrite = hexidecimalToString(mappedHex)
+                mappedHex = this.colorAsist(mappedHex)
+            }
+            const newColor = hexidecimalToString(mappedHex);
+            let colorName = ""
             if( hexToColorNames.has(newColor) ){
                 colorName = hexToColorNames.get(newColor)
             }
 
-
             element.querySelector(".index").innerHTML = decIndex
             element.querySelector(".hexNum").innerHTML = hexIndex;
             element.querySelector(".colName").innerHTML = colorName;
-            element.querySelector(".colHex").innerHTML = newColor;
+            element.querySelector(".colHex").innerHTML = colOverwrite ?? newColor;
             element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
             element.style.color = getOppositeColor(newColor);

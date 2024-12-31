@@ -7,5 +7,14 @@ export const constants = {
 export const hashTypes = {
     "none":"none",
     "random":"random",
-    "gradient":"gradient",
+    "gradientI":"gradient I",
 }
+
+export const colorBlindTypes = {
+    "none":"None",
+    "protanopia":"Protanopia",
+    "deuteranopia":"Deuteranopia",
+    "tritanopia":"Tritanopia",
+    "monochromacy":"Monochromacy",
+}
+

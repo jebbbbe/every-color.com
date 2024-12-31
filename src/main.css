@@ -28,7 +28,9 @@ footer{
     height:var(--footer-height);
     background-color: aquamarine;
 }
-
+label{
+    font-size: 15px;
+}
 
 
 #row-holder{
@@ -40,6 +42,9 @@ footer{
 .row-thing{
     width: 100vw;
     background-color:white;
+}
+
+.row-box{
     display: flex;
     flex-direction: row; 
     justify-content: space-between;

@@ -1,7 +1,9 @@
 import { constants } from "./constants.js";
 
 export class noScrollBar {
-    constructor(parentElement) {
+    constructor(start = undefined, parentElement) {
+        console.warn("start not implemented")
+
         this.parent = parentElement || document.body; // Parent container
         this.scrollbar = null;
         this.thumb = null;

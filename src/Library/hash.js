@@ -1,20 +1,20 @@
-let c1 = 0x000000;
-let c2 = 0xffffff;
-let c3 = 0x123456;
-console.log("");
-console.log("");
-console.log("");
-console.log(c1.toString(16).padStart(6, "0"));
-console.log(c2.toString(16).padStart(6, "0"));
-console.log(c3.toString(16).padStart(6, "0"));
-console.log("");
-console.log(remapColor(c1).toString(16).padStart(6, "0"));
-console.log(remapColor(c2).toString(16).padStart(6, "0"));
-console.log(remapColor(c3).toString(16).padStart(6, "0"));
-console.log("");
-console.log(unmapColor(remapColor(c1)).toString(16).padStart(6, "0"));
-console.log(unmapColor(remapColor(c2)).toString(16).padStart(6, "0"));
-console.log(unmapColor(remapColor(c3)).toString(16).padStart(6, "0"));
+// let c1 = 0x000000;
+// let c2 = 0xffffff;
+// let c3 = 0x123456;
+// console.log("");
+// console.log("");
+// console.log("");
+// console.log(c1.toString(16).padStart(6, "0"));
+// console.log(c2.toString(16).padStart(6, "0"));
+// console.log(c3.toString(16).padStart(6, "0"));
+// console.log("");
+// console.log(remapColor(c1).toString(16).padStart(6, "0"));
+// console.log(remapColor(c2).toString(16).padStart(6, "0"));
+// console.log(remapColor(c3).toString(16).padStart(6, "0"));
+// console.log("");
+// console.log(unmapColor(remapColor(c1)).toString(16).padStart(6, "0"));
+// console.log(unmapColor(remapColor(c2)).toString(16).padStart(6, "0"));
+// console.log(unmapColor(remapColor(c3)).toString(16).padStart(6, "0"));
 
 export function remapColor(color) {
     // Ensure the input is within the valid range
@@ -47,6 +47,16 @@ export function unmapColor(color) {
 }
 
 
+
+// Example usage
+// const colors = [0x000000, 0x0000ff, 0x000100, 0x0001ff, 0x000200, 0x000300, 0x0003ff, 0xffffff]; // Example colors
+// const mappedColors = colors.map(mapToGradient);
+// const unmappedColors = mappedColors.map(unmapToGradient);
+
+// console.log("Original -> Mapped -> Unmapped");
+// colors.forEach((original, i) => {
+//     console.log(`${original.toString(16).toUpperCase()} -> ${mappedColors[i].toString(16).toUpperCase()} -> ${unmappedColors[i].toString(16).toUpperCase()}`);
+// });
 export function mapToGradient(hexColor) {
     /**
      * Maps a hexadecimal color based on reversing every other group of 256 colors.
@@ -98,12 +108,96 @@ export function unmapToGradient(mappedHexColor) {
     return originalHexColor;
 }
 
-// Example usage
-const colors = [0x000000, 0x0000ff, 0x000100, 0x0001ff, 0x000200, 0x000300, 0x0003ff, 0xffffff]; // Example colors
-const mappedColors = colors.map(mapToGradient);
-const unmappedColors = mappedColors.map(unmapToGradient);
 
-console.log("Original -> Mapped -> Unmapped");
-colors.forEach((original, i) => {
-    console.log(`${original.toString(16).toUpperCase()} -> ${mappedColors[i].toString(16).toUpperCase()} -> ${unmappedColors[i].toString(16).toUpperCase()}`);
-});
+
+
+
+
+// Example Usage
+// const originalHex = 0xFF5733; // Bright orange
+// console.log("Protanopia:", simulateColorBlindness(originalHex, "protanopia").toString(16).padStart(6, '0'));
+// console.log("Deuteranopia:", simulateColorBlindness(originalHex, "deuteranopia").toString(16).padStart(6, '0'));
+// console.log("Tritanopia:", simulateColorBlindness(originalHex, "tritanopia").toString(16).padStart(6, '0'));
+// console.log("Monochromacy:", simulateColorBlindness(originalHex, "monochromacy").toString(16).padStart(6, '0'));
+
+// Utility to convert HEX to RGB
+function hexToRgb(hex) {
+    return {
+        r: (hex >> 16) & 255,
+        g: (hex >> 8) & 255,
+        b: hex & 255
+    };
+}
+
+// Utility to convert RGB to HEX
+function rgbToHex(r, g, b) {
+    return ((r << 16) | (g << 8) | b);
+}
+
+// Protanopia (Red-weak) simulation
+export function protanopia(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const newR = 0.567 * r + 0.433 * g;
+    const newG = 0.558 * r + 0.442 * g;
+    const newB = 0.0 * r + 0.242 * g + 0.758 * b;
+    return rgbToHex(
+        Math.min(255, Math.max(0, Math.round(newR))),
+        Math.min(255, Math.max(0, Math.round(newG))),
+        Math.min(255, Math.max(0, Math.round(newB)))
+    );
+}
+
+// Deuteranopia (Green-weak) simulation
+export function deuteranopia(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const newR = 0.625 * r + 0.375 * g;
+    const newG = 0.7 * r + 0.3 * g;
+    const newB = 0.0 * r + 0.3 * g + 0.7 * b;
+    return rgbToHex(
+        Math.min(255, Math.max(0, Math.round(newR))),
+        Math.min(255, Math.max(0, Math.round(newG))),
+        Math.min(255, Math.max(0, Math.round(newB)))
+    );
+}
+
+// Tritanopia (Blue-weak) simulation
+export function tritanopia(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const newR = 0.95 * r + 0.05 * g;
+    const newG = 0.433 * r + 0.567 * g;
+    const newB = 0.475 * g + 0.525 * b;
+    return rgbToHex(
+        Math.min(255, Math.max(0, Math.round(newR))),
+        Math.min(255, Math.max(0, Math.round(newG))),
+        Math.min(255, Math.max(0, Math.round(newB)))
+    );
+}
+
+// Monochromacy (Complete colorblindness) simulation
+export function monochromacy(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+    return rgbToHex(
+        Math.min(255, Math.max(0, Math.round(gray))),
+        Math.min(255, Math.max(0, Math.round(gray))),
+        Math.min(255, Math.max(0, Math.round(gray)))
+    );
+}
+
+// Simulate colorblindness
+function simulateColorBlindness(hexColor, type) {
+    switch (type) {
+        case "protanopia":
+            return protanopia(hexColor);
+        case "deuteranopia":
+            return deuteranopia(hexColor);
+        case "tritanopia":
+            return tritanopia(hexColor);
+        case "monochromacy":
+            return monochromacy(hexColor);
+        default:
+            throw new Error("Unsupported colorblind type");
+    }
+}
+
+
