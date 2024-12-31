@@ -68,12 +68,14 @@ export class htmlScene {
             }
             if(this.colorBlindMode !== colorBlindTypes.none){
                 var colOverwrite = hexidecimalToString(mappedHex)
+                var newColorOverwrite = hexidecimalToString(mappedHex);
                 mappedHex = this.colorAsist(mappedHex)
             }
+
             const newColor = hexidecimalToString(mappedHex);
             let colorName = ""
-            if( hexToColorNames.has(newColor) ){
-                colorName = hexToColorNames.get(newColor)
+            if( hexToColorNames.has(newColorOverwrite ?? newColor) ){
+                colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
             }
 
             element.querySelector(".index").innerHTML = decIndex
