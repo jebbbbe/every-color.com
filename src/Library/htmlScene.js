@@ -1,44 +1,77 @@
-import { constants } from "./constants.js";
+import { constants,hashTypes } from "./constants.js";
+import * as hashes from "./hash.js"
+
 
 export class htmlScene {
-    constructor(cssClass) {
+    constructor(cssClass,displayMode) {
         this.setHTMLArray(cssClass);
+        this.displayMode = displayMode
+        this.setHashFunction()
     }
     setHTMLArray(cssClass) {
         this.class = cssClass;
         const holder = document.getElementById(this.class);
         this.htmlArray = holder.children;
     }
+    setHashFunction(newMode = undefined){
+        if(newMode !== undefined){
+            this.displayMode = newMode
+        }
+        this.rehash = null
+        if( this.displayMode === hashTypes.none ){
+            this.hash = i => i
+        }else if ( this.displayMode === hashTypes.random ){
+            this.hash = i => randomHexColor()
+        }else if ( this.displayMode === hashTypes.gradient ){
+            this.hash = i =>  hashes.mapToGradient(i)
+            this.rehash = i => hashes.unmapToGradient(i)
+        }
+
+    }
     updateColors(offset = 0) {
         for (let i = 0; i < this.htmlArray.length; i++) {
             const element = this.htmlArray[i];
-            const indexOffset = i + offset;
-            const randomColor = getRandomColor();
-            const hexIndex = indexOffset.toString(16).padStart(6, "0");
+            const index = offset + i;
+            const hexIndex = "0x" + index.toString(16).padStart(6, "0");
+            const decIndex = index.toString(10).padStart(8, "0");
+            const hexNumber = getHexidecimal(index)
+            const mappedHex = this.hash(hexNumber)
+            if(this.rehash){
+                var remappedHex = this.rehash(mappedHex)
+                remappedHex = hexidecimalToString(remappedHex)
+            }else{
+                var remappedHex = ""
+            }
+            const newColor = hexidecimalToString(mappedHex);
 
-            const index = element.querySelector(".index");
-            const hexNum = element.querySelector(".hexNum");
-            const colHex = element.querySelector(".colHex");
-
-            // const newColor = randomColor
-            const newColor = "#" + hexIndex;
-
+            element.querySelector(".index").innerHTML = decIndex
+            element.querySelector(".hexNum").innerHTML = hexIndex;
+            element.querySelector(".colHex").innerHTML = newColor;
+            element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
             element.style.color = getOppositeColor(newColor);
-            index.innerHTML = indexOffset.toString(10).padStart(8, "0");
-            hexNum.innerHTML = "0x" + hexIndex;
-            colHex.innerHTML = "#" + hexIndex;
         }
     }
 }
+function getHexidecimal(decimal){
+    return parseInt(decimal.toString(16), 16);
+}
+function hexidecimalToString(hexa){
+    return "#" + hexa.toString(16).padStart(6, "0");
+}
+
+function randomHexColor() {
+    return Math.floor(Math.random() * 0x1000000);
+}
+
 
 function getRandomColor() {
     const letters = "0123456789ABCDEF";
-    let color = "#";
+    let color = "";
     for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
     }
-    return color;
+    return parseInt(color);
 }
 
 function getOppositeColor(hexColor) {

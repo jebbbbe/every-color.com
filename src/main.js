@@ -1,8 +1,8 @@
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
-import { constants } from "/Library/constants.js"
-
+import { constants,hashTypes } from "/Library/constants.js"
+import { DynamicDropdown } from "/Library/dropdown.js"
 // export const constants = {
 //     absoluteMin: 0,
 //     absoluteMax:16777216 - 1,// 256 * 256 * 256
@@ -13,15 +13,21 @@ import { constants } from "/Library/constants.js"
 
 const mainClass = "row-holder"
 const rowClass = "row-thing"
+const dropdownClass = "myForm"
 const scrollFactor = 10
-const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
-const scene = new htmlScene(mainClass)
+const defaultHash = hashTypes.none
+const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start,defaultHash)
+const scene = new htmlScene(mainClass,defaultHash)
 const scrollbar = new noScrollBar();
 
 camera.resize()
 scene.updateColors(camera.position)
 removeLoader()
+const dropdown = new DynamicDropdown(dropdownClass,hashTypes,dropdownUpdate)
 
+
+
+//setupfunctions
 function removeLoader(){
     const loader = document.querySelector(".loader")
     loader.style.background = "rgba(255, 255, 255, 0)";
@@ -29,9 +35,12 @@ function removeLoader(){
         loader.remove();
     }, 1000); // 1000 milliseconds = 1 second
 }
+function dropdownUpdate(newVal){
+    scene.setHashFunction(newVal)
+    scene.updateColors()
+}
 
-
-
+//update Functions
 function resize(){
     camera.resize()
     scrollbar.handleResize()

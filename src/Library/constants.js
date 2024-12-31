@@ -3,3 +3,10 @@ export const constants = {
     absoluteMax:16777216 - 1,// 256 * 256 * 256
     start:0,//16777216 - 100,
 }
+
+export const hashTypes = {
+    "none":"none",
+    "random":"random",
+    "gradient":"gradient",
+    "test":"test",
+}
