@@ -8,5 +8,4 @@ export const hashTypes = {
     "none":"none",
     "random":"random",
     "gradient":"gradient",
-    "test":"test",
 }

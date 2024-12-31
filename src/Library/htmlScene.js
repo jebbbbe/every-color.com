@@ -1,6 +1,6 @@
 import { constants,hashTypes } from "./constants.js";
 import * as hashes from "./hash.js"
-
+import { hexToColorNames } from "./cssColors.js"
 
 export class htmlScene {
     constructor(cssClass,displayMode) {
@@ -36,16 +36,22 @@ export class htmlScene {
             const decIndex = index.toString(10).padStart(8, "0");
             const hexNumber = getHexidecimal(index)
             const mappedHex = this.hash(hexNumber)
-            if(this.rehash){
-                var remappedHex = this.rehash(mappedHex)
-                remappedHex = hexidecimalToString(remappedHex)
-            }else{
-                var remappedHex = ""
-            }
             const newColor = hexidecimalToString(mappedHex);
+            let remappedHex = ""
+            let colorName = ""
+
+            if(this.rehash){
+                remappedHex = this.rehash(mappedHex)
+                remappedHex = hexidecimalToString(remappedHex)
+            }
+            if( hexToColorNames.has(newColor) ){
+                colorName = hexToColorNames.get(newColor)
+            }
+
 
             element.querySelector(".index").innerHTML = decIndex
             element.querySelector(".hexNum").innerHTML = hexIndex;
+            element.querySelector(".colName").innerHTML = colorName;
             element.querySelector(".colHex").innerHTML = newColor;
             element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
