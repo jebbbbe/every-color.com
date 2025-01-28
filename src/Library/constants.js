@@ -8,6 +8,7 @@ export const hashTypes = {
     "none":"none",
     "random":"random",
     "gradientI":"gradient I",
+    "gradientII":"gradient II",
 }
 
 export const colorBlindTypes = {

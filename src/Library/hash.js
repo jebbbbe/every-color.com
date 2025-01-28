@@ -57,7 +57,7 @@ export function unmapColor(color) {
 // colors.forEach((original, i) => {
 //     console.log(`${original.toString(16).toUpperCase()} -> ${mappedColors[i].toString(16).toUpperCase()} -> ${unmappedColors[i].toString(16).toUpperCase()}`);
 // });
-export function mapToGradient(hexColor) {
+export function mapToGradientI(hexColor) {
     /**
      * Maps a hexadecimal color based on reversing every other group of 256 colors.
      *
@@ -83,7 +83,39 @@ export function mapToGradient(hexColor) {
     return newHexColor;
 }
 
-export function unmapToGradient(mappedHexColor) {
+export function mapToGradientII(hexColor) {
+    /**
+     * Maps a hexadecimal color based on reversing every other group of 256 colors
+     * and every other group of 256*256 colors.
+     *
+     * @param {number} hexColor - The color as a decimal representation of the hexadecimal value (0 to 16777215).
+     * @returns {number} - The remapped decimal representation of the hexadecimal color.
+     */
+
+    // Extract the base 256 group the color is in
+    let group = (hexColor >> 8) & 0xffff; // Equivalent to integer division by 256
+    let superGroup = (hexColor >> 16) & 0xff; // Determine the 256*256 supergroup
+
+    // Determine the position within the group
+    let position = hexColor & 0xff; // Equivalent to modulo 256
+
+    // Check if the group or supergroup is odd (reverse order accordingly)
+    let reversedPosition = position;
+    if (group % 2 === 1) {
+        reversedPosition = 255 - position;
+    }
+
+    if (superGroup % 2 === 1) {
+        // Reverse the group as well within the supergroup
+        group = 255 - group;
+    }
+
+    // Reconstruct the new hexadecimal color value
+    let newHexColor = (superGroup << 16) | (group << 8) | reversedPosition;
+    return newHexColor;
+}
+
+export function unmapToGradientI(mappedHexColor) {
     /**
      * Reverses the mapping of a hexadecimal color to retrieve the original color.
      *
@@ -105,6 +137,38 @@ export function unmapToGradient(mappedHexColor) {
     }
     // Reconstruct the original hexadecimal color value
     let originalHexColor = (group << 8) | originalPosition;
+    return originalHexColor;
+}
+
+
+
+export function unmapToGradientII(mappedHexColor) {
+    /**
+     * Reverses the mapping of a hexadecimal color to retrieve the original color.
+     *
+     * @param {number} mappedHexColor - The remapped color as a decimal representation of the hexadecimal value.
+     * @returns {number} - The original decimal representation of the hexadecimal color.
+     */
+
+    // Extract the base 256 group and supergroup the color is in
+    let group = (mappedHexColor >> 8) & 0xffff;
+    let superGroup = (mappedHexColor >> 16) & 0xff;
+
+    // Determine the position within the group
+    let position = mappedHexColor & 0xff;
+
+    // Reverse the mappings for the group and supergroup
+    let originalPosition = position;
+    if (group % 2 === 1) {
+        originalPosition = 255 - position;
+    }
+
+    if (superGroup % 2 === 1) {
+        group = 255 - group;
+    }
+
+    // Reconstruct the original hexadecimal color value
+    let originalHexColor = (superGroup << 16) | (group << 8) | originalPosition;
     return originalHexColor;
 }
 

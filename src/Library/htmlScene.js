@@ -24,8 +24,11 @@ export class htmlScene {
         }else if ( this.displayMode === hashTypes.random ){
             this.hash = i => randomHexColor()
         }else if ( this.displayMode === hashTypes.gradientI ){
-            this.hash = i =>  hashes.mapToGradient(i)
-            this.rehash = i => hashes.unmapToGradient(i)
+            this.hash = i =>  hashes.mapToGradientI(i)
+            this.rehash = i => hashes.unmapToGradientI(i)
+        }else if ( this.displayMode === hashTypes.gradientII ){
+            this.hash = i =>  hashes.mapToGradientII(i)
+            this.rehash = i => hashes.unmapToGradientII(i)
         }
     }
     setColorBlindMode(newMode = undefined){
