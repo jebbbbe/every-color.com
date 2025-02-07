@@ -5,9 +5,7 @@ export class noScrollBar {
         console.warn("start not implemented")
 
         this.parent = parentElement || document.body; // Parent container
-        this.scrollbar = null;
-        this.thumb = null;
-
+        
         this.isDragging = false;
         this.startY = 0;
         this.startTop = 0;
@@ -20,15 +18,24 @@ export class noScrollBar {
         this.scrollbar = document.querySelector(".custom-scrollbar");
         this.thumb = document.querySelector(".scroll-thumb");
         
+        this.thumbHeightMin = 10
+        this.thumbHeightMax = 50
+        this.thumbHeight = undefined;
+
+        console.log("")
+        console.log(this.parent)
+        console.log(this.scrollHeight)
+        console.log(this.clientHeight)
         this.updateThumbHeight();
         this.updateThumbPosition();
     }
     updateThumbHeight() {
-        const thumbHeight = Math.min(
-            Math.max((this.clientHeight / this.scrollHeight) * this.clientHeight, 10),
-            50
+        this.thumbHeight = Math.min(
+            Math.max((this.clientHeight / this.scrollHeight) * this.clientHeight, this.thumbHeightMin),
+            this.thumbHeightMax
         );
-        this.thumb.style.height = thumbHeight + "px";
+
+        this.thumb.style.height = this.thumbHeight + "px";
     }
     handleResize() {
         // this.contentHeight = document.body.scrollHeight - window.innerHeight;
