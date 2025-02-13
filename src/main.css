@@ -2,6 +2,7 @@
     --header-height: 50px;
     --footer-height: 0px;
     --scroll-width: 12px;
+    --label-height: 19px;
 }
 
 html, body {
@@ -12,6 +13,7 @@ html, body {
     justify-content: center;
     /* display: block; */
     width: 100vw;
+    height: 100vh;
 }
 
 
@@ -33,9 +35,16 @@ label{
 }
 
 
+.label-height{
+    /*
+    
+    */
+    height: var(--label-height);
+}
+
 #row-holder{
     width: 100vw;
-    height: calc(100vh - var(--header-height) - var(--footer-height));
+    height: calc(100vh - var(--header-height) - var(--footer-height) - var(--label-height));
     width: 100%;
 }
 
