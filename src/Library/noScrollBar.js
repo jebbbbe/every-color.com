@@ -3,80 +3,84 @@ import { constants } from "./constants.js";
 export class noScrollBar {
     constructor(start = undefined, parentElement) {
         console.warn("start not implemented")
-
+        if(start !== undefined){
+            this.scrollPosition = start;
+        }else{
+            this.scrollPosition = 0;
+        }
         this.parent = parentElement || document.body; // Parent container
         
         this.isDragging = false;
         this.startY = 0;
         this.startTop = 0;
-        this.scrollPosition = 0;
 
-        // this.contentHeight = document.body.scrollHeight - window.innerHeight;
-        this.scrollHeight = this.parent.scrollHeight; // Content height inside the parent
         this.clientHeight = this.parent.clientHeight; // Viewable height of the parent
         
         this.scrollbar = document.querySelector(".custom-scrollbar");
         this.thumb = document.querySelector(".scroll-thumb");
         
-        this.thumbHeightMin = 10
+        this.thumbHeightMin = 20
+        this.thumbClampPercent = 0.05//?
         this.thumbHeightMax = 50
+
         this.thumbHeight = undefined;
 
-        console.log("")
-        console.log(this.parent)
-        console.log(this.scrollHeight)
-        console.log(this.clientHeight)
+        this.scrollMinHeight = 30// minimum height in css..? do we need?
+        
         this.updateThumbHeight();
+        this.updateActiveHeight();
+
         this.updateThumbPosition();
     }
-    updateThumbHeight() {
-        this.thumbHeight = Math.min(
-            Math.max((this.clientHeight / this.scrollHeight) * this.clientHeight, this.thumbHeightMin),
-            this.thumbHeightMax
-        );
 
+    updateThumbHeight() {
+        this.thumbHeight = this.thumbClampPercent * this.clientHeight
+        this.thumbHeight = Math.max( this.thumbHeightMin, this.thumbHeight)
+        this.thumbHeight = Math.min( this.thumbHeightMax, this.thumbHeight)
         this.thumb.style.height = this.thumbHeight + "px";
     }
-    handleResize() {
-        // this.contentHeight = document.body.scrollHeight - window.innerHeight;
-        this.scrollHeight = this.parent.scrollHeight;
-        this.clientHeight = this.parent.clientHeight;
-        this.updateThumbHeight();
-        this.updateThumbPosition();
+    updateActiveHeight(){
+        this.activeHeight = this.clientHeight - this.thumbHeight;
     }
     updateThumbPosition(newpos = undefined) {
         if (!newpos) {
-            this.scrollPosition = this.parent.scrollTop / (this.scrollHeight - this.clientHeight);
+            this.scrollPosition = 0//this.parent.scrollTop / (this.scrollHeight - this.clientHeight);
         }
-        const maxThumbTop = this.clientHeight - this.thumb.offsetHeight;
-        this.thumb.style.top = this.scrollPosition * maxThumbTop + "px";
-        // console.log(this.scrollPosition.toFixed(2)); // Log the scroll percentage (0 to 1)
+        this.thumb.style.top = this.scrollPosition * this.activeHeight + "px";
         return this.scrollPosition;
     }
-
-    handleScroll(e) {
-        const deltaY = e.deltaY;
-        const newScrollTop = Math.min(
-            Math.max(this.parent.scrollTop + deltaY, 0),
-            this.scrollHeight - this.clientHeight
-        );
-        this.parent.scrollTop = newScrollTop;
-        this.updateThumbPosition();
+    setScrollPosition(percentage) {
+        this.scrollPosition = Math.min(Math.max(percentage, 0), 1); // Clamp percentage between 0 and 1
+        this.updateThumbPosition(this.scrollPosition);
     }
+
+    handleResize() {
+        this.clientHeight = this.parent.clientHeight;
+        this.updateThumbHeight();
+        this.updateActiveHeight()
+        this.updateThumbPosition(this.scrollPosition);
+    }
+
+    handleScrollbarClick(e) {
+        const newTop = Math.min(Math.max(e.clientY, 0), this.activeHeight);
+        this.scrollPosition = newTop / this.activeHeight;
+        this.updateThumbPosition(this.scrollPosition);
+    }
+
     handleMouseDown(e) {
         this.isDragging = true;
         this.startY = e.clientY;
-        this.startTop = parseInt(window.getComputedStyle(this.thumb).top, 10);
+        this.startTop = this.activeHeight * this.scrollPosition;
         document.body.style.userSelect = "none"; // Disable text selection
     }
     handleMouseMove(e) {
         if (this.isDragging) {
             const deltaY = e.clientY - this.startY;
-            const maxThumbTop = this.clientHeight - this.thumb.offsetHeight;
-            const newTop = Math.min(Math.max(this.startTop + deltaY, 0), maxThumbTop);
+            let newTop = this.startTop + deltaY
+            newTop = Math.max(newTop, 0)
+            newTop = Math.min(newTop,  this.activeHeight)
             this.thumb.style.top = newTop + "px";
-            this.scrollPosition = newTop / maxThumbTop;
-            this.parent.scrollTop = this.scrollPosition * (this.scrollHeight - this.clientHeight);
+            this.scrollPosition = newTop / this.activeHeight;
             return this.scrollPosition;
         }
     }
@@ -84,23 +88,7 @@ export class noScrollBar {
         this.isDragging = false;
         document.body.style.userSelect = ""; // Re-enable text selection
     }
-    setScrollPosition(percentage) {
-        this.scrollPosition = Math.min(Math.max(percentage, 0), 1); // Clamp percentage between 0 and 1
-        this.parent.scrollTop = this.scrollPosition * (this.scrollHeight - this.clientHeight);
-        this.updateThumbPosition(this.scrollPosition);
-    }
-    handleScrollbarClick(e) {
-        console.log("click")
-        const rect = this.scrollbar.getBoundingClientRect();
-        const clickY = e.clientY - rect.top; // Click position relative to the scrollbar
-        const maxThumbTop = this.clientHeight - this.thumb.offsetHeight;
 
-        // Calculate new scroll position based on click
-        const newTop = Math.min(Math.max(clickY, 0), maxThumbTop);
-        this.scrollPosition = newTop / maxThumbTop;
-        this.parent.scrollTop = this.scrollPosition * (this.scrollHeight - this.clientHeight);
-        this.updateThumbPosition(this.scrollPosition);
-    }
 }
 
 // use

@@ -12,7 +12,7 @@ const defaultHash = hashTypes.gradientI
 const defaultColorBlind = colorBlindTypes.none
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash)
-const scrollbar = new noScrollBar(constants.start);
+const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
 window.scrollbar = scrollbar
 
 camera.resize()
@@ -57,15 +57,14 @@ function mouseWheel(e){
 
 
 function scrollbarMouseDown(e){
-    console.log("scrollbarMouseDown")
     scrollbar.handleMouseDown(e)
     document.addEventListener("mousemove", scrollbarMouseMove);
     document.addEventListener("mouseup", scrollbarMouseUp);
     scrollbar.scrollbar.removeEventListener("click", barClick);//remove while doign this
     function scrollbarMouseMove(e){
-        const update = scrollbar.handleMouseMove(e)
+        const update = scrollbar.handleMouseMove(e).toFixed(2)//handle small percentages
         if(update){
-            const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.rowCount + 1 )) 
             camera.setPosition(newPos)
             scene.updateColors(newPos)
         }
@@ -85,9 +84,9 @@ function scrollbarTouchStart(e){
     document.addEventListener("touchend", scrollbarMouseUp);
     scrollbar.scrollbar.removeEventListener("click", barClick);//remove while doign this
     function scrollbarMouseMove(e){
-        const update = scrollbar.handleMouseMove(e)
+        const update = scrollbar.handleMouseMove(e).toFixed(2)//handle small percentages
         if(update){
-            const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.rowCount + 1 )) 
             camera.setPosition(newPos)
             scene.updateColors(newPos)
         }
@@ -106,6 +105,8 @@ function barClick(e){
     const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
     camera.setPosition(newPos)
     scene.updateColors(newPos)
+    // document.activeElement.blur() // these wont work??
+    // window.focus()
 }
 
 function syncSetPosition(pos){
