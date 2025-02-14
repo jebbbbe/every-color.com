@@ -13,6 +13,7 @@ const defaultColorBlind = colorBlindTypes.none
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash)
 const scrollbar = new noScrollBar(constants.start);
+window.scrollbar = scrollbar
 
 camera.resize()
 scene.updateColors(camera.position)
@@ -53,10 +54,14 @@ function mouseWheel(e){
     scene.updateColors(camera.position)
     scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
 }
+
+
 function scrollbarMouseDown(e){
+    console.log("scrollbarMouseDown")
     scrollbar.handleMouseDown(e)
     document.addEventListener("mousemove", scrollbarMouseMove);
     document.addEventListener("mouseup", scrollbarMouseUp);
+    scrollbar.scrollbar.removeEventListener("click", barClick);//remove while doign this
     function scrollbarMouseMove(e){
         const update = scrollbar.handleMouseMove(e)
         if(update){
@@ -69,12 +74,16 @@ function scrollbarMouseDown(e){
         scrollbar.handleMouseUp()
         document.removeEventListener("mousemove", scrollbarMouseMove);
         document.removeEventListener("mouseup", scrollbarMouseUp);
+        setTimeout(() => {
+            scrollbar.scrollbar.addEventListener("click", barClick);
+        }, 0);
     }
 }
 function scrollbarTouchStart(e){
     scrollbar.handleMouseDown(e)
     document.addEventListener("touchmove", scrollbarMouseMove);
     document.addEventListener("touchend", scrollbarMouseUp);
+    scrollbar.scrollbar.removeEventListener("click", barClick);//remove while doign this
     function scrollbarMouseMove(e){
         const update = scrollbar.handleMouseMove(e)
         if(update){
@@ -87,7 +96,16 @@ function scrollbarTouchStart(e){
         scrollbar.handleMouseUp()
         document.removeEventListener("touchmove", scrollbarMouseMove);
         document.removeEventListener("touchend", scrollbarMouseUp);
+        setTimeout(() => {
+            scrollbar.scrollbar.addEventListener("click", barClick);
+        }, 0);
     }
+}
+function barClick(e){
+    scrollbar.handleScrollbarClick(e)
+    const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+    camera.setPosition(newPos)
+    scene.updateColors(newPos)
 }
 
 function syncSetPosition(pos){
@@ -99,8 +117,9 @@ function syncSetPosition(pos){
 // Event listeners
 window.addEventListener("resize", resize);
 window.addEventListener('wheel', e => mouseWheel(e))
+scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("mousedown", scrollbarMouseDown);
-scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// need sto be added to the body???s
+// scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// need sto be added to the body???s
 window.addEventListener('keydown', e => {
     let pos = undefined
     switch(e.key){
@@ -129,13 +148,4 @@ window.addEventListener('keydown', e => {
 })  
 
 
-
-
-
-scrollbar.scrollbar.addEventListener("click", (e) => {
-    scrollbar.handleScrollbarClick(e)
-    const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
-    camera.setPosition(newPos)
-    scene.updateColors(newPos)
-});
 
