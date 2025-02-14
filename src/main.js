@@ -75,6 +75,7 @@ function scrollbarMouseDown(e){
         document.removeEventListener("mouseup", scrollbarMouseUp);
         setTimeout(() => {
             scrollbar.scrollbar.addEventListener("click", barClick);
+            resetWheelEvent()
         }, 0);
     }
 }
@@ -97,6 +98,7 @@ function scrollbarTouchStart(e){
         document.removeEventListener("touchend", scrollbarMouseUp);
         setTimeout(() => {
             scrollbar.scrollbar.addEventListener("click", barClick);
+            resetWheelEvent()
         }, 0);
     }
 }
@@ -105,14 +107,18 @@ function barClick(e){
     const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
     camera.setPosition(newPos)
     scene.updateColors(newPos)
-    // document.activeElement.blur() // these wont work??
-    // window.focus()
+    resetWheelEvent()
 }
 
 function syncSetPosition(pos){
     camera.setPosition(pos)
     scene.updateColors(camera.position)
     scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
+}
+
+function resetWheelEvent(){
+    window.removeEventListener('wheel', mouseWheel);
+    window.addEventListener('wheel', mouseWheel);
 }
 
 // Event listeners
