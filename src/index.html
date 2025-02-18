@@ -10,11 +10,9 @@
     <body>
         <div class="loader"></div>
 
-        <!-- <div style="height: 300px; width:200px;"> -->
         <div class="custom-scrollbar">
             <div class="scroll-thumb"></div>
         </div>
-        <!-- </div> -->
 
         <div id="root">
             <header>
@@ -53,26 +51,36 @@
 
             <footer></footer>
         </div>
-        <!-- <script type="module" src="./Library/hash.js"></script> -->
-
-        <!-- modal -->
+        
+        <!-- settings modal -->
         <div id="settingsModal" class="modal">
             <div class="modal-content">
                 <span id="closeModal" class="close">&times;</span>
-                
-                <form id="colorBlindSelect">
-                    <label for="colorBlindSelect">color blind options</label>
-                </form>
-                <form id="hashSelect" style="padding-right: 20px">
-                    <label for="hashSelect">hash function</label>
-                </form>
-                <div>
-                    <label for="useAlpha">Use Alpha</label>
-                    <input type="checkbox" id="useAlpha" name="useAlpha" value="Bike" />
+                <p>Settings</p>
+                <div class="settings-container">
+
+                    <form id="colorBlindSelect" class="settings-form">
+                        <label for="colorBlindSelect">color blind options</label>
+                    </form>
+
+                    <form id="hashSelect" class="settings-form">
+                        <label for="hashSelect">hash function</label>
+                    </form>
+
+                    <div class="settings-toggle">
+                        <label for="useAlpha">Use Alpha</label>
+                        <input type="checkbox" id="useAlpha" name="useAlpha" value="Bike" />
+                    </div>
+
                 </div>
             </div>
         </div>
 
+
+
+
+        
+        <!-- <script type="module" src="./Library/hash.js"></script> -->
         <script type="module" src="./main.js"></script>
     </body>
 </html>

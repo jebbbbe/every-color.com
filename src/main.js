@@ -5,7 +5,6 @@ import { constants,hashTypes,colorBlindTypes } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
 
-
 const mainClass = "row-holder"
 const rowClass = "row-thing"
 const scrollFactor = 8
@@ -21,12 +20,7 @@ scene.updateColors(camera.position)
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate,defaultHash)
 const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate   ,defaultColorBlind)
 setupModalEventListeners()
-
 removeLoader()
-
-function logg(v){
-    console.log(v)
-}
 
 //setupfunctions
 function removeLoader(){
