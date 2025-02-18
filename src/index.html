@@ -18,23 +18,22 @@
 
         <div id="root">
             <header>
-                <div class ="row-box">
-                    <div class="title">every RGBa color dot com website</div>
+                <div class="row-box">
+                    <h1 class="title">Every RGB Color</h1>
 
-                    <div>
-                        <label for="useAlpha">Use Alpha</label>
-                        <input type="checkbox" id="useAlpha" name="useAlpha" value="Bike">
+                    <!-- <button id="openSettings">Settings</button> -->
+                     <div class="icon-trey">
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.github.com">
+                            <img src="./code.svg" alt="Settings Icon" aria-label="View Code Source">
+                        </a>
+                        <button id="openSettings" class="settings-btn" aria-label="Open Settings">
+                            <img src="./gear.svg" alt="Settings Icon">
+                        </button>
+                        <div></div>
                     </div>
+
                     
-                    <form id="colorBlindSelect">
-                        <label for="colorBlindSelect">color blind options</label>
-                    </form>
-                    <form id="hashSelect" style = "padding-right: 20px;">
-                        <label for="hashSelect">hash function</label>
-                    </form>
                 </div>
-
-
             </header>
             <div class="label-height">
                 <div class="row-thing row-box">
@@ -55,6 +54,25 @@
             <footer></footer>
         </div>
         <!-- <script type="module" src="./Library/hash.js"></script> -->
+
+        <!-- modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                
+                <form id="colorBlindSelect">
+                    <label for="colorBlindSelect">color blind options</label>
+                </form>
+                <form id="hashSelect" style="padding-right: 20px">
+                    <label for="hashSelect">hash function</label>
+                </form>
+                <div>
+                    <label for="useAlpha">Use Alpha</label>
+                    <input type="checkbox" id="useAlpha" name="useAlpha" value="Bike" />
+                </div>
+            </div>
+        </div>
+
         <script type="module" src="./main.js"></script>
     </body>
 </html>

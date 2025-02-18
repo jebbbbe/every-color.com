@@ -13,10 +13,8 @@ export class DynamicDropdown {
     constructor(formId, options = sampleOptions, onChangeCallback = defaultOnChange, defaultSelection = null) {
         this.form = document.getElementById(formId);
         if (!this.form) {
-            // If form not found, create a new form and append it to the body
-            this.form = document.createElement('form');
-            this.form.id = formId || `form_${Date.now()}`; // Assign a unique ID if none provided
-            document.body.appendChild(this.form);
+            console.error($`html id ${formId} not found`)
+            return
         }
         this.options = options;
         this.onChangeCallback = onChangeCallback;

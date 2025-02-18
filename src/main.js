@@ -2,7 +2,8 @@ import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
 import { constants,hashTypes,colorBlindTypes } from "/Library/constants.js"
-import { DynamicDropdown } from "/Library/dropdown.js"
+import { DynamicDropdown } from "/Library/dom/dropdown.js"
+import { setupModalEventListeners } from "/Library/dom/modal.js"
 
 
 const mainClass = "row-holder"
@@ -17,14 +18,15 @@ window.scrollbar = scrollbar
 
 camera.resize()
 scene.updateColors(camera.position)
-removeLoader()
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate,defaultHash)
 const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate   ,defaultColorBlind)
+setupModalEventListeners()
+
+removeLoader()
 
 function logg(v){
     console.log(v)
 }
-
 
 //setupfunctions
 function removeLoader(){
@@ -156,3 +158,26 @@ window.addEventListener('keydown', e => {
 
 
 
+// SETTINGS
+
+function openModal() {
+    document.getElementById('settingsModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('settingsModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+    let modal = document.getElementById('settingsModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
+function saveSettings() {
+    let username = document.getElementById('username').value;
+    let theme = document.getElementById('theme').value;
+    alert('Settings Saved:\nUsername: ' + username + '\nTheme: ' + theme);
+    closeModal();
+}
