@@ -101,13 +101,13 @@ label {
 
 
 /* Icon Tray */
-.icon-trey{
+.icon-tray{
     display: flex;
     flex-direction:row;
     gap:10px;
 }
-.icon-trey img{
-    width: 25px;
+.icon-tray img{
+    /* width: 25px; */
     height: 25px;
     background: none;
     border: none;
