@@ -29,6 +29,12 @@ export class htmlScene {
         }else if ( this.displayMode === hashTypes.gradientII ){
             this.hash = i =>  hashes.mapToGradientII(i)
             this.rehash = i => hashes.unmapToGradientII(i)
+        }else if ( this.displayMode === hashTypes.gradientIII ){
+            this.hash = i =>  hashes.mapToGradientII(i)
+        }else if ( this.displayMode === hashTypes.gradientIV ){
+            this.hash = i =>  hashes.mapToGradientIV(i)
+        }else if ( this.displayMode === hashTypes.gradientV ){
+            this.hash = i =>  hashes.mapToGradientV(i)
         }
     }
     setColorBlindMode(newMode = undefined){

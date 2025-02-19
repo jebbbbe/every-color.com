@@ -23,30 +23,48 @@ function testHash(hash = hashTypes.gradientI){
         var hashFunciton = i => randomHexColor()
     }else if ( hash === hashTypes.gradientI ){
         var hashFunciton = i =>  hashes.mapToGradientI(i)
-        var rehashFunciton = i => hashes.unmapToGradientI(i)
+        // var rehashFunciton = i => hashes.unmapToGradientI(i)
     }else if ( hash === hashTypes.gradientII ){
         var hashFunciton = i =>  hashes.mapToGradientII(i)
-        var rehashFunciton = i => hashes.unmapToGradientII(i)
+        // var rehashFunciton = i => hashes.unmapToGradientII(i)
+    }else if ( hash === hashTypes.gradientIII ){
+        var hashFunciton = i =>  hashes.mapToGradientIII(i)
+    }else if ( hash === hashTypes.gradientIV ){
+        var hashFunciton = i =>  hashes.mapToGradientIV(i)
+    }else if ( hash === hashTypes.gradientV ){
+        var hashFunciton = i =>  hashes.mapToGradientV(i)
     }
-    let cnt = 0
+    let array = []
     let prev = hashFunciton(0)
-    // for(let i = 1; i<400; i++){
     for(let i = 1; i<constants.absoluteMax; i++){
         const curr = hashFunciton(i)
         const d = testColorDifference(prev, curr)
         if(d > 1){
-            cnt++
+            array.push(i-1)
         }
         prev = curr
     }
-    console.log(cnt)
-    return cnt
+    console.log(array)
+    return array.length
 }
 
 describe('Math functions', () => {
-    test('testHashes', () => {
+    test('none', () => {
         expect(testHash(hashTypes.none)).toBe(65535);
+    });
+    test('gradientI', () => {
         expect(testHash(hashTypes.gradientI)).toBe(255);
+    });
+    test('gradientII', () => {
         expect(testHash(hashTypes.gradientII)).toBe(253);
+    });
+    test('gradientIII', () => {
+        expect(testHash(hashTypes.gradientIII)).toBe(65280);
+    });
+    test('gradientIV', () => {
+        expect(testHash(hashTypes.gradientIV)).toBe(0); // winner
+    });
+    test('gradientV', () => {
+        expect(testHash(hashTypes.gradientV)).toBe(255);
     });
 });

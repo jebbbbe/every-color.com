@@ -114,6 +114,31 @@ export function mapToGradientII(hexColor) {
     let newHexColor = (superGroup << 16) | (group << 8) | reversedPosition;
     return newHexColor;
 }
+export function mapToGradientIII(hexColor) {
+    /**
+     * Maps a hexadecimal color based on reversing every other group of 256^2 colors.
+     *
+     * @param {number} hexColor - The color as a decimal representation of the hexadecimal value (0 to 16777215).
+     * @returns {number} - The remapped decimal representation of the hexadecimal color.
+     */
+  
+    // Extract the base 256^2 group the color is in (equivalent to integer division by 65536)
+    let group = hexColor >> 16;
+    // Determine the position within the group (equivalent to modulo 65536)
+    let position = hexColor & 0xffff;
+    // If the group is odd, reverse the order within the group
+    let reversedPosition = (group % 2 === 1) ? (0xffff - position) : position;
+    
+    // Reconstruct the new hexadecimal color value
+    let newHexColor = (group << 16) | reversedPosition;
+    return newHexColor;
+}
+export function mapToGradientIV(hexColor){
+    return mapToGradientI(mapToGradientIII(hexColor))
+}
+export function mapToGradientV(hexColor){
+    return mapToGradientIII(mapToGradientI(hexColor))
+}
 
 export function unmapToGradientI(mappedHexColor) {
     /**
@@ -139,8 +164,6 @@ export function unmapToGradientI(mappedHexColor) {
     let originalHexColor = (group << 8) | originalPosition;
     return originalHexColor;
 }
-
-
 
 export function unmapToGradientII(mappedHexColor) {
     /**

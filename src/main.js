@@ -8,7 +8,7 @@ import { setupModalEventListeners } from "/Library/dom/modal.js"
 const mainClass = "row-holder"
 const rowClass = "row-thing"
 const scrollFactor = 8
-const defaultHash = hashTypes.gradientI
+const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash)

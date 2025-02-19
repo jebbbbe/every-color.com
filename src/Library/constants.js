@@ -9,6 +9,10 @@ export const hashTypes = {
     "random":"random",
     "gradientI":"gradient I",
     "gradientII":"gradient II",
+    "gradientII":"gradient II",
+    "gradientIII":"gradient III",
+    "gradientIV":"gradient IV",
+    "gradientV":"gradient V",
 }
 
 export const colorBlindTypes = {
