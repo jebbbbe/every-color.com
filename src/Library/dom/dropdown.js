@@ -28,13 +28,12 @@ export class DynamicDropdown {
         this.select = document.createElement('select');
         this.select.name = 'dynamicOptions';
         this.select.id = 'dynamicOptions';
-
         // Populate the dropdown with options
         Object.entries(this.options).forEach(([key, value]) => {
             const option = document.createElement('option');
             option.value = key;
             option.textContent = value;
-            if (key === this.defaultSelection) {
+            if (value === this.defaultSelection) {
                 option.selected = true;
             }
             this.select.appendChild(option);
