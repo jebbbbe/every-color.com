@@ -1,7 +1,7 @@
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
-import { constants,hashTypes,colorBlindTypes } from "/Library/constants.js"
+import { constants,hashTypes,colorBlindTypes,colorFormats } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
 
@@ -10,6 +10,7 @@ const rowClass = "row-thing"
 const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
+const defaultColorFormat = colorFormats.hexidecimalString
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
@@ -19,8 +20,10 @@ camera.resize()
 scene.updateColors(camera.position)
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate,defaultHash)
 const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate   ,defaultColorBlind)
+const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, console.log   ,defaultColorFormat)
 setupModalEventListeners()
 removeLoader()
+
 
 //setupfunctions
 function removeLoader(){
