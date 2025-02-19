@@ -27,10 +27,10 @@ export const colorBlindTypes = {
 
 export const colorFormats = {
     "hexidecimalNumber":"Hexidecimal Number", // 0xff00ff
-    "hexidecimalString":"hexidecimal String",  // #ff00ff
+    "hexidecimalString":"Hexidecimal String",  // #ff00ff
     "rgbString":"RGB String",                 //rgb(255, 87, 51)
-    "rgbInt":"RGBint",                        // [255,0,255]
-    "rgbfloat":"RGBfloat",                    // [1.0,0.123213,1.0]
+    "rgbInt":"RGBint",                        // [255,0,255]                     
+    "rgbfloat":"RGBfloat",                    // [1.0,0.123213,1.0]              
     "rgbVector":"RGBVector",                  // vec3(1.0,0.123213,1.0);
     "hsl":"HSL",                              //hsl(14, 100%, 60%)
     "hsv":"HSV",                              //hsv(14, 80%, 100%)

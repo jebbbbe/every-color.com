@@ -48,7 +48,7 @@ function testHash(hash = hashTypes.gradientI){
     return array.length
 }
 
-describe('Math functions', () => {
+describe('hash functions', () => {
     test('none', () => {
         expect(testHash(hashTypes.none)).toBe(65535);
     });
