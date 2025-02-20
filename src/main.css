@@ -98,7 +98,10 @@ label {
     transition: background 0.1s;
 }
 
-
+/* Template */
+.colHex{
+    text-wrap: nowrap;
+}
 
 /* Icon Tray */
 .icon-tray{
