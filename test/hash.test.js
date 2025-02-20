@@ -15,18 +15,18 @@ function testColorDifference(hexNumA,hexNumB){
     return Math.sqrt( (a[0]-b[0])**2 + (a[1]-b[1])**2 + (a[2]-b[2])**2 )
 }
 
-function testHash(hash = hashTypes.gradientI){
 
+export function selectHash(hash = hashTypes.gradientI){
     if( hash === hashTypes.none ){
         var hashFunciton = i => i
     }else if ( hash === hashTypes.random ){
         var hashFunciton = i => randomHexColor()
     }else if ( hash === hashTypes.gradientI ){
         var hashFunciton = i =>  hashes.mapToGradientI(i)
-        // var rehashFunciton = i => hashes.unmapToGradientI(i)
+        var rehashFunciton = i => hashes.unmapToGradientI(i)
     }else if ( hash === hashTypes.gradientII ){
         var hashFunciton = i =>  hashes.mapToGradientII(i)
-        // var rehashFunciton = i => hashes.unmapToGradientII(i)
+        var rehashFunciton = i => hashes.unmapToGradientII(i)
     }else if ( hash === hashTypes.gradientIII ){
         var hashFunciton = i =>  hashes.mapToGradientIII(i)
     }else if ( hash === hashTypes.gradientIV ){
@@ -34,6 +34,10 @@ function testHash(hash = hashTypes.gradientI){
     }else if ( hash === hashTypes.gradientV ){
         var hashFunciton = i =>  hashes.mapToGradientV(i)
     }
+    return [hashFunciton,rehashFunciton]
+}
+function testHash(hash = hashTypes.gradientI, verbose = false){
+    let [hashFunciton,rehashFunciton] = selectHash(hash)
     let array = []
     let prev = hashFunciton(0)
     for(let i = 1; i<constants.absoluteMax; i++){
@@ -44,27 +48,28 @@ function testHash(hash = hashTypes.gradientI){
         }
         prev = curr
     }
-    console.log(array)
+    if(verbose) console.log(array)
     return array.length
 }
 
 describe('hash functions', () => {
+    const verbose = false
     test('none', () => {
-        expect(testHash(hashTypes.none)).toBe(65535);
+        expect(testHash(hashTypes.none,verbose)).toBe(65535);
     });
     test('gradientI', () => {
-        expect(testHash(hashTypes.gradientI)).toBe(255);
+        expect(testHash(hashTypes.gradientI,verbose)).toBe(255);
     });
     test('gradientII', () => {
-        expect(testHash(hashTypes.gradientII)).toBe(253);
+        expect(testHash(hashTypes.gradientII,verbose)).toBe(253);
     });
     test('gradientIII', () => {
-        expect(testHash(hashTypes.gradientIII)).toBe(65280);
+        expect(testHash(hashTypes.gradientIII,verbose)).toBe(65280);
     });
     test('gradientIV', () => {
-        expect(testHash(hashTypes.gradientIV)).toBe(0); // winner
+        expect(testHash(hashTypes.gradientIV,verbose)).toBe(0); // winner
     });
     test('gradientV', () => {
-        expect(testHash(hashTypes.gradientV)).toBe(255);
+        expect(testHash(hashTypes.gradientV,verbose)).toBe(255);
     });
 });
