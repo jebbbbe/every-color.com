@@ -1,4 +1,4 @@
-const map = { // matches colorFormats from constants 
+const formatMap = { // matches colorFormats from constants 
     "Hexidecimal Number":hexNumToHexNumString,
     "Hexidecimal String":hexNumToHexString,
     "RGB String":hexNumToRgbString,
@@ -11,8 +11,8 @@ const map = { // matches colorFormats from constants
 }
 
 export function selectFormat(format = "Hexidecimal Number"){
-    const fn = map[format]
-    if(fn === undefined) return map["Hexidecimal Number"]
+    const fn = formatMap[format]
+    if(fn === undefined) return formatMap["Hexidecimal Number"]
     return fn;
 }
 

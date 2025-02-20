@@ -1,12 +1,16 @@
-import { constants,hashTypes, colorBlindTypes } from "./constants.js";
+import { constants,hashTypes, colorBlindTypes, colorFormats } from "./constants.js";
 import * as hashes from "./hash.js"
 import { hexToColorNames } from "./cssColors.js"
+import {selectFormat } from "./colorFormats.js"
 
 export class htmlScene {
-    constructor(cssClass,displayMode) {
+    constructor(cssClass,displayMode, colorFormat) {
         this.setHTMLArray(cssClass);
         this.displayMode = displayMode
-        this.setHashFunction()
+        this.setHashFunction(displayMode)
+        this.colorFormat = colorFormat
+        this.setColorFormatMode(colorFormat)
+
         this.setColorBlindMode(colorBlindTypes.none)
     }
     setHTMLArray(cssClass) {
@@ -61,7 +65,12 @@ export class htmlScene {
                 throw new Error("Unsupported colorblind type");
         }
     }
-    updateColors(offset = 0) {
+    setColorFormatMode(newMode){
+        if(newMode === undefined) return
+        this.colorFormat = newMode;
+        this.hexNumToFormated = selectFormat(this.colorFormat)
+    }
+    updateHtmlCollection(offset = 0) {
         for (let i = 0; i < this.htmlArray.length; i++) {
             const element = this.htmlArray[i];
             const index = offset + i;
@@ -76,11 +85,13 @@ export class htmlScene {
                 remappedHex = hexidecimalToString(remappedHex)
             }
             if(this.colorBlindMode !== colorBlindTypes.none){
-                var colOverwrite = hexidecimalToString(mappedHex)
+                // var colOverwrite = hexidecimalToString(mappedHex)
+                var colOverwrite = this.hexNumToFormated(mappedHex)
                 var newColorOverwrite = hexidecimalToString(mappedHex);
                 mappedHex = this.colorAsist(mappedHex)
             }
 
+            const colorStringForText = this.hexNumToFormated(mappedHex);
             const newColor = hexidecimalToString(mappedHex);
             let colorName = ""
             if( hexToColorNames.has(newColorOverwrite ?? newColor) ){
@@ -90,7 +101,7 @@ export class htmlScene {
             element.querySelector(".index").innerHTML = decIndex
             element.querySelector(".hexNum").innerHTML = hexIndex;
             element.querySelector(".colName").innerHTML = colorName;
-            element.querySelector(".colHex").innerHTML = colOverwrite ?? newColor;
+            element.querySelector(".colHex").innerHTML = colOverwrite ?? colorStringForText;
             element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
             element.style.color = getOppositeColor(newColor);

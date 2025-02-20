@@ -29,9 +29,9 @@ export const colorFormats = {
     "hexidecimalNumber":"Hexidecimal Number", // 0xff00ff
     "hexidecimalString":"Hexidecimal String",  // #ff00ff
     "rgbString":"RGB String",                 //rgb(255, 87, 51)
-    "rgbInt":"RGBint",                        // [255,0,255]                     
-    "rgbfloat":"RGBfloat",                    // [1.0,0.123213,1.0]              
-    "rgbVector":"RGBVector",                  // vec3(1.0,0.123213,1.0);
+    "rgbInt":"RGB int",                        // [255,0,255]                     
+    "rgbfloat":"RGB float",                    // [1.0,0.123213,1.0]              
+    "rgbVector":"RGB Vector",                  // vec3(1.0,0.123213,1.0);
     "hsl":"HSL",                              //hsl(14, 100%, 60%)
     "hsv":"HSV",                              //hsv(14, 80%, 100%)
     "hsb":"HSB",                              //hsb(14, 80%, 100%) // same format as above

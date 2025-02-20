@@ -12,15 +12,19 @@ const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
 const defaultColorFormat = colorFormats.hexidecimalString
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
-const scene = new htmlScene(mainClass,defaultHash)
+const scene = new htmlScene(mainClass,defaultHash,defaultColorFormat)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
-window.scrollbar = scrollbar
+window.world = {
+    camera:camera,
+    scene:scene,
+    scrollbar:scrollbar,
+}
 
 camera.resize()
-scene.updateColors(camera.position)
-const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate,defaultHash)
-const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate   ,defaultColorBlind)
-const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, console.log   ,defaultColorFormat)
+scene.updateHtmlCollection(camera.position)
+const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, defaultHash)
+const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
+const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 setupModalEventListeners()
 removeLoader()
 
@@ -35,22 +39,26 @@ function removeLoader(){
 }
 function hashSelectUpdate(newVal){
     scene.setHashFunction(hashTypes[newVal])
-    scene.updateColors(camera.position)
+    scene.updateHtmlCollection(camera.position)
 }
 function colorSelectUpdate(newVal){
     scene.setColorBlindMode(colorBlindTypes[newVal])
-    scene.updateColors(camera.position)
+    scene.updateHtmlCollection(camera.position)
+}
+function colorFormatSelectUpdate(newVal){
+    scene.setColorFormatMode(colorFormats[newVal])
+    scene.updateHtmlCollection(camera.position)
 }
 
 //update Functions
 function resize(){
     camera.resize()
     scrollbar.handleResize()
-    scene.updateColors(camera.position)
+    scene.updateHtmlCollection(camera.position)
 }
 function mouseWheel(e){
     camera.updatePosition(e.wheelDeltaY)
-    scene.updateColors(camera.position)
+    scene.updateHtmlCollection(camera.position)
     scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
 }
 
@@ -65,7 +73,7 @@ function scrollbarMouseDown(e){
         if(update){
             const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.rowCount + 1 )) 
             camera.setPosition(newPos)
-            scene.updateColors(newPos)
+            scene.updateHtmlCollection(newPos)
         }
     }
     function scrollbarMouseUp(){
@@ -88,7 +96,7 @@ function scrollbarTouchStart(e){
         if(update){
             const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.rowCount + 1 )) 
             camera.setPosition(newPos)
-            scene.updateColors(newPos)
+            scene.updateHtmlCollection(newPos)
         }
     }
     function scrollbarMouseUp(){
@@ -105,13 +113,13 @@ function barClick(e){
     scrollbar.handleScrollbarClick(e)
     const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
     camera.setPosition(newPos)
-    scene.updateColors(newPos)
+    scene.updateHtmlCollection(newPos)
     resetWheelEvent()
 }
 
 function syncSetPosition(pos){
     camera.setPosition(pos)
-    scene.updateColors(camera.position)
+    scene.updateHtmlCollection(camera.position)
     scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
 }
 
