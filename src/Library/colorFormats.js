@@ -33,9 +33,9 @@ function getFloatArray(hexNum, p=6){
     return array
 }
 function forceDecimalFloat(rgb){
-    if (rgb[0] === 0 || rgb[0] === 1) rgb[0] += ".";
-    if (rgb[1] === 0 || rgb[1] === 1) rgb[1] += ".";
-    if (rgb[2] === 0 || rgb[2] === 1) rgb[2] += ".";
+    if (rgb[0] === 0 || rgb[0] === 1) rgb[0] += ".0";
+    if (rgb[1] === 0 || rgb[1] === 1) rgb[1] += ".0";
+    if (rgb[2] === 0 || rgb[2] === 1) rgb[2] += ".0";
 }
 
 export function hexNumToHexNumString(hexNum){
