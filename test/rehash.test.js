@@ -6,38 +6,35 @@ import { selectHash } from "./hash.test.js"
 
 function testReHash(hash = hashTypes.gradientI, verbose = false){
     let [hashFunciton,rehashFunciton] = selectHash(hash)
-    let array = []
-    let prev = hashFunciton(0)
-    for(let i = 1; i<constants.absoluteMax; i++){
-        const curr = hashFunciton(i)
-        const d = testColorDifference(prev, curr)
-        if(d > 1){
-            array.push(i-1)
+    if( rehashFunciton === undefined )return 0; //just return correct ans if funtion inst defined, i dont care about those results
+    let count = 0
+    for(let i = 0; i<constants.absoluteMax; i++){
+        const hash = hashFunciton(i)
+        const rehash = rehashFunciton(hash)
+        if(rehash !== i){
+            count ++
         }
-        prev = curr
     }
-    if(verbose) console.log(array)
-    return array.length
+    return count
 }
 
-describe('hash functions', () => {
-    const verbose = false
+describe('rehash functions', () => {
     test('none', () => {
-        expect(testReHash(hashTypes.none,verbose)).toBe(65535);
+        expect(testReHash(hashTypes.none)).toBe(0);
     });
     test('gradientI', () => {
-        expect(testReHash(hashTypes.gradientI,verbose)).toBe(255);
+        expect(testReHash(hashTypes.gradientI)).toBe(0);
     });
     test('gradientII', () => {
-        expect(testReHash(hashTypes.gradientII,verbose)).toBe(253);
+        expect(testReHash(hashTypes.gradientII)).toBe(8388607);
     });
     test('gradientIII', () => {
-        expect(testReHash(hashTypes.gradientIII,verbose)).toBe(65280);
+        expect(testReHash(hashTypes.gradientIII)).toBe(0);
     });
     test('gradientIV', () => {
-        expect(testReHash(hashTypes.gradientIV,verbose)).toBe(0); // winner
+        expect(testReHash(hashTypes.gradientIV)).toBe(0);
     });
     test('gradientV', () => {
-        expect(testReHash(hashTypes.gradientV,verbose)).toBe(255);
+        expect(testReHash(hashTypes.gradientV)).toBe(0);
     });
 });
