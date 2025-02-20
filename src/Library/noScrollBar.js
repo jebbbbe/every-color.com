@@ -2,7 +2,6 @@ import { constants } from "./constants.js";
 
 export class noScrollBar {
     constructor(start = undefined, parentElement) {
-        console.warn("start not implemented")
         if(start !== undefined){
             this.scrollPosition = start;
         }else{
@@ -30,7 +29,7 @@ export class noScrollBar {
         this.updateThumbHeight();
         this.updateActiveHeight();
 
-        this.updateThumbPosition();
+        this.updateThumbPosition(this.scrollPosition);
     }
 
     updateThumbHeight() {
