@@ -17,7 +17,7 @@ export function selectFormat(format = "Hexidecimal Number"){
 }
 
 
-function getIntArray(hexNum){
+export function getIntArray(hexNum){
     hexNum = hexNum & 0xFFFFFF;    // Mask to keep only last 24 bits (RGB) // doesnt happen in our case...?
     let r = (hexNum >> 16) & 0xFF; // Get the most significant byte (Red)
     let g = (hexNum >> 8) & 0xFF;  // Get the middle byte (Green)
@@ -25,14 +25,14 @@ function getIntArray(hexNum){
     return [r, g, b];
 }
 
-function getFloatArray(hexNum, p=6){
+export function getFloatArray(hexNum, p=6){
     const array = getIntArray(hexNum)
     array[0] =  parseFloat((array[0]/255).toFixed(p))
     array[1] =  parseFloat((array[1]/255).toFixed(p))
     array[2] =  parseFloat((array[2]/255).toFixed(p))
     return array
 }
-function forceDecimalFloat(rgb){
+export function forceDecimalFloat(rgb){
     if (rgb[0] === 0 || rgb[0] === 1) rgb[0] += ".0";
     if (rgb[1] === 0 || rgb[1] === 1) rgb[1] += ".0";
     if (rgb[2] === 0 || rgb[2] === 1) rgb[2] += ".0";
