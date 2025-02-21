@@ -47,27 +47,33 @@ function getOppositeColor(hexColor) { // old
 }
 
 
-function relativeLuminance([r, g, b]) {
-    return (0.2126 * r + 0.7152 * g + 0.0722 * b);
-}
-
 function gammaCorrect(c) {
     return c <= 0.04045 ? (c / 12.92) : Math.pow((c + 0.055) / 1.055, 2.4);
 }
 
+function relativeLuminance([r, g, b]) {
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b);
+}
+function luminanceToContrast(lum1,lum2){
+    if(lum1>lum2){
+        return (lum1 + 0.05) / (lum2 + 0.05);
+    }
+    return (lum2 + 0.05) / (lum1 + 0.05);
+    // return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
+}
+
 export function getContrastRatio(hexNum1, hexNum2) {
-    const rgb1 = getFloatArray(hexNum1)
-    const rgb2 = getFloatArray(hexNum2)
+    const rgb1 = getFloatArray(hexNum1); // Assumes function returns [r, g, b] in 0-1 range
+    const rgb2 = getFloatArray(hexNum2);
     for(let i=0; i < 3; i ++){
-        rgb1[i] = gammaCorrect(rgb1[i])
-        rgb2[i] = gammaCorrect(rgb2[i])
+        rgb1[i] = gammaCorrect( rgb1[i])
+        rgb2[i] = gammaCorrect( rgb2[i])
     }
     const lum1 = relativeLuminance(rgb1);
     const lum2 = relativeLuminance(rgb2);
-    console.log(lum1)
-    console.log(lum2)
-    const contrast = (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
-    return contrast
+    const contrast = luminanceToContrast(lum1,lum2)
+    // return parseFloat(contrast.toFixed(2));
+    return Math.floor(contrast * 100) / 100;
 }
 
 
