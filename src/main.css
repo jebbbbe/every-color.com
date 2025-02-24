@@ -51,6 +51,7 @@ label {
 .row-thing {
     width: 100%;
     background-color: white;
+    min-height: 19px;
 }
 
 .row-box {
