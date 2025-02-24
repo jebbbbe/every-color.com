@@ -50,6 +50,10 @@ function getOppositeColor(hexColor) { // old
 function gammaCorrect(c) {
     return c <= 0.04045 ? (c / 12.92) : Math.pow((c + 0.055) / 1.055, 2.4);
 }
+function inverseGammaCorrect(c) {
+    return c <= 0.04045 ? (c * 12.92) : (1.055 * Math.pow(c, 1/2.4) - 0.055);
+}
+
 
 function relativeLuminance([r, g, b]) {
     return (0.2126 * r + 0.7152 * g + 0.0722 * b);
@@ -63,7 +67,7 @@ function luminanceToContrast(lum1,lum2){
 }
 
 export function getContrastRatio(hexNum1, hexNum2) {
-    const rgb1 = getFloatArray(hexNum1); // Assumes function returns [r, g, b] in 0-1 range
+    const rgb1 = getFloatArray(hexNum1); 
     const rgb2 = getFloatArray(hexNum2);
     for(let i=0; i < 3; i ++){
         rgb1[i] = gammaCorrect( rgb1[i])
@@ -74,6 +78,64 @@ export function getContrastRatio(hexNum1, hexNum2) {
     const contrast = luminanceToContrast(lum1,lum2)
     // return parseFloat(contrast.toFixed(2));
     return Math.floor(contrast * 100) / 100;
+}
+
+export function getContrastRatiofromRGB(rgb1, rgb2) {
+    for(let i=0; i < 3; i ++){
+        rgb1[i] = gammaCorrect( rgb1[i])
+        rgb2[i] = gammaCorrect( rgb2[i])
+    }
+    const lum1 = relativeLuminance(rgb1);
+    const lum2 = relativeLuminance(rgb2);
+    const contrast = luminanceToContrast(lum1,lum2)
+    // return parseFloat(contrast.toFixed(2));
+    return Math.floor(contrast * 100) / 100;
+}
+
+export function randomColorFromBackground(hexNum, contrastRatio){ // 3, 4.5, 7
+    const rgb = getFloatArray(hexNum); 
+    for(let i = 0; i < 3; i ++){
+        rgb[i] = gammaCorrect( rgb[i])
+    }
+    const lum = relativeLuminance(rgb);
+    return generateRandomInContrastRange(lum,contrastRatio )
+} 
+
+export function generateRandomInContrastRange(L, R, rand = Math.random) {
+    let f_min = 0, f_max = 1;
+
+    let lowerBound = (L + 0.05) / R - 0.05;
+    let upperBound = R * (L + 0.05) - 0.05;
+
+    let P1 = f_max - upperBound;
+    let P2 = lowerBound - f_min;
+    let P_total = P1 + P2;
+
+    let f;
+    if (rand() < P1 / P_total) {
+        f = upperBound + rand() * (f_max - upperBound);
+    } else {
+        f = rand() * (lowerBound - f_min);
+    }
+
+    f = Math.max(0, Math.min(1, f));
+
+    // Convert the target luminance into an approximate RGB triplet
+    let Y = f;
+    let g_lin = Y / 0.7152;
+    let g = inverseGammaCorrect(g_lin);
+
+    let r = rand();
+    let b = rand();
+
+    r = inverseGammaCorrect(r * (Y / 0.2126));
+    b = inverseGammaCorrect(b * (Y / 0.0722));
+
+    return [
+        Math.max(0, Math.min(1, r)), 
+        Math.max(0, Math.min(1, g)), 
+        Math.max(0, Math.min(1, b))
+    ];
 }
 
 
