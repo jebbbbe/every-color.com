@@ -14,6 +14,7 @@ const defaultColorFormat = colorFormats.hexidecimalString
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash,defaultColorFormat)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
+const mainElem = document.getElementById(mainClass)
 window.world = {
     camera:camera,
     scene:scene,
@@ -63,7 +64,10 @@ function mouseWheel(e){
 }
 
 
-function scrollbarMouseDown(e){
+function scrollbarMouseDown(e, skip = undefined){
+    if(e.pointerType == skip){ // skip if mouse on mainElem
+        return
+    }
     scrollbar.handleMouseDown(e)
     document.addEventListener("pointermove", scrollbarMouseMove);
     document.addEventListener("pointerup", scrollbarMouseUp);
@@ -132,9 +136,10 @@ function resetWheelEvent(){
 
 // Event listeners
 window.addEventListener("resize", resize);
-window.addEventListener('wheel', e => mouseWheel(e))
+window.addEventListener('wheel', mouseWheel)
 scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
+mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse"));
 // scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
 window.addEventListener('keydown', e => {
     let pos = undefined
