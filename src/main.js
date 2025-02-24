@@ -65,8 +65,8 @@ function mouseWheel(e){
 
 function scrollbarMouseDown(e){
     scrollbar.handleMouseDown(e)
-    document.addEventListener("mousemove", scrollbarMouseMove);
-    document.addEventListener("mouseup", scrollbarMouseUp);
+    document.addEventListener("pointermove", scrollbarMouseMove);
+    document.addEventListener("pointerup", scrollbarMouseUp);
     scrollbar.scrollbar.removeEventListener("click", barClick);//remove while doign this
     function scrollbarMouseMove(e){
         const update = scrollbar.handleMouseMove(e).toFixed(2)//handle small percentages
@@ -78,8 +78,8 @@ function scrollbarMouseDown(e){
     }
     function scrollbarMouseUp(){
         scrollbar.handleMouseUp()
-        document.removeEventListener("mousemove", scrollbarMouseMove);
-        document.removeEventListener("mouseup", scrollbarMouseUp);
+        document.removeEventListener("pointermove", scrollbarMouseMove);
+        document.removeEventListener("pointerup", scrollbarMouseUp);
         setTimeout(() => {
             scrollbar.scrollbar.addEventListener("click", barClick);
             resetWheelEvent()
@@ -134,8 +134,8 @@ function resetWheelEvent(){
 window.addEventListener("resize", resize);
 window.addEventListener('wheel', e => mouseWheel(e))
 scrollbar.scrollbar.addEventListener("click", barClick);
-scrollbar.thumb.addEventListener("mousedown", scrollbarMouseDown);
-scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
+scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
+// scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
 window.addEventListener('keydown', e => {
     let pos = undefined
     switch(e.key){
