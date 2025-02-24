@@ -133,7 +133,7 @@ window.addEventListener("resize", resize);
 window.addEventListener('wheel', e => mouseWheel(e))
 scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("mousedown", scrollbarMouseDown);
-// scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// need sto be added to the body???s
+scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
 window.addEventListener('keydown', e => {
     let pos = undefined
     switch(e.key){
