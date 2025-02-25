@@ -1,8 +1,8 @@
 :root {
-    --header-height: 50px;
+    --header-height: 90px;
     --footer-height: 0px;
     --scroll-width: 12px;
-    --label-height: 40px;
+    --label-height: 0px;
     --max-width: calc(100vw - var(--scroll-width));
     --hover-color:red;
     --focus-color:green;
@@ -24,8 +24,10 @@ header {
     /* width: 100vw; */
     width: var(--max-width);
     height: var(--header-height);
+    background:teal;
 }
  header h1{
+    margin-top: 0px;
     margin-bottom: 0px;
  }
 .title {
@@ -69,7 +71,7 @@ label {
 }
 
 .row-thing > div {
-    flex: 1; 
+    /* flex: 1;  */
     text-align: center;
     font-size: 32px;
     font-family: "Alexandria", serif;
@@ -123,13 +125,13 @@ label {
 
 /* Template */
 .spacer{
-    flex-grow: 1;
+    flex: 1;
 }
 .colName{
-    flex-grow: 1;
+    flex: 1;
 }
 .colHex{
-    flex-grow: 1;
+    flex: 1;
     text-wrap: nowrap;
 }
 
@@ -231,6 +233,6 @@ label {
 /* MOBILE */
 @media only screen and (max-width: 600px) {
     .spacer{
-        flex-grow: 0; /*meh*/
+        flex: 0; /*meh*/
     }
 }
