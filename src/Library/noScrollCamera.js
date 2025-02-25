@@ -17,20 +17,20 @@ export class noScrollCamera{
         // const parent = document.getElementById(this.class)
         const templateElement = document.querySelector("." + this.rowClass)
         this.template = templateElement.cloneNode(true)
-        this.templateStyle = getComputedStyle(templateElement);
-        this.template.style.cssText = this.templateStyle.cssText; 
+        // this.templateStyle = getComputedStyle(templateElement);
+        // this.template.style.cssText = this.templateStyle.cssText; 
         // console.log(this.templateStyle.cssText)
         // this.template.style.display = "flex"
         // templateElement.style.display = "none"
-        console.log(templateElement)
-        templateElement.innerHTML = ""
+        // console.log(templateElement)
+        // hide templateElement
 
-        // console.log("template")
-        // console.log(this.template)
+        document.documentElement.style.setProperty('--label-height', '0px');
+        templateElement.innerHTML = ""
     }
     getTemplate(){
         const newNode = this.template.cloneNode(true)
-        newNode.style.cssText = this.templateStyle.cssText; 
+        // newNode.style.cssText = this.templateStyle.cssText; 
         return newNode
     }
     updateHeight(){
