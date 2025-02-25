@@ -137,7 +137,18 @@ function resetWheelEvent(){
     window.removeEventListener('wheel', mouseWheel);
     window.addEventListener('wheel', mouseWheel);
 }
-
+function copyOnPointerUp(e){
+    let target = e.target.closest(".colHex"); 
+    if (target) {
+        const text = target.innerText;
+        navigator.clipboard.writeText(text).then(() => {});
+    }
+    // remove focus from elem to remove color
+    const focusedElement = document.activeElement;
+    if (focusedElement) {
+        focusedElement.blur();
+    }
+}
 // Event listeners
 window.addEventListener("resize", resize);
 window.addEventListener('wheel', mouseWheel)
@@ -145,6 +156,9 @@ scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
 // mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse")); // match wheel event instead
 // scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
+mainElem.addEventListener("pointerup", copyOnPointerUp)
+
+
 window.addEventListener('keydown', e => {
     let pos = undefined
     switch(e.key){
