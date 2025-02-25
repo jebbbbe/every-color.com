@@ -19,8 +19,11 @@ export class noScrollCamera{
         this.template = templateElement.cloneNode(true)
         this.templateStyle = getComputedStyle(templateElement);
         this.template.style.cssText = this.templateStyle.cssText; 
-        console.log(this.templateStyle.cssText)
+        // console.log(this.templateStyle.cssText)
         // this.template.style.display = "flex"
+        // templateElement.style.display = "none"
+        console.log(templateElement)
+        templateElement.innerHTML = ""
 
         // console.log("template")
         // console.log(this.template)
