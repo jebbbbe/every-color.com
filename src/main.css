@@ -74,6 +74,7 @@ label {
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
+    text-align: left;
 }
 
 .row-thing:hover{
