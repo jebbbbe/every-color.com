@@ -2,7 +2,7 @@
     --header-height: 50px;
     --footer-height: 0px;
     --scroll-width: 12px;
-    --label-height: 19px;
+    --label-height: 40px;
     --max-width: calc(100vw - var(--scroll-width));
 }
 
@@ -24,7 +24,11 @@ header {
     height: var(--header-height);
 }
 .title {
-    font-size: 20px;
+    font-family: "Alexandria", serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 42px;
     padding-left: 40px;
     /* padding-top: 10px; */
 }
@@ -51,7 +55,7 @@ label {
 .row-thing {
     width: 100%;
     background-color: white;
-    min-height: 19px;
+    min-height: 40px;
 }
 
 .row-box {
@@ -64,6 +68,19 @@ label {
 .row-thing > div {
     flex: 1; 
     text-align: center;
+    font-size: 32px;
+
+    font-family: "Alexandria", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.row-thing:hover{
+    color:red !important;
+}
+.row-thing:focus{
+    color:green !important;
 }
 
 .custom-scrollbar {

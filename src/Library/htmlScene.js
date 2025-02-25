@@ -98,11 +98,11 @@ export class htmlScene {
                 colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
             }
 
-            element.querySelector(".index").innerHTML = decIndex
-            element.querySelector(".hexNum").innerHTML = hexIndex;
+            // element.querySelector(".index").innerHTML = decIndex
+            // element.querySelector(".hexNum").innerHTML = hexIndex;
             element.querySelector(".colName").innerHTML = colorName;
             element.querySelector(".colHex").innerHTML = colOverwrite ?? colorStringForText;
-            element.querySelector(".rehash").innerHTML = remappedHex;
+            // element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
             element.style.color = getOppositeColor(newColor);
         }

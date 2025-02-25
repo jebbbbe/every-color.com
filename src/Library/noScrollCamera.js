@@ -14,13 +14,21 @@ export class noScrollCamera{
         this.updatePosition()
     }
     setTemplate(){
-        const parent = document.getElementById(this.class)
-        this.template = document.querySelector("." + this.rowClass).cloneNode(true)
+        // const parent = document.getElementById(this.class)
+        const templateElement = document.querySelector("." + this.rowClass)
+        this.template = templateElement.cloneNode(true)
+        this.templateStyle = getComputedStyle(templateElement);
+        this.template.style.cssText = this.templateStyle.cssText; 
+        console.log(this.templateStyle.cssText)
+        // this.template.style.display = "flex"
+
         // console.log("template")
         // console.log(this.template)
     }
     getTemplate(){
-        return this.template.cloneNode(true)
+        const newNode = this.template.cloneNode(true)
+        newNode.style.cssText = this.templateStyle.cssText; 
+        return newNode
     }
     updateHeight(){
         const elem = document.getElementById( this.class )

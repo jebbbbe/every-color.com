@@ -143,7 +143,7 @@ window.addEventListener("resize", resize);
 window.addEventListener('wheel', mouseWheel)
 scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
-mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse"));
+// mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse")); // match wheel event instead
 // scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
 window.addEventListener('keydown', e => {
     let pos = undefined
