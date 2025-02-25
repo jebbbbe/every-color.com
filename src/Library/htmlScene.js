@@ -105,6 +105,8 @@ export class htmlScene {
             // element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
             element.style.color = getOppositeColor(newColor);
+            element.style.setProperty('--hover-color', getRandomHexColor());
+            element.style.setProperty('--focus-color', getRandomHexColor());
         }
     }
 }
@@ -117,6 +119,9 @@ function hexidecimalToString(hexa){
 
 function randomHexColor() {
     return Math.floor(Math.random() * 0x1000000);
+}
+function getRandomHexColor() {
+    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
 }
 
 
