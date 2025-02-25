@@ -2,7 +2,7 @@
     --header-height: 90px;
     --footer-height: 0px;
     --scroll-width: 12px;
-    --label-height: 0px;
+    --label-height: 40px;
     --vw:100vw;
     --vh:100vh;
     --max-width: calc(100vw - var(--scroll-width));
