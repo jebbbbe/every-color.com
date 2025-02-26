@@ -325,7 +325,7 @@ label {
         padding-left: 0px;
     }
     .spacer{
-        max-width: 10px;
+        max-width: 15px;
     }
     .spacer-between{
         min-width: 15px;
@@ -346,17 +346,17 @@ label {
 @media only screen and (max-width: 600px) {
     :root{
         --title-height:42px;
-        --row-height:25px;
-        --row-font-size: 18px;
-        --row-cell-width: 250px;
+        /* --row-height:25px; */
+        /* --row-font-size: 18px; */
+        /* --row-cell-width: 250px; */
     }
     .title{
         font-size: 30px;
         padding-left: 0px;
     }
     .spacer{
-        max-width: 5px;
-        min-width: 5px;
+        /* max-width: 5px; */
+        /* min-width: 5px; */
     }
     .spacer-between{
         min-width: 15px;
@@ -369,41 +369,43 @@ label {
         width: 0px;
         min-width: unset;
         display:none;
+        /* min-width: 250px; */
+
     }
     .colHex{
-        min-width: 250px;
+        /* min-width: 250px; */
     }
 }
 
 @media only screen and (max-width: 530px) {
     :root{
-        --row-height:27px;
-        --row-font-size: 15px;
-        --row-cell-width: 210px;
+        /* --row-height:27px; */
+        /* --row-font-size: 15px; */
+        /* --row-cell-width: 210px; */
     }
-    .spacer-between{
+    /* .spacer-between{
         min-width: 10px;
-    }
+    } */
 
-    .row-thing > div {
+    /* .row-thing > div {
         font-size: 15px;
     }
     .colHex{
         min-width: 210px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 450px) {
     :root{
-        --row-height:27px;
+        /* --row-height:27px;
         --row-font-size: 14px;
-        --row-cell-width: 200px;
+        --row-cell-width: 200px; */
     }
-    .spacer-between{
+    /* .spacer-between{
         min-width: 5px;
-    }
+    } */
 
-    .row-thing > div {
+    /* .row-thing > div {
         font-size: 14px;
     }
     .colName{
@@ -411,7 +413,7 @@ label {
     }
     .colHex{
         min-width: 200px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 400px) {
