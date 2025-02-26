@@ -254,9 +254,16 @@ label {
 
 
 /* MOBILE */
-@media only screen and (max-width: 600px) {
-    .spacer{
-        flex: 0; /*meh*/
+@supports(height: 100dvh) {
+    :root {
+        --vh:100dvh;
+        --vw:100dvw;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .row-thing .spacer:first-of-type {
+        flex: 0;
     }
 }
 
@@ -268,6 +275,7 @@ label {
         flex-direction: column;
     }
     .title{
+        font-size: 38px;
         padding-left: 0px;
     }
     .spacer{
@@ -276,18 +284,33 @@ label {
 
 }
 
-@media only screen and (max-width: 1200px) {
-    .row-thing .spacer:first-of-type {
-        flex: 0;
+@media only screen and (max-width: 600px) {
+    :root{
+        --title-height:42px;
+    }
+    .title{
+        font-size: 30px;
+        padding-left: 0px;
+    }
+    .spacer{
+        flex: 0; /*meh*/
     }
 }
 
-@supports(height: 100dvh) {
-    :root {
-        --vh:100dvh;
-        --vw:100dvw;
+@media only screen and (max-width: 400px) {
+    :root{
+        --title-height:38px;
     }
+    .title{
+        font-size: 28px;
+        padding-left: 0px;
+    }
+
 }
+
+
+
+
 
 
 
