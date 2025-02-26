@@ -338,6 +338,7 @@ label {
         min-width: 275px;
     }
     .colHex{
+        text-align: right !important;
         min-width: 275px;
     }
 }
@@ -421,6 +422,10 @@ label {
     .title{
         font-size: 28px;
         padding-left: 0px;
+    }
+    .colName{
+        /* min-width: unset; */
+        min-width: 200px;
     }
 
 }
