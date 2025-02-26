@@ -7,9 +7,9 @@
     --title-height:60px;
     --icon-tray-height:50px;
 
-    --max-width: calc(100vw - var(--scroll-width));
     --vw:100vw;
     --vh:100vh;
+    --max-width: calc(var(--vw) - var(--scroll-width));
 
     --min-width:300px;
 
@@ -33,12 +33,12 @@ header {
     width: var(--max-width);
     height: var(--header-height);
 }
- header h1{
+header h1{
     white-space: nowrap;
     margin-top: 4px;
     height: calc(var(--title-height) - 4px);
     margin-bottom: 0px;
- }
+}
 .title {
     font-family: "Alexandria", serif;
     font-optical-sizing: auto;
@@ -65,11 +65,11 @@ label {
 /*Rows*/
 #row-holder {
     min-width: var(--min-width);
-    width: 100%;
+    width: var(--max-width);
     height: calc(var(--vh) - var(--header-height) - var(--footer-height) - var(--label-height));
 }
 .row-thing {
-    width: 100%;
+    width: var(--max-width);
     background-color: white;
     min-height: 40px;
 }
