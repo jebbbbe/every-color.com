@@ -213,7 +213,7 @@ function onPointerDown(e) {
         lastY = currentY;
 
         velocityY = deltaY;
-        mouseWheel({ wheelDeltaY: -deltaY });
+        mouseWheel({ wheelDeltaY: deltaY });
     }
     function onPointerUp(e) {
         if (e.pointerId !== activePointerId) return;
@@ -227,7 +227,7 @@ function onPointerDown(e) {
     function applyMomentum() {
         if (Math.abs(velocityY) < 0.1) return;
 
-        mouseWheel({ wheelDeltaY: -velocityY });
+        mouseWheel({ wheelDeltaY: velocityY });
         velocityY *= friction;
         momentumFrame = requestAnimationFrame(applyMomentum);
     }
