@@ -8,6 +8,7 @@ const formatMap = { // matches colorFormats from constants
     "HSL":hexNumToHsl,
     "HSV":hexNumToHsv,
     "HSB":hexNumToHsb,
+    "Index":hexNumToIndex,
 }
 
 export function selectFormat(format = "Hexidecimal Number"){
@@ -43,6 +44,9 @@ export function hexNumToHexNumString(hexNum){
 }   
 export function hexNumToHexString(hexNum){
     return "#" + hexNum.toString(16).padStart(6, "0");
+}
+export function hexNumToIndex(hexNum){
+    return hexNum
 }
 export function hexNumToRgbString(hexNum){
     const rgb = getIntArray(hexNum)

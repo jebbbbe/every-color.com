@@ -35,7 +35,7 @@ export const colorFormats = {
     "hsl":"HSL",                              //hsl(14, 100%, 60%)
     "hsv":"HSV",                              //hsv(14, 80%, 100%)
     "hsb":"HSB",                              //hsb(14, 80%, 100%) // same format as above
-
+    "index":"Index",
     // more strange ones: 
     // CIEXYZ
     // CIELAB (Lab)
