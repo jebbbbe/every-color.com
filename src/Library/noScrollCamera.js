@@ -51,7 +51,7 @@ export class noScrollCamera{
         this.updateRowSize()
         this.updateRowCount()
 
-        this.rowCount = Math.floor( this.height/ this.rowSize -0.5) //  0.5 or higher if there is a footer, if no footer can be set to 0 for infinite looking scroll. woulkd nee to add padding to last colro tho
+        this.rowCount = Math.floor( this.height/ this.rowSize -0) //  0.5 or higher if there is a footer, if no footer can be set to 0 for infinite looking scroll. woulkd nee to add padding to last colro tho
         // console.log("rowCount")
         // console.log(this.rowCount)
         // console.log(this.height)
