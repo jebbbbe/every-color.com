@@ -25,11 +25,11 @@ export function getIntArray(hexNum){
     return [r, g, b];
 }
 
-export function getFloatArray(hexNum, p=6){
+export function getFloatArray(hexNum, p = 3){
     const array = getIntArray(hexNum)
-    array[0] =  parseFloat((array[0]/255).toFixed(p))
-    array[1] =  parseFloat((array[1]/255).toFixed(p))
-    array[2] =  parseFloat((array[2]/255).toFixed(p))
+    array[0] =  (array[0]/255).toFixed(p)
+    array[1] =  (array[1]/255).toFixed(p)
+    array[2] =  (array[2]/255).toFixed(p)
     return array
 }
 export function forceDecimalFloat(rgb){
@@ -52,12 +52,12 @@ export function hexNumToRgbInt(hexNum){
     const rgb = getIntArray(hexNum)
     return`[${rgb[0]}, ${rgb[1]}, ${rgb[2]}]`
 }
-export function hexNumToRgbfloat(hexNum, p = 6){
+export function hexNumToRgbfloat(hexNum, p = 3){
     const rgb = getFloatArray(hexNum, p)
     forceDecimalFloat(rgb)
     return`[${rgb[0]}, ${rgb[1]}, ${rgb[2]}]`
 }
-export function hexNumToRgbVector(hexNum, p = 6){
+export function hexNumToRgbVector(hexNum, p = 3){
     const rgb = getFloatArray(hexNum, p)
     forceDecimalFloat(rgb)
     return`vec3(${rgb[0]}, ${rgb[1]}, ${rgb[2]});`
@@ -65,9 +65,9 @@ export function hexNumToRgbVector(hexNum, p = 6){
 }
 export function hexNumToHsl(hexNum){
         const rgb = getFloatArray(hexNum)
-        let r = rgb[0];
-        let g = rgb[1];
-        let b = rgb[2];
+        let r = parseFloat(rgb[0]);
+        let g = parseFloat(rgb[1]);
+        let b = parseFloat(rgb[2]);
     
         // Get min, max, and lightness
         let max = Math.max(r, g, b);
@@ -100,9 +100,9 @@ export function hexNumToHsl(hexNum){
 export function hexNumToHsv(hexNum){
         // Ensure hex is a valid number and convert to a string
         const rgb = getFloatArray(hexNum)
-        let r = rgb[0];
-        let g = rgb[1];
-        let b = rgb[2];
+        let r = parseFloat(rgb[0]);
+        let g = parseFloat(rgb[1]);
+        let b = parseFloat(rgb[2]);
     
         // Get max, min, and difference
         let max = Math.max(r, g, b);
