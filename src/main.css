@@ -1,13 +1,20 @@
 :root {
-    --header-height: 90px;
+    --header-height: 60px;
     --footer-height: 0px;
     --scroll-width: 12px;
     --label-height: 40px;
+
+    --title-height:60px;
+    --icon-tray-height:50px;
+
+    --max-width: calc(100vw - var(--scroll-width));
     --vw:100vw;
     --vh:100vh;
-    --max-width: calc(100vw - var(--scroll-width));
-    --hover-color:red;
-    --focus-color:green;
+
+    --min-width:300px;
+
+    --hover-color:red;   /*tempValue for js*/
+    --focus-color:green; /*tempValue for js*/
 }
 
 html,
@@ -17,19 +24,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* display: block; */
-    /* width: 100vw; */
     width: var(--max-width);
     height: var(--vh);
 }
 header {
     /* width: 100vw; */
+    min-width: var(--min-width);
     width: var(--max-width);
     height: var(--header-height);
-    background:teal;
 }
  header h1{
-    margin-top: 0px;
+    white-space: nowrap;
+    margin-top: 4px;
+    height: calc(var(--title-height) - 4px);
     margin-bottom: 0px;
  }
 .title {
@@ -42,36 +49,36 @@ header {
     /* padding-top: 10px; */
 }
 footer {
+    min-width: var(--min-width);
     height: var(--footer-height);
     background-color: aquamarine;
 }
+/*Labels*/
 label {
     font-size: 15px;
 }
-
 .label-height {
     height: var(--label-height);
     /* display: none; */
 }
 
+/*Rows*/
 #row-holder {
+    min-width: var(--min-width);
     width: 100%;
     height: calc(var(--vh) - var(--header-height) - var(--footer-height) - var(--label-height));
 }
-
 .row-thing {
     width: 100%;
     background-color: white;
     min-height: 40px;
 }
-
 .row-box {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-
 .row-thing > div {
     /* flex: 1;  */
     text-align: center;
@@ -84,7 +91,6 @@ label {
     -webkit-user-select: none; /* Safari */
     user-select: none;
 }
-
 .row-thing:hover{
     color:var(--hover-color) !important;
 }
@@ -92,6 +98,7 @@ label {
     color: var(--focus-color) !important;
 }
 
+/*Scroll Bar */
 .custom-scrollbar {
     position: fixed;
     top: 0;
@@ -135,10 +142,15 @@ label {
 }
 .colName{
     flex: 1;
+    white-space: nowrap;
+}
+.spacer-between{
+    flex:0.15;
+    min-width: 25px;
 }
 .colHex{
     flex: 1;
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 
@@ -148,6 +160,7 @@ label {
     display: flex;
     flex-direction:row;
     gap:10px;
+    /* height: var(--icon-tray-height); */
 }
 .icon-tray img{
     /* width: 25px; */
@@ -157,6 +170,10 @@ label {
     cursor: pointer;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.icon-tray img:hover{
+    fill: red;
+    background-color: red;
 }
 .settings-btn {
     background: none;
@@ -169,7 +186,7 @@ label {
 }
 .settings-btn:hover img {
     transform: rotate(30deg);
-    filter: hue-rotate(200deg);
+    /* filter: hue-rotate(200deg); */
 }
 
 /* Modal */
@@ -243,9 +260,63 @@ label {
     }
 }
 
+@media only screen and (max-width: 750px) {
+    :root{
+        --header-height: calc(var(--title-height) + var(--icon-tray-height));
+    }
+    header .row-box{
+        flex-direction: column;
+    }
+    .title{
+        padding-left: 0px;
+    }
+    .spacer{
+        flex: 0;
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .row-thing .spacer:first-of-type {
+        flex: 0;
+    }
+}
+
 @supports(height: 100dvh) {
     :root {
         --vh:100dvh;
         --vw:100dvw;
     }
+}
+
+
+
+
+.test-container {
+    height:100px;
+    background: teal;
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px;  */
+
+    /* padding-left: 40px;     */
+    /* padding-right: 20px;     */
+}
+.test-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal content columns */
+    column-gap: 15px;               /* Fixed gap between the two content columns */
+    align-items: center;  
+}
+.colorName{
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: left;
+}
+.colorHex{
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: left;
 }
