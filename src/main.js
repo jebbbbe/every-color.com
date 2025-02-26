@@ -158,9 +158,10 @@ window.addEventListener("resize", resize);
 window.addEventListener('wheel', mouseWheel)
 scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
+mainElem.addEventListener("pointerdown", onPointerDown); // match wheel event instead
 // mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse")); // match wheel event instead
+mainElem.addEventListener("pointerdown", copyOnPointerUp)
 // scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
-mainElem.addEventListener("pointerup", copyOnPointerUp)
 fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 
 window.addEventListener('keydown', e => {
@@ -190,7 +191,53 @@ window.addEventListener('keydown', e => {
     syncSetPosition(pos)
 })  
 
+function onPointerDown(e) {
+    console.log(e.pointerType)
+    // if (e.pointerType == "mouse") return; // not on desktop
+    let lastY = e.clientY;
+    let velocityY = 0;
+    let activePointerId = e.pointerId;
+    let momentumFrame;
+    const friction = 0.95;
 
+    cancelMomentum(); // Stop existing momentum on new touch
+    document.addEventListener("pointermove", onPointerMove);
+    document.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointercancel", onPointerUp);
+
+    function onPointerMove(e) {
+        if (e.pointerId !== activePointerId) return;
+
+        let currentY = e.clientY;
+        let deltaY = currentY - lastY;
+        lastY = currentY;
+
+        velocityY = deltaY;
+        mouseWheel({ wheelDeltaY: -deltaY });
+    }
+    function onPointerUp(e) {
+        if (e.pointerId !== activePointerId) return;
+
+        document.removeEventListener("pointermove", onPointerMove);
+        document.removeEventListener("pointerup", onPointerUp);
+        document.removeEventListener("pointercancel", onPointerUp);
+
+        applyMomentum();
+    }
+    function applyMomentum() {
+        if (Math.abs(velocityY) < 0.1) return;
+
+        mouseWheel({ wheelDeltaY: -velocityY });
+        velocityY *= friction;
+        momentumFrame = requestAnimationFrame(applyMomentum);
+    }
+    function cancelMomentum() {
+        if (momentumFrame) {
+            cancelAnimationFrame(momentumFrame);
+            momentumFrame = null;
+        }
+    }
+}
 
 // SETTINGS
 
