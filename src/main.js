@@ -27,7 +27,8 @@ const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, d
 const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 setupModalEventListeners()
-removeLoader()
+
+
 
 
 //setupfunctions
@@ -211,3 +212,6 @@ function saveSettings() {
     alert('Settings Saved:\nUsername: ' + username + '\nTheme: ' + theme);
     closeModal();
 }
+
+
+removeLoader() // remove after all setup is done
