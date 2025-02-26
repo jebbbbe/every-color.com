@@ -71,6 +71,10 @@ export class htmlScene {
         this.hexNumToFormated = selectFormat(this.colorFormat)
     }
     updateHtmlCollection(offset = 0) {
+        // if(this.htmlArray.length + offset > constants.absoluteMax+1){
+        //     console.error("gonna go out of bounds")
+        //     return false;
+        // }
         for (let i = 0; i < this.htmlArray.length; i++) {
             const element = this.htmlArray[i];
             const index = offset + i;

@@ -17,13 +17,8 @@ export class noScrollCamera{
         // const parent = document.getElementById(this.class)
         const templateElement = document.querySelector("." + this.rowClass)
         this.template = templateElement.cloneNode(true)
-        // this.templateStyle = getComputedStyle(templateElement);
-        // this.template.style.cssText = this.templateStyle.cssText; 
-        // console.log(this.templateStyle.cssText)
-        // this.template.style.display = "flex"
-        // templateElement.style.display = "none"
-        // console.log(templateElement)
-        // hide templateElement
+        this.template.querySelector(".colName").innerHTML = "";
+        this.template.querySelector(".colHex").innerHTML = "";
 
         document.documentElement.style.setProperty('--label-height', '0px');
         templateElement.innerHTML = ""
@@ -61,6 +56,7 @@ export class noScrollCamera{
         }else if (this.rowCount < currCount){
             this.removeRows(currCount-this.rowCount)
         }
+        this.sanitizePosition()
     }
     addRows(count){
         const elem = document.getElementById( this.class )
