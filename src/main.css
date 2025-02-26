@@ -15,6 +15,10 @@
 
     --hover-color:red;   /*tempValue for js*/
     --focus-color:green; /*tempValue for js*/
+
+    --row-height:40px;
+    --row-font-size:32px;
+    --row-cell-width:425px;
 }
 
 html,
@@ -71,7 +75,7 @@ label {
 .row-thing {
     width: var(--max-width);
     background-color: white;
-    min-height: 40px;
+    min-height: var(--row-height);
 }
 .row-box {
     display: flex;
@@ -82,7 +86,7 @@ label {
 .row-thing > div {
     /* flex: 1;  */
     text-align: center;
-    font-size: 32px;
+    font-size: var(--row-font-size);
     font-family: "Alexandria", serif;
     font-optical-sizing: auto;
     font-weight: 600;
@@ -141,6 +145,7 @@ label {
     flex: 1;
 }
 .colName{
+    min-width: var(--row-cell-width);
     flex: 1;
     white-space: nowrap;
 }
@@ -149,6 +154,7 @@ label {
     min-width: 25px;
 }
 .colHex{
+    min-width: var(--row-cell-width);
     flex: 1;
     white-space: nowrap;
 }
@@ -262,14 +268,54 @@ label {
 }
 
 @media only screen and (max-width: 1200px) {
+    :root{
+        --row-font-size: 28px;
+        --row-cell-width: 380px;
+    }
     .row-thing .spacer:first-of-type {
         flex: 0;
+    }
+    .spacer-between{
+        flex:0.15;
+        min-width: 25px;
+    }
+
+    .row-thing > div {
+        font-size: 28px;
+    }
+    .colName{
+        min-width: 380px
+    }
+    .colHex{
+        min-width: 380px
+    }
+}
+
+@media only screen and (max-width: 875px) {
+    :root{
+        --row-height:35px;
+        --row-font-size: 24px;
+        --row-cell-width: 312px;
+    }
+
+    .row-thing > div {
+        font-size: 24px;
+    }
+    .colName{
+        min-width: 312px
+    }
+    .colHex{
+        min-width: 312px
     }
 }
 
 @media only screen and (max-width: 750px) {
     :root{
         --header-height: calc(var(--title-height) + var(--icon-tray-height));
+
+        --row-height:30px;
+        --row-font-size: 20px;
+        --row-cell-width: 275px;
     }
     header .row-box{
         flex-direction: column;
@@ -279,21 +325,92 @@ label {
         padding-left: 0px;
     }
     .spacer{
-        flex: 0;
+        max-width: 10px;
+    }
+    .spacer-between{
+        min-width: 15px;
     }
 
+    .row-thing > div {
+        font-size: 20px;
+    }
+    .colName{
+        min-width: 275px;
+    }
+    .colHex{
+        min-width: 275px;
+    }
 }
 
 @media only screen and (max-width: 600px) {
     :root{
         --title-height:42px;
+        --row-height:25px;
+        --row-font-size: 18px;
+        --row-cell-width: 250px;
     }
     .title{
         font-size: 30px;
         padding-left: 0px;
     }
     .spacer{
-        flex: 0; /*meh*/
+        max-width: 5px;
+        min-width: 5px;
+    }
+    .spacer-between{
+        min-width: 15px;
+    }
+
+    .row-thing > div {
+        font-size: 18px;
+    }
+    .colName{
+        min-width: 250px;
+    }
+    .colHex{
+        min-width: 250px;
+    }
+}
+
+@media only screen and (max-width: 530px) {
+    :root{
+        --row-height:27px;
+        --row-font-size: 15px;
+        --row-cell-width: 210px;
+    }
+    .spacer-between{
+        min-width: 10px;
+    }
+
+    .row-thing > div {
+        font-size: 15px;
+    }
+    .colName{
+        min-width: 210px;
+    }
+    .colHex{
+        min-width: 210px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    :root{
+        --row-height:27px;
+        --row-font-size: 14px;
+        --row-cell-width: 200px;
+    }
+    .spacer-between{
+        min-width: 5px;
+    }
+
+    .row-thing > div {
+        font-size: 14px;
+    }
+    .colName{
+        min-width: 200px;
+    }
+    .colHex{
+        min-width: 200px;
     }
 }
 
@@ -322,24 +439,35 @@ label {
     flex-direction: column;
     /* gap: 20px;  */
 
-    /* padding-left: 40px;     */
+    padding-left: 40vw;    
     /* padding-right: 20px;     */
 }
 .test-row {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal content columns */
-    column-gap: 15px;               /* Fixed gap between the two content columns */
+    grid-template-columns: auto 1fr; /* Two equal content columns */
+    column-gap: 100px;               /* Fixed gap between the two content columns */
     align-items: center;  
+}
+.test-row > div{
+    text-align: center;
+    font-size: 32px;
+    font-family: "Alexandria", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-align: left;
+    -webkit-user-select: none; /* Safari */
+    user-select: none;
 }
 .colorName{
     white-space: nowrap; 
-    overflow: hidden; 
+    overflow: hidden;  
     text-overflow: ellipsis; 
     text-align: left;
 }
 .colorHex{
     white-space: nowrap; 
-    overflow: hidden; 
+    overflow: hidden;  
     text-overflow: ellipsis; 
     text-align: left;
 }
