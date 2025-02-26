@@ -69,10 +69,10 @@ function mouseWheel(e){
 
 
 function scrollbarMouseDown(e, skip = undefined){
-    console.log("")
-    console.log(skip)
-    console.log(e.pointerType)
-    console.log(e.clientY)
+    // console.log("")
+    // console.log(skip)
+    // console.log(e.pointerType)
+    // console.log(e.clientY)
     if(e.pointerType == skip){ // skip if mouse on mainElem
         return
     }
