@@ -4,17 +4,20 @@ import { htmlScene } from "/Library/htmlScene.js"
 import { constants,hashTypes,colorBlindTypes,colorFormats } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
+import { toggleFullscreen } from "/Library/dom/fullscreen.js"
 
 const mainClass = "row-holder"
 const rowClass = "row-thing"
 const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
-const defaultColorFormat = colorFormats.hexidecimalString
+const defaultColorFormat = colorFormats.rgbVector
+//colorFormats.hexidecimalString
+const mainElem = document.getElementById(mainClass)
+const fullscreen = document.getElementById("fullscreen-button")
 const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
 const scene = new htmlScene(mainClass,defaultHash,defaultColorFormat)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
-const mainElem = document.getElementById(mainClass)
 window.world = {
     camera:camera,
     scene:scene,
@@ -158,7 +161,7 @@ scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
 // mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse")); // match wheel event instead
 // scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
 mainElem.addEventListener("pointerup", copyOnPointerUp)
-
+fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 
 window.addEventListener('keydown', e => {
     let pos = undefined
