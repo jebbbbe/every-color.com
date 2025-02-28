@@ -1,10 +1,7 @@
 export const hexToColorNames = new Map([
-    ["#000001", "Light Golden Rod Yellow"],// testing
-    ["#000003", "Light Golden Rod Yellow"],// testing
-    ["#000005", "Light Golden Rod Yellow"],// testing
-
-
-
+    // ["#000001", "Light Golden Rod Yellow"],// testing
+    // ["#000003", "Light Golden Rod Yellow"],// testing
+    // ["#000005", "Light Golden Rod Yellow"],// testing
     ["#f0f8ff", "Alice Blue"],
     ["#faebd7", "Antique White"],
     ["#00ffff", "Aqua"],
