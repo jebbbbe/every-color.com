@@ -19,6 +19,9 @@
     --row-height:40px;
     --row-font-size:32px;
     --row-cell-width:425px;
+
+    /* --font-family:"Alexandria", serif; */
+    --font-family:"DM+Mono";
 }
 
 html,
@@ -44,7 +47,7 @@ header h1{
     margin-bottom: 0px;
 }
 .title {
-    font-family: "Alexandria", serif;
+    font-family: var(--font-family);;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
@@ -87,7 +90,7 @@ label {
     /* flex: 1;  */
     text-align: center;
     font-size: var(--row-font-size);
-    font-family: "Alexandria", serif;
+    font-family: var(--font-family);;
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
@@ -96,6 +99,7 @@ label {
     user-select: none;
 }
 .row-thing:hover{
+    /* font-style: italic; */
     color:var(--hover-color) !important;
 }
 .row-thing:focus-within {
@@ -457,7 +461,7 @@ label {
 .test-row > div{
     text-align: center;
     font-size: 32px;
-    font-family: "Alexandria", serif;
+    font-family: var(--font-family);;
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
