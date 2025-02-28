@@ -66,11 +66,19 @@ export class noScrollCamera{
     }
     removeRows(count){
         const elem = document.getElementById( this.class )
-        for(let i = 0; i<count; i++){
-            if (elem.lastChild) { // Ensure there is a last child to remove
-                elem.removeChild(elem.lastChild); // Remove the last child
-            }else{
-                break;
+        // for(let i = 0; i<count; i++){
+        //     if (elem.lastChild) { // Ensure there is a last child to remove
+        //         elem.removeChild(elem.lastChild); // Remove the last child
+        //     }else{
+        //         break;
+        //     }
+        // }
+        for (let i = 0; i < count; i++) {
+            let lastNode = elem.lastChild;
+            if (lastNode) {
+                lastNode.replaceWith(lastNode.cloneNode(false)); // Removes all listeners
+                lastNode.remove();  // Remove from DOM
+                lastNode = null;     // Remove reference
             }
         }
     }

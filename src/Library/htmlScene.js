@@ -109,8 +109,10 @@ export class htmlScene {
             // element.querySelector(".rehash").innerHTML = remappedHex;
             element.style.backgroundColor = newColor;
             element.style.color = getOppositeColor(newColor);
-            element.style.setProperty('--hover-color', getRandomHexColor());
-            element.style.setProperty('--focus-color', getRandomHexColor());
+            
+            // hover -- added 6 ms to css reculation in animation
+            // element.style.setProperty('--hover-color', getRandomHexColor());
+            // element.style.setProperty('--focus-color', getRandomHexColor());
         }
 
         // this.holder.style.background = "red"
