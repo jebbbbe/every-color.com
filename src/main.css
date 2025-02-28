@@ -20,9 +20,9 @@
     --row-font-size:32px;
     --row-cell-width:425px;
 
-    /* --font-family:"Alexandria", serif; */
+    --font-family:"Alexandria", serif;
     /* --font-family:"DM+Mono"; */
-    --font-family:"Azeret+Mono";
+    /* --font-family:"Azeret+Mono"; */
 }
 
 html,
@@ -250,11 +250,11 @@ label {
     font-family: var(--font-family);
 }
 .settings-form label {
-    flex-grow: 1;
+    flex: 1;
     text-align: left;
 }
 .settings-form select {
-    flex-grow: 1;
+    flex: 1.45;
 }
 .settings-toggle {
     display: flex;
@@ -263,11 +263,11 @@ label {
     align-items: center;
 }
 .settings-toggle label {
-    flex-grow: 1;
+    flex: 1;
     text-align: left;
 }
 .settings-toggle input {
-    flex-grow: 1;
+    flex: 1;
 }
 
 
