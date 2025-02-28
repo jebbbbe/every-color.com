@@ -284,10 +284,10 @@ label {
         font-size: 28px;
     }
     .colName{
-        min-width: 380px
+        min-width: 380px;
     }
     .colHex{
-        min-width: 380px
+        min-width: 380px;
     }
 }
 
@@ -302,10 +302,10 @@ label {
         font-size: 24px;
     }
     .colName{
-        min-width: 312px
+        min-width: 312px;
     }
     .colHex{
-        min-width: 312px
+        min-width: 312px;
     }
 }
 
