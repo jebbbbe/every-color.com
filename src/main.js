@@ -192,8 +192,8 @@ window.addEventListener('keydown', e => {
 })  
 
 function onPointerDown(e) {
-    console.log(e.pointerType)
-    // if (e.pointerType == "mouse") return; // not on desktop
+    // console.log(e.pointerType)
+    if (e.pointerType == "mouse") return; // not on desktop
     let lastY = e.clientY;
     let velocityY = 0;
     let activePointerId = e.pointerId;
