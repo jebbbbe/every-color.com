@@ -15,8 +15,8 @@ export class htmlScene {
     }
     setHTMLArray(cssClass) {
         this.class = cssClass;
-        const holder = document.getElementById(this.class);
-        this.htmlArray = holder.children;
+        this.holder = document.getElementById(this.class);
+        this.htmlArray = this.holder.children;
     }
     setHashFunction(newMode = undefined){
         if(newMode !== undefined){
@@ -112,6 +112,8 @@ export class htmlScene {
             element.style.setProperty('--hover-color', getRandomHexColor());
             element.style.setProperty('--focus-color', getRandomHexColor());
         }
+
+        // this.holder.style.background = "red"
     }
 }
 function getHexidecimal(decimal){
