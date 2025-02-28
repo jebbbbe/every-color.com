@@ -10,6 +10,9 @@ export function toggleFullscreen() {
             docEl.webkitRequestFullscreen();
             isFullscreen = true;
         }
+        document.documentElement.style.setProperty('--header-height', '0px');
+        document.documentElement.style.setProperty('--footer-height', '0px');
+        // document.documentElement.style.setProperty('--label-height', '0px');
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen().then(() => {
@@ -19,6 +22,9 @@ export function toggleFullscreen() {
             document.webkitExitFullscreen();
             isFullscreen = false;
         }
+        document.documentElement.style.removeProperty('--header-height');
+        document.documentElement.style.removeProperty('--footer-height');
+        // document.documentElement.style.removeProperty('--label-height');
     }
     console.log(isFullscreen)
     return isFullscreen;
