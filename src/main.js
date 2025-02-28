@@ -11,7 +11,7 @@ const rowClass = "row-thing"
 const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
-const defaultColorFormat = colorFormats.rgbVector
+const defaultColorFormat = colorFormats.hexidecimalString
 //colorFormats.hexidecimalString
 const mainElem = document.getElementById(mainClass)
 const fullscreen = document.getElementById("fullscreen-button")

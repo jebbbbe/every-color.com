@@ -288,15 +288,13 @@ label {
     }
     .row-thing .spacer:first-of-type {
         flex: 0;
+        width:0
     }
     .spacer-between{
         flex:0.15;
         min-width: 25px;
     }
 
-    .row-thing > div {
-        font-size: 28px;
-    }
     .colName{
         min-width: 380px;
     }
@@ -312,9 +310,6 @@ label {
         --row-cell-width: 312px;
     }
 
-    .row-thing > div {
-        font-size: 24px;
-    }
     .colName{
         min-width: 312px;
     }
@@ -339,21 +334,24 @@ label {
         padding-left: 0px;
     }
     .spacer{
-        max-width: 15px;
+        min-width: 15px;
+        max-width: 25px;
     }
     .spacer-between{
         min-width: 15px;
     }
 
-    .row-thing > div {
-        font-size: 20px;
-    }
+
     .colName{
-        min-width: 275px;
+        min-width: unset;
+        width: unset;
+        max-width: 275px;
     }
     .colHex{
-        text-align: right !important;
-        min-width: 275px;
+        /* text-align: right !important; */
+        min-width: unset;
+        width: unset;
+        max-width: 275px;
     }
 }
 
@@ -376,13 +374,10 @@ label {
         min-width: 15px;
     }
 
-    .row-thing > div {
-        font-size: 18px;
-    }
     .colName{
-        width: 0px;
-        min-width: unset;
-        display:none;
+        /* width: 0px; */
+        /* min-width: unset; */
+        /* display:none; */
         /* min-width: 250px; */
 
     }
@@ -401,9 +396,7 @@ label {
         min-width: 10px;
     } */
 
-    /* .row-thing > div {
-        font-size: 15px;
-    }
+    /* 
     .colHex{
         min-width: 210px;
     } */
@@ -419,9 +412,7 @@ label {
         min-width: 5px;
     } */
 
-    /* .row-thing > div {
-        font-size: 14px;
-    }
+    /* 
     .colName{
         min-width: 200px;
     }
@@ -440,7 +431,7 @@ label {
     }
     .colName{
         /* min-width: unset; */
-        min-width: 200px;
+        /* min-width: 200px; */
     }
 
 }
