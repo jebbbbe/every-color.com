@@ -69,6 +69,7 @@ function resize(){
     scene.updateHtmlCollection(camera.position)
 }
 function mouseWheel(e){
+    pausePlay()//pause anim
     camera.updatePosition(e.wheelDeltaY)
     scene.updateHtmlCollection(camera.position)
     scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
@@ -80,6 +81,7 @@ function scrollbarMouseDown(e, skip = undefined){
     // console.log(skip)
     // console.log(e.pointerType)
     // console.log(e.clientY)
+    pausePlay();
     if(e.pointerType == skip){ // skip if mouse on mainElem
         return
     }
@@ -131,6 +133,7 @@ function scrollbarTouchStart(e){
     }
 }
 function barClick(e){
+    pausePlay();//pause anim
     scrollbar.handleScrollbarClick(e)
     const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
     camera.setPosition(newPos)
@@ -166,13 +169,9 @@ window.addEventListener('wheel', mouseWheel)
 scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
 mainElem.addEventListener("pointerdown", onPointerDown); // match wheel event instead
-// mainElem.addEventListener("pointerdown", e => scrollbarMouseDown(e,"mouse")); // match wheel event instead
-mainElem.addEventListener("pointerdown", copyOnPointerUp)
-// scrollbar.thumb.addEventListener("touchstart", scrollbarTouchStart);// needs to be added to the body???
+mainElem.addEventListener("pointerdown", copyOnPointerUp) // copy contents
 fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 play.addEventListener("pointerdown", e=> {
-    // const pos = togglePlay(camera.position, camera.rowCount, syncSetPosition)
-    // syncSetPosition(pos)
     togglePlay(camera.position, camera.rowCount, syncSetPosition)
 })
 
