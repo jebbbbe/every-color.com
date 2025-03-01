@@ -182,9 +182,23 @@ label {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.icon-tray img:hover{
-    /* fill: red; */
-    /* background-color: red; */
+.icon-tray a{
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.icon-tray object{
+    pointer-events: none;
+    height: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#play-button{
+    cursor: pointer;
 }
 .settings-btn {
     background: none;
