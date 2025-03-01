@@ -5,7 +5,12 @@ import { constants,hashTypes,colorBlindTypes,colorFormats } from "/Library/const
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
 import { toggleFullscreen } from "/Library/dom/fullscreen.js"
-import { togglePlay } from "/Library/dom/playbutton.js"
+import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
+
+
+window.addEventListener("load", function() {
+
+
 
 const mainClass = "row-holder"
 const rowClass = "row-thing"
@@ -272,3 +277,4 @@ function saveSettings() {
 
 
 removeLoader() // remove after all setup is done
+});
