@@ -75,49 +75,49 @@ export class htmlScene {
         //     console.error("gonna go out of bounds")
         //     return false;
         // }
-        let element
-        for (let i = 0; i < this.htmlArray.length; i++) {
-            element = this.htmlArray[i];
-            const index = offset + i;
-            const hexIndex = "0x" + index.toString(16).padStart(6, "0");
-            const decIndex = index.toString(10).padStart(8, "0");
-            const hexNumber = getHexidecimal(index)
-            let mappedHex = this.hash(hexNumber)
-            
-            let remappedHex = ""
-            if(this.rehash){
-                remappedHex = this.rehash(mappedHex)
-                remappedHex = hexidecimalToString(remappedHex)
-            }
-            if(this.colorBlindMode !== colorBlindTypes.none){
-                // var colOverwrite = hexidecimalToString(mappedHex)
-                var colOverwrite = this.hexNumToFormated(mappedHex)
+        requestAnimationFrame(()=>{
+            let element
+            for (let i = 0; i < this.htmlArray.length; i++) {
+                element = this.htmlArray[i];
+                const index = offset + i;
+                const hexIndex = "0x" + index.toString(16).padStart(6, "0");
+                const decIndex = index.toString(10).padStart(8, "0");
+                const hexNumber = getHexidecimal(index)
+                let mappedHex = this.hash(hexNumber)
+                
+                let remappedHex = ""
+                if(this.rehash){
+                    remappedHex = this.rehash(mappedHex)
+                    remappedHex = hexidecimalToString(remappedHex)
+                }
+                if(this.colorBlindMode !== colorBlindTypes.none){
+                    // var colOverwrite = hexidecimalToString(mappedHex)
+                    var colOverwrite = this.hexNumToFormated(mappedHex)
                 var newColorOverwrite = hexidecimalToString(mappedHex);
                 mappedHex = this.colorAsist(mappedHex)
+                }
+                
+                const colorStringForText = this.hexNumToFormated(mappedHex);
+                const newColor = hexidecimalToString(mappedHex);
+                let colorName = ""
+                if( hexToColorNames.has(newColorOverwrite ?? newColor) ){
+                    colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
+                }
+                // element.querySelector(".index").innerHTML = decIndex
+                // element.querySelector(".hexNum").innerHTML = hexIndex;
+                element.querySelector(".colName").innerHTML = colorName;
+                element.querySelector(".colHex").innerHTML = colOverwrite ?? colorStringForText;
+                // element.querySelector(".rehash").innerHTML = remappedHex;
+                element.style.backgroundColor = newColor;
+                element.style.color = getOppositeColor(newColor);
+                
+                // hover -- added 6 ms to css reculation in animation
+                // element.style.setProperty('--hover-color', getRandomHexColor());
+                // element.style.setProperty('--focus-color', getRandomHexColor());
             }
-
-            const colorStringForText = this.hexNumToFormated(mappedHex);
-            const newColor = hexidecimalToString(mappedHex);
-            let colorName = ""
-            if( hexToColorNames.has(newColorOverwrite ?? newColor) ){
-                colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
-            }
-
-            // element.querySelector(".index").innerHTML = decIndex
-            // element.querySelector(".hexNum").innerHTML = hexIndex;
-            element.querySelector(".colName").innerHTML = colorName;
-            element.querySelector(".colHex").innerHTML = colOverwrite ?? colorStringForText;
-            // element.querySelector(".rehash").innerHTML = remappedHex;
-            element.style.backgroundColor = newColor;
-            element.style.color = getOppositeColor(newColor);
-            
-            // hover -- added 6 ms to css reculation in animation
-            // element.style.setProperty('--hover-color', getRandomHexColor());
-            // element.style.setProperty('--focus-color', getRandomHexColor());
-        }
-        element = null
-
-        // this.holder.style.background = "red"
+            element = null
+            // this.holder.style.background = "red"
+        })
     }
 }
 function getHexidecimal(decimal){
