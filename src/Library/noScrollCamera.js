@@ -15,30 +15,35 @@ export class noScrollCamera{
     }
     setTemplate(){
         // const parent = document.getElementById(this.class)
-        const templateElement = document.querySelector("." + this.rowClass)
+        let templateElement = document.querySelector("." + this.rowClass)
         this.template = templateElement.cloneNode(true)
         this.template.querySelector(".colName").innerHTML = "";
         this.template.querySelector(".colHex").innerHTML = "";
 
         document.documentElement.style.setProperty('--label-height', '0px');
         templateElement.innerHTML = ""
+        templateElement = null
     }
     getTemplate(){
-        const newNode = this.template.cloneNode(true)
+        // const newNode = this.template.cloneNode(true)
         // newNode.style.cssText = this.templateStyle.cssText; 
-        return newNode
+        // return newNode
+        return this.template.cloneNode(true)
     }
     updateHeight(){
-        const elem = document.getElementById( this.class )
-        this.height = elem.clientHeight
+        // const elem = document.getElementById( this.class )
+        // this.height = elem.clientHeight
+        this.height = document.getElementById( this.class ).clientHeight
     }
     updateRowSize(){
-        const elem = document.querySelector("." + this.rowClass)
-        this.rowSize = elem.clientHeight
+        // const elem = document.querySelector("." + this.rowClass)
+        // this.rowSize = elem.clientHeight
+        this.rowSize = document.querySelector("." + this.rowClass).clientHeight
     }
     updateRowCount(){
-        const elem = document.getElementById( this.class )
-        this.rowCount = elem.children.length
+        // const elem = document.getElementById( this.class )
+        // this.rowCount = elem.children.length
+        this.rowCount = document.getElementById( this.class ).children.length
     }
     resize(){
         let currCount = this.rowCount
@@ -59,13 +64,14 @@ export class noScrollCamera{
         this.sanitizePosition()
     }
     addRows(count){
-        const elem = document.getElementById( this.class )
+        let elem = document.getElementById( this.class )
         for(let i = 0; i<count; i++){
             elem.appendChild( this.getTemplate());
         }
+        elem = null
     }
     removeRows(count){
-        const elem = document.getElementById( this.class )
+        let elem = document.getElementById( this.class )
         // for(let i = 0; i<count; i++){
         //     if (elem.lastChild) { // Ensure there is a last child to remove
         //         elem.removeChild(elem.lastChild); // Remove the last child
@@ -73,14 +79,17 @@ export class noScrollCamera{
         //         break;
         //     }
         // }
+        let lastNode
         for (let i = 0; i < count; i++) {
-            let lastNode = elem.lastChild;
+            lastNode = elem.lastChild;
             if (lastNode) {
                 lastNode.replaceWith(lastNode.cloneNode(false)); // Removes all listeners
                 lastNode.remove();  // Remove from DOM
                 lastNode = null;     // Remove reference
             }
         }
+        lastNode = null
+        elem = null
     }
     updatePosition(delta = 0){
         this.position += -delta * this.scrollFactor

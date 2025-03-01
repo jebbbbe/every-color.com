@@ -75,8 +75,9 @@ export class htmlScene {
         //     console.error("gonna go out of bounds")
         //     return false;
         // }
+        let element
         for (let i = 0; i < this.htmlArray.length; i++) {
-            const element = this.htmlArray[i];
+            element = this.htmlArray[i];
             const index = offset + i;
             const hexIndex = "0x" + index.toString(16).padStart(6, "0");
             const decIndex = index.toString(10).padStart(8, "0");
@@ -114,6 +115,7 @@ export class htmlScene {
             // element.style.setProperty('--hover-color', getRandomHexColor());
             // element.style.setProperty('--focus-color', getRandomHexColor());
         }
+        element = null
 
         // this.holder.style.background = "red"
     }
