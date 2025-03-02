@@ -1,12 +1,12 @@
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
-import { constants,hashTypes,colorBlindTypes,colorFormats } from "/Library/constants.js"
+import { constants,hashTypes,colorBlindTypes,colorFormats,icons } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
 import { toggleFullscreen } from "/Library/dom/fullscreen.js"
 import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
-import {  inlineSvg,setUpIcons } from "/Library/dom/svg.js"
+import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
 
 
 window.addEventListener("load", function() {
@@ -171,8 +171,18 @@ mainElem.addEventListener("pointerdown", onPointerDown); // match wheel event in
 mainElem.addEventListener("pointerdown", copyOnPointerUp) // copy contents
 fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 play.addEventListener("pointerdown", e=> {
-    // inlineSvg(play,"/search_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" )
     togglePlay(camera.position, camera.rowCount, syncSetPosition)
+})
+let hideText = true;
+icons.elements.text_hide.addEventListener("pointerdown", e=>{
+    console.log("add text hide function")
+    if(hideText){
+        inlineSvg(icons.elements.text_hide, icons.paths.text_show)
+        hideText = false
+    }else{
+        inlineSvg(icons.elements.text_hide, icons.paths.text_hide)
+        hideText = true
+    }
 })
 
 window.addEventListener('keydown', e => {

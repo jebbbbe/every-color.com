@@ -63,14 +63,16 @@ export const icons = {
         pause:"/pause_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
         fullscreen:"/fullscreen_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
         fullscreen_exit:"/fullscreen_exit_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        text_hide:"/font_download_off_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        text_show:"/font_download_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
         description:"/description_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
         code:"/code_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
         settings:"/settings_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
-        
     },
     ids:{
         play:"play-button",
         fullscreen:"fullscreen-button",
+        text_hide:"hide-text-button",
         description:"desciption-button",
         code:"code-button",
         settings:"openSettings",

@@ -7,7 +7,6 @@ export async function inlineSvg(container, url, fillColor = "var(--header-text-c
             throw new Error(`Network error: ${response.status}`);
         }
         const svgText = await response.text();
-        console.log(container);
         container.innerHTML = svgText;
 
         const svgElement = container.querySelector("svg");
