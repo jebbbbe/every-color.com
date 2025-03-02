@@ -4,7 +4,7 @@ import { htmlScene } from "/Library/htmlScene.js"
 import { constants,hashTypes,colorBlindTypes,colorFormats,icons } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
-import { toggleFullscreen } from "/Library/dom/fullscreen.js"
+import { toggleFullscreen, handleFullscreenChange } from "/Library/dom/fullscreen.js"
 import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
 import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
 
@@ -173,6 +173,12 @@ fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 play.addEventListener("pointerdown", e=> {
     togglePlay(camera.position, camera.rowCount, syncSetPosition)
 })
+document.addEventListener("fullscreenchange", handleFullscreenChange);
+document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+
 let hideText = true;
 icons.elements.text_hide.addEventListener("pointerdown", e=>{
     console.log("add text hide function")

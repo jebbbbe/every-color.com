@@ -1,38 +1,36 @@
-import { constants,icons } from "../constants.js"
-import { inlineSvg } from "./svg.js"
+import { constants, icons } from "../constants.js";
+import { inlineSvg } from "./svg.js";
 
 export let isFullscreen = false;
 export function toggleFullscreen() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         let docEl = document.documentElement;
         if (docEl.requestFullscreen) {
-            docEl.requestFullscreen().then(() => {
-                isFullscreen = true;
-            });
-        } else if (docEl.webkitRequestFullscreen) { /* Safari */
-            docEl.webkitRequestFullscreen();
+            docEl.requestFullscreen().then(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+            docEl.webkitRequestFullscreen(); // Safari
             isFullscreen = true;
         }
-        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen_exit)
-        // document.documentElement.style.setProperty('--header-height', '0px');
-        // document.documentElement.style.setProperty('--footer-height', '0px');
-        // document.documentElement.style.setProperty('--label-height', '0px');
+        isFullscreen = true;
+        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen_exit);
     } else {
         if (document.exitFullscreen) {
-            document.exitFullscreen().then(() => {
-                isFullscreen = false;
-            });
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-            isFullscreen = false;
+            document.exitFullscreen().then(() => {});
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen(); // Safari
         }
-        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen)
-        // document.documentElement.style.removeProperty('--header-height');
-        // document.documentElement.style.removeProperty('--footer-height');
-        // document.documentElement.style.removeProperty('--label-height');
+        isFullscreen = false;
+        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen);
     }
-    console.log(isFullscreen)
     return isFullscreen;
 }
 
-  
+export function handleFullscreenChange() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+        isFullscreen = false;
+        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen);
+    } else {
+        isFullscreen = true;
+        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen_exit);
+    }
+}
