@@ -187,6 +187,7 @@ label {
     /* height: var(--icon-tray-height); */
 }
 .icon-tray a{
+    cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -200,9 +201,6 @@ label {
     cursor: pointer;
     padding-top: 10px;
     padding-bottom: 10px;
-}
-#play-button{
-    cursor: pointer;
 }
 .settings-btn {
     background: none;
