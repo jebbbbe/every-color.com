@@ -50,4 +50,5 @@ export function togglePlay(position, rowCount, update=()=>{}){
 export function pausePlay(){
     isPlaying = false
     cancelAnimationFrame(animationFrame);
+    inlineSvg(icons.elements.play, icons.paths.play)
 }
