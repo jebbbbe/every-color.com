@@ -1,7 +1,7 @@
+import { elements,constants,hashTypes,colorBlindTypes,colorFormats,icons } from "/Library/constants.js"
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
-import { constants,hashTypes,colorBlindTypes,colorFormats,icons } from "/Library/constants.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
 import { toggleFullscreen, handleFullscreenChange } from "/Library/dom/fullscreen.js"
@@ -12,18 +12,15 @@ import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
 window.addEventListener("load", function() {
 
 
-
 const mainClass = "row-holder"
 const rowClass = "row-thing"
 const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
 const defaultColorFormat = colorFormats.hexidecimalString
-const mainElem = document.getElementById(mainClass)
-const fullscreen = document.getElementById("fullscreen-button")
-const play = document.getElementById("play-button")
-const camera = new noScrollCamera(mainClass,rowClass,scrollFactor,constants.start)
-const scene = new htmlScene(mainClass,defaultHash,defaultColorFormat)
+
+const camera = new noScrollCamera(scrollFactor,constants.start)
+const scene = new htmlScene(defaultHash,defaultColorFormat)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
 window.world = {
     camera:camera,
@@ -37,10 +34,8 @@ const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, d
 const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 setupModalEventListeners()
-
-// setPropertOnObjectFromParent(play)
 setUpIcons()
-//setupfunctions
+
 function removeLoader(){
     const loader = document.querySelector(".loader")
     loader.style.background = "rgba(255, 255, 255, 0)";
@@ -81,7 +76,7 @@ function scrollbarMouseDown(e, skip = undefined){
     // console.log(e.pointerType)
     // console.log(e.clientY)
     pausePlay();
-    if(e.pointerType == skip){ // skip if mouse on mainElem
+    if(e.pointerType == skip){ // skip if mouse on main Elem
         return
     }
     scrollbar.handleMouseDown(e)
@@ -167,10 +162,10 @@ window.addEventListener("resize", resize);
 window.addEventListener('wheel', mouseWheel)
 scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
-mainElem.addEventListener("pointerdown", onPointerDown); // match wheel event instead
-mainElem.addEventListener("pointerdown", copyOnPointerUp) // copy contents
-fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
-play.addEventListener("pointerdown", e=> {
+elements.main.addEventListener("pointerdown", onPointerDown); // match wheel event instead
+elements.main.addEventListener("pointerdown", copyOnPointerUp) // copy contents
+elements.iconFullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
+elements.iconPlay.addEventListener("pointerdown", e=> {
     togglePlay(camera.position, camera.rowCount, syncSetPosition)
 })
 document.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -268,29 +263,6 @@ function onPointerDown(e) {
     }
 }
 
-// SETTINGS
-
-function openModal() {
-    document.getElementById('settingsModal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('settingsModal').style.display = 'none';
-}
-
-window.onclick = function(event) {
-    let modal = document.getElementById('settingsModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-}
-
-function saveSettings() {
-    let username = document.getElementById('username').value;
-    let theme = document.getElementById('theme').value;
-    alert('Settings Saved:\nUsername: ' + username + '\nTheme: ' + theme);
-    closeModal();
-}
 
 
 removeLoader() // remove after all setup is done

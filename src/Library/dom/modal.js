@@ -1,26 +1,21 @@
 // Function to open modal
-export function openModal() {
-    document.getElementById("settingsModal").style.display = "block";
-}
+import {elements} from "../constants.js"
 
-// Function to close modal
-export function closeModal() {
-    document.getElementById("settingsModal").style.display = "none";
+function openModal() {
+    elements.settingsModal.style.display = "block";
+    window.addEventListener("click",closeFromWindow )
 }
-
-// Function to close modal when clicking outside
+function closeModal() {
+    elements.settingsModal.style.display = "none";
+    window.removeEventListener("click",closeFromWindow )
+}
+function closeFromWindow(e){
+    if (e.target === elements.settingsModal) {
+        closeModal();
+    }
+}
 export function setupModalEventListeners() {
-    const modal = document.getElementById("settingsModal");
-    const openBtn = document.getElementById("openSettings");
-    const closeBtn = document.getElementById("closeModal");
-
-    openBtn.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
+    elements.iconSettings.addEventListener("click", openModal);
+    elements.settingsCloseModal.addEventListener("click", openModal);
 }
 

@@ -1,10 +1,10 @@
-import {constants} from "./constants.js"
+import {elements,constants} from "./constants.js"
 
 
 export class noScrollCamera{
-    constructor(cssClass, rowCssClass, scrollFactor = 1, startPos =0){
-        this.class = cssClass
-        this.rowClass = rowCssClass
+    constructor(  scrollFactor = 1, startPos =0){
+        this.class = elements.ids.main //cssClass
+        this.rowClass = elements.classes.template2// rowCssClass
         this.scrollFactor = scrollFactor
         this.position = startPos
         this.setTemplate()

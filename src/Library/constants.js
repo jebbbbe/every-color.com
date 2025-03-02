@@ -57,6 +57,43 @@ export const colorAlphaFormats = {
     "hsla":"HSLA"//hsla(14, 100%, 60%, 0.8)
 }
 
+
+export const elements = {
+    ids:{
+        //content
+        root:"root",
+        header:"header",
+        template:"template",
+        main:"row-holder",
+        
+        //icons
+        iconPlay:"play-button",
+        iconFullscreen:"fullscreen-button",
+        iconText_hide:"hide-text-button",
+        iconDescription:"desciption-button",
+        iconCode:"code-button",
+        iconSettings:"openSettings",
+
+        //setting
+        settingsModal:"settingsModal",
+        settingsCloseModal:"closeModal",
+        settingsColorFormat:"colorFormat",
+        settingsColorBlindSelect:"colorBlindSelect",
+        settingsHashSelect:"hashSelect",
+        // useAlpha:"useAlpha",
+    },
+    classes:{
+        //loader
+        loader:"loader",
+        //scrollbar
+        scrollbar:"custom-scrollbar",
+        scrollThumb:"scroll-thumb",
+        template2:"row-thing",
+    },
+    /** @type {HTMLElement} */
+    // settingsModal:document.getElementById("settingsModal"),
+}
+
 export const icons = {
     paths:{
         play:"/play_arrow_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
@@ -80,3 +117,14 @@ export const icons = {
     elements:{}
 }
 
+
+linkElements()
+function linkElements(elemObj = elements){
+    for(let id in elemObj.ids){
+        elemObj[id] = document.getElementById(elemObj.ids[id])
+    }
+    for(let className in elemObj.classes){
+        elemObj[className] = document.querySelector("." + elemObj.classes[className])
+    }
+    console.log(elemObj)
+}

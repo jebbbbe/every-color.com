@@ -1,4 +1,4 @@
-import { constants } from "./constants.js";
+import { elements,constants } from "./constants.js";
 
 export class noScrollBar {
     constructor(start = undefined, parentElement) {
@@ -15,8 +15,8 @@ export class noScrollBar {
 
         this.clientHeight = this.parent.clientHeight; // Viewable height of the parent
         
-        this.scrollbar = document.querySelector(".custom-scrollbar");
-        this.thumb = document.querySelector(".scroll-thumb");
+        this.scrollbar = elements.scrollbar//document.querySelector(".custom-scrollbar");
+        this.thumb = elements.scrollThumb//document.querySelector(".scroll-thumb");
         
         this.thumbHeightMin = 20
         this.thumbClampPercent = 0.05//?

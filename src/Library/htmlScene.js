@@ -4,8 +4,8 @@ import { hexToColorNames } from "./cssColors.js"
 import {selectFormat } from "./colorFormats.js"
 
 export class htmlScene {
-    constructor(cssClass,displayMode, colorFormat) {
-        this.setHTMLArray(cssClass);
+    constructor(displayMode, colorFormat) {
+        this.setHTMLArray(elements.ids.main);
         this.displayMode = displayMode
         this.setHashFunction(displayMode)
         this.colorFormat = colorFormat
