@@ -178,9 +178,11 @@ icons.elements.text_hide.addEventListener("pointerdown", e=>{
     console.log("add text hide function")
     if(hideText){
         inlineSvg(icons.elements.text_hide, icons.paths.text_show)
+        document.documentElement.style.setProperty('--row-font-size', '0px');
         hideText = false
     }else{
         inlineSvg(icons.elements.text_hide, icons.paths.text_hide)
+        document.documentElement.style.removeProperty('--row-font-size');
         hideText = true
     }
 })
