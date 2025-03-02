@@ -23,6 +23,10 @@
     --font-family:"Alexandria", serif;
     /* --font-family:"DM+Mono"; */
     /* --font-family:"Azeret+Mono"; */
+
+    --header-color:#ffffff;
+    --header-text-color:#000000;
+    --main-color:#ffffff;
 }
 
 html,
@@ -40,12 +44,19 @@ header {
     min-width: var(--min-width);
     width: var(--max-width);
     height: var(--header-height);
+    background-color: var(--header-color);
+    
 }
 header h1{
     white-space: nowrap;
     margin-top: 4px;
     height: calc(var(--title-height) - 4px);
     margin-bottom: 0px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    color: var(--header-text-color);
 }
 .title {
     font-family: var(--font-family);;
@@ -75,6 +86,7 @@ label {
     min-width: var(--min-width);
     width: var(--max-width);
     height: calc(var(--vh) - var(--header-height) - var(--footer-height) - var(--label-height));
+    background-color: var(--main-color);
 }
 .row-thing {
     width: var(--max-width);
@@ -124,6 +136,7 @@ label {
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
+    /* background: var(--header-text-color); */
     /* border-radius: 6px; */
     cursor: pointer;
     transition: background 0.2s;
@@ -173,22 +186,13 @@ label {
     gap:10px;
     /* height: var(--icon-tray-height); */
 }
-.icon-tray img{
-    /* width: 25px; */
-    height: 25px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 .icon-tray a{
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
 }
-.icon-tray object{
+.icon-tray svg{
     pointer-events: none;
     height: 25px;
     background: none;
@@ -206,10 +210,10 @@ label {
     cursor: pointer;
     padding: 0px;
 }
-.settings-btn img {
+.settings-btn svg {
     transition: transform 0.3s ease, filter 0.3s ease;
 }
-.settings-btn:hover img {
+.settings-btn:hover svg {
     transform: rotate(30deg);
     /* filter: hue-rotate(200deg); */
 }

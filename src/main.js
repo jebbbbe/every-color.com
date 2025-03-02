@@ -6,6 +6,7 @@ import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
 import { toggleFullscreen } from "/Library/dom/fullscreen.js"
 import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
+import {  inlineSvg,setUpIcons } from "/Library/dom/svg.js"
 
 
 window.addEventListener("load", function() {
@@ -18,7 +19,6 @@ const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
 const defaultColorFormat = colorFormats.hexidecimalString
-//colorFormats.hexidecimalString
 const mainElem = document.getElementById(mainClass)
 const fullscreen = document.getElementById("fullscreen-button")
 const play = document.getElementById("play-button")
@@ -38,9 +38,8 @@ const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorS
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 setupModalEventListeners()
 
-
-
-
+// setPropertOnObjectFromParent(play)
+setUpIcons()
 //setupfunctions
 function removeLoader(){
     const loader = document.querySelector(".loader")
@@ -172,6 +171,7 @@ mainElem.addEventListener("pointerdown", onPointerDown); // match wheel event in
 mainElem.addEventListener("pointerdown", copyOnPointerUp) // copy contents
 fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 play.addEventListener("pointerdown", e=> {
+    inlineSvg(play,"/search_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" )
     togglePlay(camera.position, camera.rowCount, syncSetPosition)
 })
 

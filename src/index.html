@@ -11,6 +11,16 @@
         <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <!-- preload all for now? -->
+        <link rel="preload" href="/play_arrow_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+        <link rel="preload" href="/pause_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+        <link rel="preload" href="/fullscreen_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+        <link rel="preload" href="/fullscreen_exit_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+        <link rel="preload" href="/description_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+        <link rel="preload" href="/code_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+        <link rel="preload" href="/settings_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" as="image">
+
     </head>
     <body>
         <div class="loader"></div>
@@ -20,50 +30,20 @@
         </div>
 
         <div id="root">
-            <header>
+
+            <header id="header">
                 <div class="row-box">
                     <h1 class="title">EVERY RGB COLOR</h1>
-
                      <div class="icon-tray">
-
-                        <a id="play-button">
-                            <object id="svgObject" type="image/svg+xml" style="pointer-events: none;" data="/play_arrow_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"></object>
-                        </a>
-
-                        <a id="fullscreen-button">
-                            <img src="/fullscreen_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Fullscreen Icon" aria-label="Enter FullScreen">
-                        </a>
-
-                        <a target="_blank" rel="noopener noreferrer" href="https://jessebassett.com">
-                            <img src="/description_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Fullscreen Icon" aria-label="Enter FullScreen">
-                        </a>
-
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.github.com">
-                            <img src="/code_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Settings Icon" aria-label="View Code Source">
-                        </a>
-
-                        <button id="openSettings" class="settings-btn" aria-label="Open Settings">
-                            <img src="/settings_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Settings Icon">
-                        </button>
-                        
+                        <a id="play-button" alt="Play Icon" aria-label="Play Color Animation"></a>
+                        <a id="fullscreen-button" alt="Fullscreen Icon" aria-label="Enter FullScreen"></a>
+                        <a id="desciption-button" target="_blank" rel="noopener noreferrer" href="https://jessebassett.com" alt="Desciption Icon" aria-label="Enter FullScreen"></a>
+                        <a id="code-button" target="_blank" rel="noopener noreferrer" href="https://www.github.com" alt="Code Icon" aria-label="View Code Source"></a>
+                        <button id="openSettings" class="settings-btn" aria-label="Open Settings" alt="Settings Icon"></button>
                         <div></div>
                     </div>
-
-                    
                 </div>
             </header>
-
-            <!-- <div class="test-container">
-                <div class="test-row">
-                    <div class="colorName" tabindex="0">Light Golden Rod Yellow</div>
-                    <div class="colorHex"  tabindex="0">vec3(0.000, 0.000, 0.000);</div>
-                </div>
-                <div class="test-row">
-                    <div class="colorName" tabindex="0">Light Golden Rod Yellow</div>
-                    <div class="colorHex"  tabindex="0">vec3(0.000, 0.000, 0.047);</div>
-                </div>
-            </div> -->
-
 
             <div class="label-height">
                 <div class="row-thing row-box"> <!-- this is used as the node for each row.  -->

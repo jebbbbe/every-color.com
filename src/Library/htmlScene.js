@@ -15,8 +15,7 @@ export class htmlScene {
     }
     setHTMLArray(cssClass) {
         this.class = cssClass;
-        this.holder = document.getElementById(this.class);
-        this.htmlArray = this.holder.children;
+        this.htmlArray = document.getElementById(this.class).children;
     }
     setHashFunction(newMode = undefined){
         if(newMode !== undefined){
@@ -116,7 +115,9 @@ export class htmlScene {
                 // element.style.setProperty('--focus-color', getRandomHexColor());
             }
             element = null
-            // this.holder.style.background = "red"
+            document.documentElement.style.setProperty('--header-color', this.htmlArray[0].style.backgroundColor);
+            document.documentElement.style.setProperty('--header-text-color', this.htmlArray[0].style.color);
+            document.documentElement.style.setProperty('--main-color', this.htmlArray[this.htmlArray.length-1].style.backgroundColor);
         })
     }
 }

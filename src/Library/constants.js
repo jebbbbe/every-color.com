@@ -56,3 +56,25 @@ export const colorAlphaFormats = {
     "rgbaVector":"RGBAvector",// vec3(1.0,0.123213,1.0, 1.0);
     "hsla":"HSLA"//hsla(14, 100%, 60%, 0.8)
 }
+
+export const icons = {
+    paths:{
+        play:"/play_arrow_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        pause:"/pause_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        fullscreen:"/fullscreen_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        fullscreen_exit:"/fullscreen_exit_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        description:"/description_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        code:"/code_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        settings:"/settings_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg",
+        
+    },
+    ids:{
+        play:"play-button",
+        fullscreen:"fullscreen-button",
+        description:"desciption-button",
+        code:"code-button",
+        settings:"openSettings",
+    },
+    elements:{}
+}
+
