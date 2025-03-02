@@ -4,7 +4,8 @@ import { hexToColorNames } from "./cssColors.js"
 import {selectFormat } from "./colorFormats.js"
 
 export class htmlScene {
-    constructor(displayMode, colorFormat) {
+    constructor(displayMode, colorFormat, visibleIndex) {
+        this.visibleIndex = visibleIndex
         this.setHTMLArray(elements.ids.main);
         this.displayMode = displayMode
         this.setHashFunction(displayMode)
@@ -70,17 +71,20 @@ export class htmlScene {
         this.hexNumToFormated = selectFormat(this.colorFormat)
     }
     updateHtmlCollection(offset = 0) {
-        // if(this.htmlArray.length + offset > constants.absoluteMax+1){
-        //     console.error("gonna go out of bounds")
-        //     return false;
-        // }
         requestAnimationFrame(()=>{
+            const max = this.visibleIndex.curr
+            const diff = this.visibleIndex.prev - this.visibleIndex.curr
+            if(diff > 0){//hide old elems
+                for(let i = this.visibleIndex.curr; i < this.visibleIndex.prev; i ++){
+                    this.htmlArray[i].style.display = "none";
+                }
+            }
             let element
-            for (let i = 0; i < this.htmlArray.length; i++) {
+            for (let i = 0; i < max; i++) {
                 element = this.htmlArray[i];
                 const index = offset + i;
-                const hexIndex = "0x" + index.toString(16).padStart(6, "0");
-                const decIndex = index.toString(10).padStart(8, "0");
+                // const hexIndex = "0x" + index.toString(16).padStart(6, "0");
+                // const decIndex = index.toString(10).padStart(8, "0");
                 const hexNumber = getHexidecimal(index)
                 let mappedHex = this.hash(hexNumber)
                 
@@ -107,21 +111,44 @@ export class htmlScene {
 
                 // element.querySelector(".index").innerHTML = decIndex
                 // element.querySelector(".hexNum").innerHTML = hexIndex;
-                element.querySelector(".colName").innerHTML = colorName;
-                // element.querySelector(".colHex").innerHTML = tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp;
-                element.querySelector(".colHex").innerHTML = tmp;
                 // element.querySelector(".rehash").innerHTML = remappedHex;
+
+                element.querySelector(".colName").textContent = colorName;
+                element.querySelector(".colHex").textContent  = tmp;
+                // element.querySelector(".colHex").innerHTML = tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp;
+                
+                /*
+                let colNameElem = element.querySelector(".colName").textContent
+                if (!colNameElem._textNode) {
+                    colNameElem._textNode = document.createTextNode("");
+                    colNameElem.appendChild(colNameElem._textNode);
+                }
+                colNameElem._textNode.nodeValue = colorName
+                colNameElem = null
+                let colHexElem = element.querySelector(".colHex").textContent
+                if (!colHexElem._textNode) {
+                    colHexElem._textNode = document.createTextNode("");
+                    colHexElem.appendChild(colHexElem._textNode);
+                }
+                colHexElem._textNode.nodeValue = tmp
+                colHexElem = null
+                */
+
+
                 element.style.backgroundColor = newColor;
                 element.style.color = getOppositeColor(newColor);
                 
                 // hover -- added 6 ms to css reculation in animation
                 // element.style.setProperty('--hover-color', getRandomHexColor());
                 // element.style.setProperty('--focus-color', getRandomHexColor());
+                element.style.removeProperty("display")
             }
             element = null
+            
             document.documentElement.style.setProperty('--header-color', this.htmlArray[0].style.backgroundColor);
             document.documentElement.style.setProperty('--header-text-color', this.htmlArray[0].style.color);
-            document.documentElement.style.setProperty('--main-color', this.htmlArray[this.htmlArray.length-1].style.backgroundColor);
+            document.documentElement.style.setProperty('--main-color', this.htmlArray[max-1].style.backgroundColor);
+            this.visibleIndex.prev = this.visibleIndex.curr
         })
     }
 }

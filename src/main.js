@@ -19,8 +19,8 @@ const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
 const defaultColorFormat = colorFormats.hexidecimalString
 
-const camera = new noScrollCamera(scrollFactor,constants.start)
-const scene = new htmlScene(defaultHash,defaultColorFormat)
+const camera = new noScrollCamera(scrollFactor, constants.start)
+const scene = new htmlScene(defaultHash, defaultColorFormat, camera.visibleIndex)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
 window.world = {
     camera:camera,
@@ -28,7 +28,6 @@ window.world = {
     scrollbar:scrollbar,
 }
 
-camera.resize()
 scene.updateHtmlCollection(camera.position)
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, defaultHash)
 const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
@@ -86,7 +85,7 @@ function scrollbarMouseDown(e, skip = undefined){
     function scrollbarMouseMove(e){
         const update = scrollbar.handleMouseMove(e).toFixed(2)//handle small percentages
         if(update){
-            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.rowCount + 1 )) 
+            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.visibleIndex.curr + 1 )) 
             camera.setPosition(newPos)
             scene.updateHtmlCollection(newPos)
         }
@@ -111,7 +110,7 @@ function scrollbarTouchStart(e){
     function scrollbarMouseMove(e){
         const update = scrollbar.handleMouseMove(e).toFixed(2)//handle small percentages
         if(update){
-            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.rowCount + 1 )) 
+            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.visibleIndex.curr + 1 )) 
             camera.setPosition(newPos)
             scene.updateHtmlCollection(newPos)
         }
@@ -166,7 +165,7 @@ elements.main.addEventListener("pointerdown", onPointerDown); // match wheel eve
 elements.main.addEventListener("pointerdown", copyOnPointerUp) // copy contents
 elements.iconFullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 elements.iconPlay.addEventListener("pointerdown", e=> {
-    togglePlay(camera.position, camera.rowCount, syncSetPosition)
+    togglePlay(camera.position, camera.visibleIndex.curr, syncSetPosition)
 })
 document.addEventListener("fullscreenchange", handleFullscreenChange);
 document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
@@ -195,7 +194,7 @@ window.addEventListener('keydown', e => {
             pos = camera.position - 1
             break
         case "PageUp":
-            pos = camera.position - camera.rowCount + 1
+            pos = camera.position - camera.visibleIndex.curr + 1
             break
         case "Home":
             pos = constants.absoluteMin
@@ -204,7 +203,7 @@ window.addEventListener('keydown', e => {
             pos = camera.position + 1
             break
         case "PageDown":
-            pos = camera.position + camera.rowCount - 1
+            pos = camera.position + camera.visibleIndex.curr - 1
             break
         case "End":
             pos = constants.absoluteMax
