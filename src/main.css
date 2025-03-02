@@ -191,6 +191,7 @@ label {
     flex-direction:row;
     gap:10px;
     /* height: var(--icon-tray-height); */
+    padding-right:var(--side-padding);
 }
 .icon-tray a{
     cursor: pointer;

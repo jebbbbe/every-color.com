@@ -78,7 +78,7 @@ export const elements = {
         settingsModal:"settingsModal",
         settingsCloseModal:"closeModal",
         settingsColorFormat:"colorFormat",
-        settingsColorBlindSelect:"colorBlindSelect",
+        settingsvisionSelect:"visionSelect",
         settingsHashSelect:"hashSelect",
         // useAlpha:"useAlpha",
     },

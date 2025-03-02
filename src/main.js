@@ -31,7 +31,7 @@ window.world = {
 camera.resize()
 scene.updateHtmlCollection(camera.position)
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, defaultHash)
-const dropdown1 = new DynamicDropdown("colorBlindSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
+const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 setupModalEventListeners()
 setUpIcons()
