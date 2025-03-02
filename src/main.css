@@ -27,6 +27,8 @@
     --header-color:#ffffff;
     --header-text-color:#000000;
     --main-color:#ffffff;
+
+    --side-padding:40px;
 }
 
 html,
@@ -64,7 +66,7 @@ header h1{
     font-weight: 800;
     font-style: normal;
     font-size: 42px;
-    padding-left: 40px;
+    padding-left: var(--side-padding);
     /* padding-top: 10px; */
 }
 footer {
@@ -103,7 +105,7 @@ label {
     /* flex: 1;  */
     text-align: center;
     font-size: var(--row-font-size);
-    font-family: var(--font-family);;
+    font-family: var(--font-family);
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
@@ -114,6 +116,10 @@ label {
 .row-thing:hover{
     /* font-style: italic; */
     color:var(--hover-color) !important;
+}
+.row-thing > div :hover{
+    /* font-style: italic; */
+    /* font-weight:300 !important; */
 }
 .row-thing:focus-within {
     color: var(--focus-color) !important;

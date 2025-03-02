@@ -1,4 +1,4 @@
-import { constants,hashTypes, colorBlindTypes, colorFormats } from "./constants.js";
+import { elements, constants,hashTypes, colorBlindTypes, colorFormats } from "./constants.js";
 import * as hashes from "./hash.js"
 import { hexToColorNames } from "./cssColors.js"
 import {selectFormat } from "./colorFormats.js"
