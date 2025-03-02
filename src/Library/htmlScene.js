@@ -102,10 +102,14 @@ export class htmlScene {
                 if( hexToColorNames.has(newColorOverwrite ?? newColor) ){
                     colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
                 }
+                let tmp = colOverwrite ?? colorStringForText
+                tmp = tmp.toUpperCase()
+
                 // element.querySelector(".index").innerHTML = decIndex
                 // element.querySelector(".hexNum").innerHTML = hexIndex;
                 element.querySelector(".colName").innerHTML = colorName;
-                element.querySelector(".colHex").innerHTML = colOverwrite ?? colorStringForText;
+                // element.querySelector(".colHex").innerHTML = tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp;
+                element.querySelector(".colHex").innerHTML = tmp;
                 // element.querySelector(".rehash").innerHTML = remappedHex;
                 element.style.backgroundColor = newColor;
                 element.style.color = getOppositeColor(newColor);
