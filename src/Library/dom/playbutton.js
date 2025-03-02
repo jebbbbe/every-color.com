@@ -1,4 +1,5 @@
-import { constants } from "../constants.js"
+import { constants,icons } from "../constants.js"
+import {inlineSvg} from "./svg.js"
 
 export let isPlaying = false;
 export let isIncreaseing = true;
@@ -37,9 +38,11 @@ export function togglePlay(position, rowCount, update=()=>{}){
     if(isPlaying == false){
         isPlaying = true
         play(position, rowCount, update)
+        inlineSvg(icons.elements.play, icons.paths.pause)
     }else{
         isPlaying = false
         cancelAnimationFrame(animationFrame);
+        inlineSvg(icons.elements.play, icons.paths.play)
     }
     console.log("isPlaying",isPlaying)
 }

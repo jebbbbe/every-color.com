@@ -171,7 +171,7 @@ mainElem.addEventListener("pointerdown", onPointerDown); // match wheel event in
 mainElem.addEventListener("pointerdown", copyOnPointerUp) // copy contents
 fullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
 play.addEventListener("pointerdown", e=> {
-    inlineSvg(play,"/search_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" )
+    // inlineSvg(play,"/search_26dp_000000_FILL0_wght400_GRAD0_opsz24.svg" )
     togglePlay(camera.position, camera.rowCount, syncSetPosition)
 })
 
