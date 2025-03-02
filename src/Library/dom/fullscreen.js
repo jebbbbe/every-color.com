@@ -1,3 +1,6 @@
+import { constants,icons } from "../constants.js"
+import { inlineSvg } from "./svg.js"
+
 export let isFullscreen = false;
 export function toggleFullscreen() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
@@ -10,8 +13,9 @@ export function toggleFullscreen() {
             docEl.webkitRequestFullscreen();
             isFullscreen = true;
         }
-        document.documentElement.style.setProperty('--header-height', '0px');
-        document.documentElement.style.setProperty('--footer-height', '0px');
+        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen_exit)
+        // document.documentElement.style.setProperty('--header-height', '0px');
+        // document.documentElement.style.setProperty('--footer-height', '0px');
         // document.documentElement.style.setProperty('--label-height', '0px');
     } else {
         if (document.exitFullscreen) {
@@ -22,8 +26,9 @@ export function toggleFullscreen() {
             document.webkitExitFullscreen();
             isFullscreen = false;
         }
-        document.documentElement.style.removeProperty('--header-height');
-        document.documentElement.style.removeProperty('--footer-height');
+        inlineSvg(icons.elements.fullscreen, icons.paths.fullscreen)
+        // document.documentElement.style.removeProperty('--header-height');
+        // document.documentElement.style.removeProperty('--footer-height');
         // document.documentElement.style.removeProperty('--label-height');
     }
     console.log(isFullscreen)
