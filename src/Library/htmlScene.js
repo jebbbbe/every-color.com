@@ -107,7 +107,7 @@ export class htmlScene {
                     colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
                 }
                 let tmp = colOverwrite ?? colorStringForText
-                tmp = tmp.toUpperCase()
+                // tmp = tmp.toUpperCase()
 
                 // element.querySelector(".index").innerHTML = decIndex
                 // element.querySelector(".hexNum").innerHTML = hexIndex;
