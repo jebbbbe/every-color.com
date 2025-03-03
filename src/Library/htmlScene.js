@@ -96,8 +96,8 @@ export class htmlScene {
                 if(this.colorBlindMode !== colorBlindTypes.none){
                     // var colOverwrite = hexidecimalToString(mappedHex)
                     var colOverwrite = this.hexNumToFormated(mappedHex)
-                var newColorOverwrite = hexidecimalToString(mappedHex);
-                mappedHex = this.colorAsist(mappedHex)
+                    var newColorOverwrite = hexidecimalToString(mappedHex);
+                    mappedHex = this.colorAsist(mappedHex)
                 }
                 
                 const colorStringForText = this.hexNumToFormated(mappedHex);
@@ -157,6 +157,7 @@ export class htmlScene {
 
                 element.style.backgroundColor = newColor;
                 element.style.color = getOppositeColor(newColor);
+       
                 
                 // hover -- added 6 ms to css reculation in animation
                 // element.style.setProperty('--hover-color', getRandomHexColor());
@@ -168,6 +169,9 @@ export class htmlScene {
             document.documentElement.style.setProperty('--header-color', this.htmlArray[0].style.backgroundColor);
             document.documentElement.style.setProperty('--header-text-color', this.htmlArray[0].style.color);
             document.documentElement.style.setProperty('--main-color', this.htmlArray[max-1].style.backgroundColor);
+            const grey = rgbToGreyscale( window.getComputedStyle(this.htmlArray[0]).backgroundColor );
+            console.log(grey)
+            document.documentElement.style.setProperty('--header-text-color-greyscale', grey);
             this.visibleIndex.prev = this.visibleIndex.curr
         })
     }
@@ -186,6 +190,18 @@ function getRandomHexColor() {
     return `#${Math.floor(Math.random()*16777215).toString(16)}`;
 }
 
+function rgbToGreyscale(rgbStr) {
+    // Extract numeric values from the string
+    const result = rgbStr.match(/\d+/g);
+    if (!result || result.length < 3) {
+      throw new Error("Invalid rgb string format.");
+    }
+    const [r, g, b] = result.map(Number);
+  
+    // Use the Rec. 709 luminance formula
+    const grey = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    return grey;
+  }
 
 function getRandomColor() {
     const letters = "0123456789ABCDEF";
