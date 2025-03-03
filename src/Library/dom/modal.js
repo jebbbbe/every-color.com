@@ -16,6 +16,6 @@ function closeFromWindow(e){
 }
 export function setupModalEventListeners() {
     elements.iconSettings.addEventListener("click", openModal);
-    elements.settingsCloseModal.addEventListener("click", openModal);
+    elements.settingsCloseModal.addEventListener("click", closeModal);
 }
 
