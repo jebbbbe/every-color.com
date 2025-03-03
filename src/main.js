@@ -11,24 +11,20 @@ import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
 
 window.addEventListener("load", function() {
 
-
-const mainClass = "row-holder"
-const rowClass = "row-thing"
 const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
 const defaultColorBlind = colorBlindTypes.none
 const defaultColorFormat = colorFormats.hexidecimalString
-
 const camera = new noScrollCamera(scrollFactor, constants.start)
 const scene = new htmlScene(defaultHash, defaultColorFormat, camera.visibleIndex)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
+scene.updateHtmlCollection(camera.position)
 window.world = {
     camera:camera,
     scene:scene,
     scrollbar:scrollbar,
 }
 
-scene.updateHtmlCollection(camera.position)
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, defaultHash)
 const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)

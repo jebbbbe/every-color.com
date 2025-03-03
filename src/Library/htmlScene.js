@@ -113,8 +113,28 @@ export class htmlScene {
                 // element.querySelector(".hexNum").innerHTML = hexIndex;
                 // element.querySelector(".rehash").innerHTML = remappedHex;
 
-                element.querySelector(".colName").textContent = colorName;
-                element.querySelector(".colHex").textContent  = tmp;
+                // element.querySelector(".colName").textContent = colorName;
+                // element.querySelector(".colHex").textContent  = tmp;
+
+                let colNameElement = element.querySelector(".colName");
+                let colNameTextNode = colNameElement.firstChild || colNameElement.appendChild(document.createTextNode(''));
+                colNameTextNode.nodeValue = colorName;
+                colNameElement = null
+                colNameTextNode = null
+                
+                let colHexElement = element.querySelector(".colHex");
+                let colHexTextNode = colHexElement.firstChild || colHexElement.appendChild(document.createTextNode(''));
+                colHexTextNode.nodeValue = tmp;
+                colHexElement = null
+                colHexTextNode = null
+                
+
+                // const colHex = element.querySelector(".colHex")
+                // window.test = colHex
+                // console.log(colHex)
+                // colName.firstChild.nodeValue = colorName;
+                // const colHex = element.querySelector(".colHex")
+                // colHex.firstChild.nodeValue  = tmp;
                 // element.querySelector(".colHex").innerHTML = tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp;
                 
                 /*

@@ -23,8 +23,10 @@ export class noScrollCamera{
         this.template = templateElement.cloneNode(true)
         this.template.querySelector(".colName").innerHTML = "";
         this.template.querySelector(".colHex").innerHTML = "";
+        this.template.removeAttribute('id');
         document.documentElement.style.setProperty('--label-height', '0px');
         templateElement.innerHTML = ""
+
         templateElement = null
     }
     addAllElementsToDom(){
