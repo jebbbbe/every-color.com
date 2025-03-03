@@ -349,13 +349,13 @@ label {
         --row-height:30px;
         --row-font-size: 20px;
         --row-cell-width: 275px;
+        --side-padding:0px
     }
     header .row-box{
         flex-direction: column;
     }
     .title{
         font-size: 38px;
-        padding-left: 0px;
     }
     .spacer{
         min-width: 15px;
