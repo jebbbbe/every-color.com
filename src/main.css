@@ -228,6 +228,14 @@ label {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.icon-tray a:hover svg{
+    fill:var(--header-text-color);
+    opacity:0.5;
+}
+.icon-tray button:hover {
+    fill:var(--header-text-color);
+    opacity:0.5;
+}
 .settings-btn {
     background: none;
     border: none;
@@ -259,12 +267,15 @@ label {
 }
 .modal-content {
     background-color: white;
-    margin: 15% auto;
+    color:black;    
+    margin: var(--header-height) auto;
     padding: 20px;
     min-height: 150px;
     width: 300px;
     text-align: center;
     position: relative;
+    border-radius: 6px;
+
 }
 .close {
     position: absolute;
@@ -311,7 +322,13 @@ label {
 .settings-toggle input {
     flex: 1;
 }
-
+/* select:hover {
+    background-color: #ffcc00; 
+}
+select:focus{
+    border-color: gray;
+    outline:none;
+} */
 
 
 

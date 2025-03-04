@@ -17,7 +17,7 @@ export const hashTypes = {
 }
 
 export const colorBlindTypes = {
-    "none":"None",
+    "none":"Default",
     "protanopia":"Protanopia",
     "deuteranopia":"Deuteranopia",
     "tritanopia":"Tritanopia",
@@ -127,5 +127,5 @@ function linkElements(elemObj = elements){
     for(let className in elemObj.classes){
         elemObj[className] = document.querySelector("." + elemObj.classes[className])
     }
-    console.log(elemObj)
+    // console.log(elemObj)
 }
