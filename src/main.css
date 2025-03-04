@@ -10,7 +10,8 @@
 
     --vw:100vw;
     --vh:100vh;
-    --max-width: calc(var(--vw) - var(--scroll-width));
+    /* --max-width: calc(var(--vw) - var(--scroll-width)); */
+    --max-width: calc(var(--vw));
 
     --min-width:300px;
 
@@ -139,7 +140,7 @@ label {
     width: var(--scroll-width);
     height: 100%;
     /* background: rgba(235, 235, 235, 1); */
-    background: rgba(235, 235, 235, 0);
+    /* background: rgba(235, 235, 235, 0); */
     z-index: 5;
 }
 

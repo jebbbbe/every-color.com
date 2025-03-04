@@ -1,6 +1,5 @@
 import {elements,constants} from "./constants.js"
 
-
 export class noScrollCamera{
     constructor(  scrollFactor = 1, startPos = 0){
         this.class = elements.ids.main //cssClass
@@ -26,7 +25,6 @@ export class noScrollCamera{
         this.template.removeAttribute('id');
         document.documentElement.style.setProperty('--label-height', '0px');
         templateElement.innerHTML = ""
-
         templateElement = null
     }
     addAllElementsToDom(){
