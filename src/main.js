@@ -144,7 +144,13 @@ function copyOnPointerUp(e){
     let target = e.target.closest(".colHex"); 
     if (target) {
         const text = target.innerText;
-        navigator.clipboard.writeText(text).then(() => {});
+        if(text === "Copied!"){ return; }
+        navigator.clipboard.writeText(text);
+        target.innerText = "Copied!"
+        setTimeout(
+            ()=>{target.innerText = text},
+            400,
+        )
     }
     // remove focus from elem to remove color
     const focusedElement = document.activeElement;

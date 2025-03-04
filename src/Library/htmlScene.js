@@ -170,7 +170,6 @@ export class htmlScene {
             document.documentElement.style.setProperty('--header-text-color', this.htmlArray[0].style.color);
             document.documentElement.style.setProperty('--main-color', this.htmlArray[max-1].style.backgroundColor);
             const grey = rgbToGreyscale( window.getComputedStyle(this.htmlArray[0]).backgroundColor );
-            console.log(grey)
             document.documentElement.style.setProperty('--header-text-color-greyscale', grey);
             this.visibleIndex.prev = this.visibleIndex.curr
         })
