@@ -107,6 +107,14 @@ export class htmlScene {
                     colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
                 }
                 let tmp = colOverwrite ?? colorStringForText
+                /*
+                tmp = colOverwrite ?? colorStringForText 
+                + "   " + selectFormat("RGB String")(mappedHex) 
+                + "   " + selectFormat("RGB Vector")(mappedHex)
+                + "   " + selectFormat("HSV")(mappedHex)
+                + "   " + selectFormat("RGB int")(mappedHex)
+                + "   " + selectFormat("RGB int")(mappedHex)
+                */
                 // tmp = tmp.toUpperCase()
 
                 // element.querySelector(".index").innerHTML = decIndex

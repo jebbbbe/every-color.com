@@ -363,7 +363,6 @@ label {
 @media only screen and (max-width: 750px) {
     :root{
         --header-height: calc(var(--title-height) + var(--icon-tray-height));
-
         --row-height:30px;
         --row-font-size: 20px;
         --row-cell-width: 275px;
