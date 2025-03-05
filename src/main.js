@@ -97,8 +97,8 @@ function scrollbarMouseDown(e, skip = undefined){
     }
 }
 function scrollbarTouchStart(e){
-    console.log("e",e)
-    console.log("clientY",e.clientY)
+    // console.log("e",e)
+    // console.log("clientY",e.clientY)
     scrollbar.handleMouseDown(e)
     document.addEventListener("touchmove", scrollbarMouseMove);
     document.addEventListener("touchend", scrollbarMouseUp);
