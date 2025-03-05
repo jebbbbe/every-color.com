@@ -223,7 +223,7 @@ function onPointerDown(e) {
     let velocityY = 0;
     let activePointerId = e.pointerId;
     let momentumFrame;
-    const friction = 0.95;
+    const friction = 0.90;
 
     cancelMomentum(); // Stop existing momentum on new touch
     document.addEventListener("pointermove", onPointerMove);
