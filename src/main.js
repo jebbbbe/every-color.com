@@ -44,8 +44,6 @@ const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelec
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 
 setupModalEventListeners()
-// setUpIcons()
-// console.log(elements)
 // buttons
 const toggleText = new toggleButton(elements.iconText_hide, { toggleValue: true }, function (state) {
     if (state.toggleValue) {
@@ -79,7 +77,6 @@ const toggleFullscreen = new toggleButton(elements.iconFullscreen, { isFullscree
         state.isFullscreen = false
         inlineSvg(elements.iconFullscreen, icons.content.fullscreen)
     }
-    console.log(state)
 }).addEvent()
 function handleFullscreenChange(e, toggle = toggleFullscreen) {
     if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
@@ -89,7 +86,6 @@ function handleFullscreenChange(e, toggle = toggleFullscreen) {
         toggle.state.isFullscreen = true
         inlineSvg(elements.iconFullscreen, icons.content.fullscreen_exit)
     }
-    console.log(toggle.state)
 }
 document.addEventListener("fullscreenchange", handleFullscreenChange)
 document.addEventListener("webkitfullscreenchange", handleFullscreenChange)
@@ -150,15 +146,8 @@ function mouseWheel(e) {
     camera.updatePosition(e.wheelDeltaY)
     animationController.renderFrame() // what happens when faster than framerate...?
 }
-function scrollbarMouseDown(e, skip = undefined){
-    // console.log("")
-    // console.log(skip)
-    // console.log(e.pointerType)
-    // console.log(e.clientY)
+function scrollbarMouseDown(e){
     pausePlay();
-    if(e.pointerType == skip){ // skip if mouse on main Elem
-        return
-    }
     scrollbar.handleMouseDown(e)
     document.addEventListener("pointermove", scrollbarMouseMove);
     document.addEventListener("pointerup", scrollbarMouseUp);
