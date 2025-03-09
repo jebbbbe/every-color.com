@@ -7,6 +7,7 @@ import { setupModalEventListeners } from "/Library/dom/modal.js"
 import { toggleFullscreen, handleFullscreenChange } from "/Library/dom/fullscreen.js"
 import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
 import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
+import {  toggleButton } from "/Library/dom/toggleButton.js"
 
 
 window.addEventListener("load", function() {
@@ -25,11 +26,28 @@ window.world = {
     scrollbar:scrollbar,
 }
 
+//dropdowns
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, defaultHash)
 const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
+
+const testbtn = new toggleButton()
 setupModalEventListeners()
 setUpIcons()
+
+//buttons
+const fullscreenButton = new toggleButton(icons.elements.text_hide, {toggleValue:true}, function(state){
+    if(state.toggleValue){
+        inlineSvg(icons.elements.text_hide, icons.paths.text_show)
+        document.documentElement.style.setProperty('--row-font-size', '0px');
+        state.toggleValue = false
+    }else{
+        inlineSvg(icons.elements.text_hide, icons.paths.text_hide)
+        document.documentElement.style.removeProperty('--row-font-size');
+        state.toggleValue = true
+    }
+}).addEvent()
+
 
 function removeLoader(){
     const loader = document.querySelector(".loader")
@@ -175,19 +193,7 @@ document.addEventListener("mozfullscreenchange", handleFullscreenChange);
 document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
 
-let hideText = true;
-icons.elements.text_hide.addEventListener("pointerdown", e=>{
-    console.log("add text hide function")
-    if(hideText){
-        inlineSvg(icons.elements.text_hide, icons.paths.text_show)
-        document.documentElement.style.setProperty('--row-font-size', '0px');
-        hideText = false
-    }else{
-        inlineSvg(icons.elements.text_hide, icons.paths.text_hide)
-        document.documentElement.style.removeProperty('--row-font-size');
-        hideText = true
-    }
-})
+
 
 window.addEventListener('keydown', e => {
     let pos = undefined

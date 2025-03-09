@@ -1,15 +1,15 @@
-class toggleButton {
-    constructor(start = false, elem, event, onToggle) {
-        this.toggleValue = start
+export class toggleButton {
+    constructor(elem, state = {toggleValue:false}, onToggle, event = "pointerdown") {
+        this.state = state
         this.elem = elem
         this.event = event
-        this.fn = function () {
-            onToggle(this.toggleValue)
+        this.fn = (e) => {
+            onToggle(this.state, this, e)
         }
     }
     fn() { }//stub
     toggle() {
-        this.toggleValue != this.toggleValue
+        this.toggleValue = !this.toggleValue
     }
     turnOn() {
         this.toggleValue = true
@@ -21,6 +21,6 @@ class toggleButton {
         this.elem.addEventListener(this.event, this.fn)
     }
     removeEvent() {
-        this.elem.addEventListener(this.event, this.fn)
+        this.elem.removeEventListener(this.event, this.fn)
     }
 }
