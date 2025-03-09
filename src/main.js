@@ -151,31 +151,6 @@ function scrollbarMouseDown(e, skip = undefined){
         }, 0);
     }
 }
-function scrollbarTouchStart(e){
-    // console.log("e",e)
-    // console.log("clientY",e.clientY)
-    scrollbar.handleMouseDown(e)
-    document.addEventListener("touchmove", scrollbarMouseMove);
-    document.addEventListener("touchend", scrollbarMouseUp);
-    scrollbar.scrollbar.removeEventListener("click", barClick);//remove while doign this
-    function scrollbarMouseMove(e){
-        const update = scrollbar.handleMouseMove(e).toFixed(2)//handle small percentages
-        if(update){
-            const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.visibleIndex.curr + 1 )) 
-            camera.setPosition(newPos)
-            scene.updateHtmlCollection(newPos)
-        }
-    }
-    function scrollbarMouseUp(){
-        scrollbar.handleMouseUp()
-        document.removeEventListener("touchmove", scrollbarMouseMove);
-        document.removeEventListener("touchend", scrollbarMouseUp);
-        setTimeout(() => {
-            scrollbar.scrollbar.addEventListener("click", barClick);
-            resetWheelEvent()
-        }, 0);
-    }
-}
 function barClick(e){
     pausePlay();//pause anim
     scrollbar.handleScrollbarClick(e)
