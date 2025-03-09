@@ -119,6 +119,7 @@ function pausePlay(toggle = togglePlay) {
 function removeLoader() {
     const loader = elements.loader
     loader.style.background = "rgba(255, 255, 255, 0)"
+    loader.style.zIndex = -10; 
     setTimeout(() => {
         loader.remove()
     }, 1000)
