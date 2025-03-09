@@ -149,16 +149,10 @@ label {
     position: absolute;
     top: 0;
     left: 0;
-    /* width: 100%; */
-    /* width: calc( 100% - var(--scroll-width) ); */
     width: var(--thumb-width);
-    /* background: rgba(0, 0, 0, 0.5); */
     background: var(--header-text-color);
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s;
-    /* filter: hue-rotate(90deg); */
-    /* filter: invert(1) brightness(1.5); */
 }
 
 .scroll-thumb:hover {
@@ -169,6 +163,7 @@ label {
         var(--thumb-hover-color), 
         0.7 
     );
+    transition: background 0.2s;
 }
 
 .loader {
