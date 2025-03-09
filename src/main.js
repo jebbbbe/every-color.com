@@ -4,9 +4,9 @@ import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
-import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
 import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
 import {  toggleButton } from "/Library/dom/toggleButton.js"
+import { IntervalAnimationController} from "/Library/animationController.js"
 
 
 window.addEventListener("load", function() {
@@ -18,7 +18,13 @@ const defaultColorFormat = colorFormats.hexidecimalString
 const camera = new noScrollCamera(scrollFactor, constants.start)
 const scene = new htmlScene(defaultHash, defaultColorFormat, camera.visibleIndex)
 const scrollbar = new noScrollBar(constants.start/constants.absoluteMax);
-scene.updateHtmlCollection(camera.position)
+const animationController = new IntervalAnimationController(
+    renderloop, 
+    60
+)
+requestAnimationFrame(()=>{
+    scene.updateHtmlCollection(camera.position)//init
+})
 window.world = {
     camera:camera,
     scene:scene,
@@ -32,94 +38,111 @@ const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSel
 
 setupModalEventListeners()
 setUpIcons()
-
-//buttons
-const toggleText = new toggleButton(elements.iconText_hide, {toggleValue:true}, function(state){
-    if(state.toggleValue){
+console.log(elements)
+// buttons
+const toggleText = new toggleButton(elements.iconText_hide, { toggleValue: true }, function (state) {
+    if (state.toggleValue) {
         inlineSvg(elements.iconText_hide, icons.paths.text_show)
-        document.documentElement.style.setProperty('--row-font-size', '0px');
+        document.documentElement.style.setProperty("--row-font-size", "0px")
         state.toggleValue = false
-    }else{
+    } else {
         inlineSvg(elements.iconText_hide, icons.paths.text_hide)
-        document.documentElement.style.removeProperty('--row-font-size');
+        document.documentElement.style.removeProperty("--row-font-size")
         state.toggleValue = true
     }
 }).addEvent()
 
-const toggleFullscreen = new toggleButton(elements.iconFullscreen, {isFullscreen:false}, function(state){
+const toggleFullscreen = new toggleButton(elements.iconFullscreen, { isFullscreen: false }, function (state) {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        let docEl = document.documentElement;
+        let docEl = document.documentElement
         if (docEl.requestFullscreen) {
-            docEl.requestFullscreen().then(() => {});
+            docEl.requestFullscreen().then(() => {})
         } else if (docEl.webkitRequestFullscreen) {
-            docEl.webkitRequestFullscreen(); // Safari
-            state.isFullscreen = true;
+            docEl.webkitRequestFullscreen() // Safari
+            state.isFullscreen = true
         }
-        state.isFullscreen = true;
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit);
+        state.isFullscreen = true
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit)
     } else {
         if (document.exitFullscreen) {
-            document.exitFullscreen().then(() => {});
+            document.exitFullscreen().then(() => {})
         } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen(); // Safari
+            document.webkitExitFullscreen() // Safari
         }
-        state.isFullscreen = false;
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen);
+        state.isFullscreen = false
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen)
     }
     console.log(state)
 }).addEvent()
-
-function handleFullscreenChange(e,toggle = toggleFullscreen) {
+function handleFullscreenChange(e, toggle = toggleFullscreen) {
     if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
-        toggle.state.isFullscreen = false;
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen);
+        toggle.state.isFullscreen = false
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen)
     } else {
-        toggle.state.isFullscreen = true;
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit);
+        toggle.state.isFullscreen = true
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit)
     }
     console.log(toggle.state)
 }
-document.addEventListener("fullscreenchange", handleFullscreenChange);
-document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+document.addEventListener("fullscreenchange", handleFullscreenChange)
+document.addEventListener("webkitfullscreenchange", handleFullscreenChange)
+document.addEventListener("mozfullscreenchange", handleFullscreenChange)
+document.addEventListener("MSFullscreenChange", handleFullscreenChange)
+
+const togglePlay = new toggleButton(
+    elements.iconPlay,
+    {
+        isPlaying: false,
+        isIncreaseing: true,
+        wasResized: false,
+    },
+    function (state) {
+        if (state.isPlaying == false) {
+            state.isPlaying = true
+            animationController.play()
+            inlineSvg(elements.iconPlay, icons.paths.pause)
+        } else {
+            pausePlay()
+        }
+    }
+).addEvent()
+function pausePlay(toggle = togglePlay) {
+    toggle.state.isPlaying = false
+    animationController.pause()
+    inlineSvg(elements.iconPlay, icons.paths.play)
+}
 
 
-
-function removeLoader(){
-    const loader = document.querySelector(".loader")
-    loader.style.background = "rgba(255, 255, 255, 0)";
+function removeLoader() {
+    const loader = elements.loader
+    loader.style.background = "rgba(255, 255, 255, 0)"
     setTimeout(() => {
-        loader.remove();
-    }, 1000); // 1000 milliseconds = 1 second
+        loader.remove()
+    }, 1000)
 }
-function hashSelectUpdate(newVal){
+function hashSelectUpdate(newVal) {
     scene.setHashFunction(hashTypes[newVal])
-    scene.updateHtmlCollection(camera.position)
+    animationController.renderFrame()
 }
-function colorSelectUpdate(newVal){
+function colorSelectUpdate(newVal) {
     scene.setColorBlindMode(colorBlindTypes[newVal])
-    scene.updateHtmlCollection(camera.position)
+    animationController.renderFrame()
 }
-function colorFormatSelectUpdate(newVal){
+function colorFormatSelectUpdate(newVal) {
     scene.setColorFormatMode(colorFormats[newVal])
-    scene.updateHtmlCollection(camera.position)
+    animationController.renderFrame()
 }
 
 //update Functions
-function resize(){
-    camera.resize()
-    scrollbar.handleResize()
-    scene.updateHtmlCollection(camera.position)
+function resize() {
+    togglePlay.state.wasResized = true
+    animationController.renderFrame()
 }
-function mouseWheel(e){
-    pausePlay()//pause anim
+function mouseWheel(e) {
+    pausePlay() //pause anim
     camera.updatePosition(e.wheelDeltaY)
-    scene.updateHtmlCollection(camera.position)
-    scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
+    animationController.renderFrame() // what happens when faster than framerate...?
 }
-
-
 function scrollbarMouseDown(e, skip = undefined){
     // console.log("")
     // console.log(skip)
@@ -138,7 +161,7 @@ function scrollbarMouseDown(e, skip = undefined){
         if(update){
             const newPos = Math.round( scrollbar.scrollPosition * (constants.absoluteMax - camera.visibleIndex.curr + 1 )) 
             camera.setPosition(newPos)
-            scene.updateHtmlCollection(newPos)
+            animationController.renderFrame()
         }
     }
     function scrollbarMouseUp(){
@@ -151,19 +174,13 @@ function scrollbarMouseDown(e, skip = undefined){
         }, 0);
     }
 }
-function barClick(e){
-    pausePlay();//pause anim
+function barClick(e) {
+    pausePlay() //pause anim
     scrollbar.handleScrollbarClick(e)
-    const newPos = Math.floor( scrollbar.scrollPosition * constants.absoluteMax ) 
+    const newPos = Math.floor(scrollbar.scrollPosition * constants.absoluteMax)
     camera.setPosition(newPos)
-    scene.updateHtmlCollection(newPos)
+    animationController.renderFrame()
     resetWheelEvent()
-}
-
-function syncSetPosition(pos){
-    camera.setPosition(pos)
-    scene.updateHtmlCollection(camera.position)
-    scrollbar.setScrollPosition( camera.position/constants.absoluteMax)
 }
 
 function resetWheelEvent(){
@@ -196,17 +213,15 @@ scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
 elements.main.addEventListener("pointerdown", onPointerDown); // match wheel event instead
 elements.main.addEventListener("pointerdown", copyOnPointerUp) // copy contents
 
-elements.iconPlay.addEventListener("pointerdown", e=> {
-    togglePlay(camera.position, camera.visibleIndex.curr, syncSetPosition)
-})
 
 
 
 
 
-window.addEventListener('keydown', e => {
+
+window.addEventListener("keydown", (e) => {
     let pos = camera.position
-    switch(e.key){
+    switch (e.key) {
         case "ArrowUp":
             pos = camera.position - 1
             break
@@ -230,14 +245,16 @@ window.addEventListener('keydown', e => {
             toggleFullscreen.fn()
             break
         default:
-            return;
+            return
     }
-    syncSetPosition(pos)
+    pausePlay()
+    camera.setPosition(pos)
+    animationController.renderFrame()
 })  
 
 function onPointerDown(e) {
-    // console.log(e.pointerType)
     if (e.pointerType == "mouse") return; // not on desktop
+    pausePlay()
     let lastY = e.clientY;
     let velocityY = 0;
     let activePointerId = e.pointerId;
@@ -282,6 +299,36 @@ function onPointerDown(e) {
         }
     }
 }
+
+
+
+
+function renderloop(time, playState = togglePlay.state) {
+    // if playing increment camera.position
+    if (playState.isPlaying) {
+        let position = camera.position
+        let rowCount = camera.visibleIndex.curr
+        if (position == constants.absoluteMin) {
+            playState.isIncreaseing = true
+        } else if (position + rowCount - 1 >= constants.absoluteMax) {
+            playState.isIncreaseing = false
+        }
+        if (playState.isIncreaseing) {
+            position++
+        } else {
+            position--
+        }
+        camera.setPosition(position)
+    }
+    if (playState.wasResized) {
+        camera.resize()
+        scrollbar.handleResize()
+        playState.wasResized = false
+    }
+    scrollbar.setScrollPosition(camera.position / constants.absoluteMax)
+    scene.updateHtmlCollection(camera.position)
+}
+
 
 
 

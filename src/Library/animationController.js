@@ -1,7 +1,12 @@
 export class AnimationController {
-    constructor(renderFunction) {
+    constructor(renderFunction = () => {}) {
+        if (typeof renderFunction !== "function") {
+            console.error(`renderer:${renderFunction} is not a function`)
+            return
+        }
         this.render = renderFunction
-        this.animateLoop
+        this.animateLoop = false
+        this.animate = this.animate.bind(this)
     }
     pause() {
         this.animateLoop = false
@@ -10,36 +15,48 @@ export class AnimationController {
         this.animateLoop = true
         this.animate()
     }
-    animate() {
-        this.render();
-        if (this.animateLoop) { // request next frame unless we exit
-            requestAnimationFrame(this.animate);
+    render(currentTime) {}
+    setRenderer(fn) {
+        if (typeof fn !== "function") return
+        this.render = fn
+    }
+    animate(currentTime = 0) {
+        this.render()
+        // request next frame unless we exit
+        if (this.animateLoop) {
+            requestAnimationFrame(this.animate)
         }
     }
-    render() { }
-    renderFrame() { // f we arent in an animation loop run render frame once 
-        if(!this.animateLoop){
-            requestAnimationFrame(this.render);
+    renderFrame() {
+        // add a debounce ? requestAnimationFrame kinda does this on its own per frame...
+        // if we arent in an animation loop run render frame once
+        if (!this.animateLoop) {
+            requestAnimationFrame(this.render)
         }
     }
-
 }
 export class IntervalAnimationController extends AnimationController {
     constructor(renderFunction, interval) {
+        if (typeof interval !== "number") {
+            console.error(`interval:${interval} is not a number`)
+            return
+        }
         super(renderFunction)
         this.lastTime = 0
         this.interval = interval
+        this.animate = this.animate.bind(this)
     }
-    animate(currentTime = 0) { 
-        if (currentTime - this.lastTime > this.interval) { // only do update logic to match the interval
-            this.lastTime = currentTime - (currentTime % interval);
-            render();
+    animate(currentTime = 0) {
+        // only do update logic to match the interval
+        if (currentTime - this.lastTime > this.interval) {
+            this.lastTime = currentTime - (currentTime % this.interval)
+            this.render()
         }
-        if (animateLoop) { // request next frame unless we exit
-            requestAnimationFrame(this.animate);
+        // request next frame unless we exit
+        if (this.animateLoop) {
+            requestAnimationFrame(this.animate)
         }
     }
-
 }
 export class FPSAnimationController extends IntervalAnimationController {
     constructor(renderFunction, fps) {

@@ -1,5 +1,5 @@
 export class toggleButton {
-    constructor(elem, state = {toggleValue:false}, onToggle, event = "pointerdown") {
+    constructor(elem, state = { toggleValue: false }, onToggle, event = "pointerdown") {
         this.state = state
         this.elem = elem
         this.event = event
@@ -7,7 +7,7 @@ export class toggleButton {
             onToggle(this.state, this, e)
         }
     }
-    fn() { }//stub
+    fn() {} //stub
     toggle() {
         this.toggleValue = !this.toggleValue
     }
