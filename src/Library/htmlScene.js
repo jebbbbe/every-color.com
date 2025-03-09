@@ -17,6 +17,15 @@ export class htmlScene {
     setHTMLArray(cssClass) {
         this.class = cssClass;
         this.htmlArray = document.getElementById(this.class).children;
+        this.titleElements = new Array(this.htmlArray.length)
+        this.colorElements = new Array(this.htmlArray.length)
+        let elem
+        for(let i = 0;i < this.htmlArray.length; i++){
+            elem = this.htmlArray[i]
+            this.titleElements[i] = elem.querySelector(".colName");
+            this.colorElements[i] = elem.querySelector(".colHex");
+        }
+        elem = null
     }
     setHashFunction(newMode = undefined){
         if(newMode !== undefined){
@@ -123,14 +132,17 @@ export class htmlScene {
 
                 // element.querySelector(".colName").textContent = colorName;
                 // element.querySelector(".colHex").textContent  = tmp;
+                
 
-                let colNameElement = element.querySelector(".colName");
+                // let colNameElement = element.querySelector(".colName");
+                let colNameElement = this.titleElements[i]
                 let colNameTextNode = colNameElement.firstChild || colNameElement.appendChild(document.createTextNode(''));
                 colNameTextNode.nodeValue = colorName;
                 colNameElement = null
                 colNameTextNode = null
                 
-                let colHexElement = element.querySelector(".colHex");
+                // let colHexElement = element.querySelector(".colHex");
+                let colHexElement = this.colorElements[i];
                 let colHexTextNode = colHexElement.firstChild || colHexElement.appendChild(document.createTextNode(''));
                 colHexTextNode.nodeValue = tmp;
                 colHexElement = null
