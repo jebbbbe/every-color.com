@@ -145,3 +145,46 @@ function getOppositeBackgroundCWithContrast(hexNum, backgroundHexNum, contrastRa
 function getOppositeForegroundrWithContrast(backgroundHexNum, hexNum, contrastRatio = 4.75){
 
 }
+
+
+
+
+
+
+
+
+
+function multiplyMat([r,g,b],[c1,c2,c3]){
+    return [ 
+        r*c1[0] + r*c1[1] + r*c1[2],
+        g*c2[0] + g*c2[1] + g*c2[2],
+        b*c3[0] + b*c3[1] + b*c3[2],
+    ]
+}
+const visionKernels = {
+    default:[
+        [1.0,  0.0, 0.0],
+        [0.0,  1.0, 0.0],
+        [0.0,  0.0, 1.0],
+    ],
+    protanopia:[
+        [0.567,  0.433, 0.0  ],
+        [0.558,  0.442, 0.0  ],
+        [0.0,    0.242, 0.758],
+    ],
+    deuteranopia:[
+        [0.625, 0.375, 0.0],
+        [0.7,   0.3,   0.0],
+        [0.0,   0.3,   0.7],
+    ],
+    tritanopia:[
+        [0.95,  0.05,  0.0  ],
+        [0.433, 0.567, 0.0  ],
+        [0.0,   0.475, 0.525],
+    ],
+    monochromacy:[
+        [0.299, 0.587 ,0.114],
+        [0.299, 0.587 ,0.114],
+        [0.299, 0.587 ,0.114],
+    ],
+}       
