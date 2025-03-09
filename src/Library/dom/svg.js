@@ -1,30 +1,31 @@
-import { icons } from "../constants.js";
+import { icons, elements } from "../constants.js"
 
-export async function inlineSvg(container, url, fillColor = "var(--header-text-color, #000000)") {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Network error: ${response.status}`);
+export async function requestAllIcons(fillColor = "var(--header-text-color, #000000)") {
+    let parser = new DOMParser()
+    for (const path in icons.paths) {
+        const url = icons.paths[path]
+        try {
+            const response = await fetch(url)
+            if (!response.ok) {
+                throw new Error(`Network error: ${response.status}`)
+            }
+            const svgText = await response.text()
+            const svgDoc = parser.parseFromString(svgText, "image/svg+xml")
+            const svgElement = svgDoc.documentElement
+            svgElement.setAttribute("fill", fillColor)
+            icons.content[path] = svgElement
+        } catch (error) {
+            console.error("Error loading SVG:", error)
         }
-        const svgText = await response.text();
-        container.innerHTML = svgText;
-
-        const svgElement = container.querySelector("svg");
-        if (svgElement) {
-            svgElement.setAttribute("fill", fillColor);
-        }
-    } catch (error) {
-        console.error("Error loading SVG:", error);
+    }
+    for (let d in icons.defaults) {
+        // link default icons
+        try {
+            inlineSvg(elements[d], icons.content[icons.defaults[d]])
+        } catch (e) {}
     }
 }
 
-export function setUpIcons() {
-    for (let id in icons.ids) {
-        try{
-            icons.elements[id] = document.getElementById(icons.ids[id])
-            inlineSvg(icons.elements[id], icons.paths[id])
-        }catch(e){
-            console.log(e)
-        }
-    }
+export async function inlineSvg(container, content) {
+    container.replaceChildren(content)
 }

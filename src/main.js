@@ -4,12 +4,13 @@ import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
-import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
+import {  inlineSvg, requestAllIcons } from "/Library/dom/svg.js"
 import {  toggleButton } from "/Library/dom/toggleButton.js"
 import { IntervalAnimationController} from "/Library/animationController.js"
 
-
-window.addEventListener("load", function() {
+const iconsLoaded = requestAllIcons();
+window.addEventListener("load", async function() {
+await iconsLoaded
 
 const scrollFactor = 8
 const defaultHash = hashTypes.gradientIV
@@ -29,7 +30,13 @@ window.world = {
     camera:camera,
     scene:scene,
     scrollbar:scrollbar,
+    icons:icons,
+    elements,elements
 }
+console.log(world)
+console.log("")
+
+
 
 //dropdowns
 const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, defaultHash)
@@ -37,16 +44,16 @@ const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelec
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 
 setupModalEventListeners()
-setUpIcons()
-console.log(elements)
+// setUpIcons()
+// console.log(elements)
 // buttons
 const toggleText = new toggleButton(elements.iconText_hide, { toggleValue: true }, function (state) {
     if (state.toggleValue) {
-        inlineSvg(elements.iconText_hide, icons.paths.text_show)
+        inlineSvg(elements.iconText_hide, icons.content.text_show)
         document.documentElement.style.setProperty("--row-font-size", "0px")
         state.toggleValue = false
     } else {
-        inlineSvg(elements.iconText_hide, icons.paths.text_hide)
+        inlineSvg(elements.iconText_hide, icons.content.text_hide)
         document.documentElement.style.removeProperty("--row-font-size")
         state.toggleValue = true
     }
@@ -62,7 +69,7 @@ const toggleFullscreen = new toggleButton(elements.iconFullscreen, { isFullscree
             state.isFullscreen = true
         }
         state.isFullscreen = true
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit)
+        inlineSvg(elements.iconFullscreen, icons.content.fullscreen_exit)
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen().then(() => {})
@@ -70,17 +77,17 @@ const toggleFullscreen = new toggleButton(elements.iconFullscreen, { isFullscree
             document.webkitExitFullscreen() // Safari
         }
         state.isFullscreen = false
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen)
+        inlineSvg(elements.iconFullscreen, icons.content.fullscreen)
     }
     console.log(state)
 }).addEvent()
 function handleFullscreenChange(e, toggle = toggleFullscreen) {
     if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
         toggle.state.isFullscreen = false
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen)
+        inlineSvg(elements.iconFullscreen, icons.content.fullscreen)
     } else {
         toggle.state.isFullscreen = true
-        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit)
+        inlineSvg(elements.iconFullscreen, icons.content.fullscreen_exit)
     }
     console.log(toggle.state)
 }
@@ -100,7 +107,7 @@ const togglePlay = new toggleButton(
         if (state.isPlaying == false) {
             state.isPlaying = true
             animationController.play()
-            inlineSvg(elements.iconPlay, icons.paths.pause)
+            inlineSvg(elements.iconPlay, icons.content.pause)
         } else {
             pausePlay()
         }
@@ -109,7 +116,7 @@ const togglePlay = new toggleButton(
 function pausePlay(toggle = togglePlay) {
     toggle.state.isPlaying = false
     animationController.pause()
-    inlineSvg(elements.iconPlay, icons.paths.play)
+    inlineSvg(elements.iconPlay, icons.content.play)
 }
 
 
