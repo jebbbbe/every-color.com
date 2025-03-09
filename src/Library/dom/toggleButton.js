@@ -19,8 +19,10 @@ export class toggleButton {
     }
     addEvent() {
         this.elem.addEventListener(this.event, this.fn)
+        return this
     }
     removeEvent() {
         this.elem.removeEventListener(this.event, this.fn)
+        return this
     }
 }

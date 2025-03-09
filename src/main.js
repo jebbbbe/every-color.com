@@ -4,7 +4,6 @@ import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
 import { DynamicDropdown } from "/Library/dom/dropdown.js"
 import { setupModalEventListeners } from "/Library/dom/modal.js"
-import { toggleFullscreen, handleFullscreenChange } from "/Library/dom/fullscreen.js"
 import { togglePlay, pausePlay } from "/Library/dom/playbutton.js"
 import {  inlineSvg, setUpIcons } from "/Library/dom/svg.js"
 import {  toggleButton } from "/Library/dom/toggleButton.js"
@@ -31,22 +30,60 @@ const dropdown0 = new DynamicDropdown("hashSelect",hashTypes,hashSelectUpdate, d
 const dropdown1 = new DynamicDropdown("visionSelect",colorBlindTypes, colorSelectUpdate ,defaultColorBlind)
 const dropdown2 = new DynamicDropdown("colorFormat",colorFormats, colorFormatSelectUpdate ,defaultColorFormat)
 
-const testbtn = new toggleButton()
 setupModalEventListeners()
 setUpIcons()
 
 //buttons
-const fullscreenButton = new toggleButton(icons.elements.text_hide, {toggleValue:true}, function(state){
+const toggleText = new toggleButton(elements.iconText_hide, {toggleValue:true}, function(state){
     if(state.toggleValue){
-        inlineSvg(icons.elements.text_hide, icons.paths.text_show)
+        inlineSvg(elements.iconText_hide, icons.paths.text_show)
         document.documentElement.style.setProperty('--row-font-size', '0px');
         state.toggleValue = false
     }else{
-        inlineSvg(icons.elements.text_hide, icons.paths.text_hide)
+        inlineSvg(elements.iconText_hide, icons.paths.text_hide)
         document.documentElement.style.removeProperty('--row-font-size');
         state.toggleValue = true
     }
 }).addEvent()
+
+const toggleFullscreen = new toggleButton(elements.iconFullscreen, {isFullscreen:false}, function(state){
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        let docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+            docEl.requestFullscreen().then(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+            docEl.webkitRequestFullscreen(); // Safari
+            state.isFullscreen = true;
+        }
+        state.isFullscreen = true;
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit);
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen().then(() => {});
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen(); // Safari
+        }
+        state.isFullscreen = false;
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen);
+    }
+    console.log(state)
+}).addEvent()
+
+function handleFullscreenChange(e,toggle = toggleFullscreen) {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+        toggle.state.isFullscreen = false;
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen);
+    } else {
+        toggle.state.isFullscreen = true;
+        inlineSvg(elements.iconFullscreen, icons.paths.fullscreen_exit);
+    }
+    console.log(toggle.state)
+}
+document.addEventListener("fullscreenchange", handleFullscreenChange);
+document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
 
 
 function removeLoader(){
@@ -183,20 +220,17 @@ scrollbar.scrollbar.addEventListener("click", barClick);
 scrollbar.thumb.addEventListener("pointerdown", scrollbarMouseDown);
 elements.main.addEventListener("pointerdown", onPointerDown); // match wheel event instead
 elements.main.addEventListener("pointerdown", copyOnPointerUp) // copy contents
-elements.iconFullscreen.addEventListener("pointerdown", e=> toggleFullscreen() )
+
 elements.iconPlay.addEventListener("pointerdown", e=> {
     togglePlay(camera.position, camera.visibleIndex.curr, syncSetPosition)
 })
-document.addEventListener("fullscreenchange", handleFullscreenChange);
-document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
 
 
 
 
 window.addEventListener('keydown', e => {
-    let pos = undefined
+    let pos = camera.position
     switch(e.key){
         case "ArrowUp":
             pos = camera.position - 1
@@ -215,6 +249,10 @@ window.addEventListener('keydown', e => {
             break
         case "End":
             pos = constants.absoluteMax
+            break
+        case "F11":
+            e.preventDefault()
+            toggleFullscreen.fn()
             break
         default:
             return;
