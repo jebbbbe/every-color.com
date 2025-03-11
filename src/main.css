@@ -407,6 +407,10 @@ select:focus{
         width: unset;
         max-width: 275px;
     }
+
+    #fullscreen-button{
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 600px) {
