@@ -227,6 +227,9 @@ label {
     fill:var(--header-text-color);
     opacity:0.5;
 }
+.icon-tray a:focus svg{
+    opacity:1.0;
+}
 .icon-tray button:hover {
     fill:var(--header-text-color);
     opacity:0.5;
