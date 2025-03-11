@@ -1,4 +1,4 @@
-import { elements, constants, hashTypes, colorBlindTypes, colorFormats, icons } from "/Library/constants.js"
+import { elements, constants, hashTypes, visionTypes, colorFormats, icons } from "/Library/constants.js"
 import { noScrollCamera } from "/Library/noScrollCamera.js"
 import { noScrollBar } from "/Library/noScrollBar.js"
 import { htmlScene } from "/Library/htmlScene.js"
@@ -14,7 +14,7 @@ window.addEventListener("load", async function () {
 
     const scrollFactor = 8
     const defaultHash = hashTypes.gradientIV
-    const defaultVision = colorBlindTypes.none
+    const defaultVision = visionTypes.none
     const defaultColorFormat = colorFormats.hexidecimalString
     const camera = new noScrollCamera(scrollFactor, constants.start)
     const scene = new htmlScene(defaultHash, defaultColorFormat, camera.visibleIndex)
@@ -112,14 +112,14 @@ window.addEventListener("load", async function () {
     //dropdowns
     setupModalEventListeners()
     const dropdown0 = new DynamicDropdown("hashSelect", hashTypes, hashSelectUpdate, defaultHash)
-    const dropdown1 = new DynamicDropdown("visionSelect", colorBlindTypes, colorSelectUpdate, defaultVision)
+    const dropdown1 = new DynamicDropdown("visionSelect", visionTypes, colorSelectUpdate, defaultVision)
     const dropdown2 = new DynamicDropdown("colorFormat", colorFormats, colorFormatSelectUpdate, defaultColorFormat)
     function hashSelectUpdate(newVal) {
         scene.setHashFunction(hashTypes[newVal])
         animationController.renderFrame()
     }
     function colorSelectUpdate(newVal) {
-        scene.setColorBlindMode(colorBlindTypes[newVal])
+        scene.setvisionMode(visionTypes[newVal])
         animationController.renderFrame()
     }
     function colorFormatSelectUpdate(newVal) {

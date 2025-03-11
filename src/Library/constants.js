@@ -16,7 +16,7 @@ export const hashTypes = {
     gradientV: "gradient V",
 }
 
-export const colorBlindTypes = {
+export const visionTypes = {
     none: "Default",
     protanopia: "Protanopia",
     deuteranopia: "Deuteranopia",

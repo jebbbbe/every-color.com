@@ -1,4 +1,4 @@
-import { elements, constants,hashTypes, colorBlindTypes, colorFormats } from "./constants.js";
+import { elements, constants,hashTypes, visionTypes, colorFormats } from "./constants.js";
 import * as hashes from "./hash.js"
 import { hexToColorNames } from "./cssColors.js"
 import {selectFormat } from "./colorFormats.js"
@@ -12,7 +12,7 @@ export class htmlScene {
         this.colorFormat = colorFormat
         this.setColorFormatMode(colorFormat)
 
-        this.setColorBlindMode(colorBlindTypes.none)
+        this.setvisionMode(visionTypes.none)
     }
     setHTMLArray(cssClass) {
         this.class = cssClass
@@ -50,28 +50,28 @@ export class htmlScene {
             this.hash = (i) => hashes.mapToGradientV(i)
         }
     }
-    setColorBlindMode(newMode = undefined) {
+    setvisionMode(newMode = undefined) {
         if (newMode !== undefined) {
-            this.colorBlindMode = newMode
+            this.visionMode = newMode
         }
-        switch (this.colorBlindMode) {
-            case colorBlindTypes.none:
+        switch (this.visionMode) {
+            case visionTypes.none:
                 this.colorAsist = undefined
                 break
-            case colorBlindTypes.protanopia:
+            case visionTypes.protanopia:
                 this.colorAsist = hashes.protanopia
                 break
-            case colorBlindTypes.deuteranopia:
+            case visionTypes.deuteranopia:
                 this.colorAsist = hashes.deuteranopia
                 break
-            case colorBlindTypes.tritanopia:
+            case visionTypes.tritanopia:
                 this.colorAsist = hashes.tritanopia
                 break
-            case colorBlindTypes.monochromacy:
+            case visionTypes.monochromacy:
                 this.colorAsist = hashes.monochromacy
                 break
             default:
-                throw new Error("Unsupported colorblind type")
+                throw new Error("Unsupported vision type")
         }
     }
     setColorFormatMode(newMode) {
@@ -102,7 +102,7 @@ export class htmlScene {
                 remappedHex = this.rehash(mappedHex)
                 remappedHex = hexidecimalToString(remappedHex)
             }
-            if (this.colorBlindMode !== colorBlindTypes.none) {
+            if (this.visionMode !== visionTypes.none) {
                 // var colOverwrite = hexidecimalToString(mappedHex)
                 var colOverwrite = this.hexNumToFormated(mappedHex)
                 var newColorOverwrite = hexidecimalToString(mappedHex)

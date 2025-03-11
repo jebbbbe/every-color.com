@@ -1,5 +1,5 @@
 import * as hashes from "../src/Library/hash.js"
-import { constants, hashTypes, colorBlindTypes } from "../src/Library/constants.js";
+import { constants, hashTypes, visionTypes } from "../src/Library/constants.js";
 
 function hexNumToArry(hexNumber) {
     hexNumber = hexNumber & 0xFFFFFF; // Mask to keep only last 24 bits (RGB)
