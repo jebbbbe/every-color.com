@@ -31,17 +31,14 @@ export class htmlScene {
         if (newMode !== undefined) {
             this.displayMode = newMode
         }
-        this.rehash = null
         if (this.displayMode === hashTypes.none) {
             this.hash = (i) => i
         } else if (this.displayMode === hashTypes.random) {
             this.hash = (i) => randomHexColor()
         } else if (this.displayMode === hashTypes.gradientI) {
             this.hash = (i) => hashes.mapToGradientI(i)
-            this.rehash = (i) => hashes.unmapToGradientI(i)
         } else if (this.displayMode === hashTypes.gradientII) {
             this.hash = (i) => hashes.mapToGradientII(i)
-            this.rehash = (i) => hashes.unmapToGradientII(i)
         } else if (this.displayMode === hashTypes.gradientIII) {
             this.hash = (i) => hashes.mapToGradientII(i)
         } else if (this.displayMode === hashTypes.gradientIV) {
@@ -98,10 +95,6 @@ export class htmlScene {
             let mappedHex = this.hash(hexNumber)
 
             let remappedHex = ""
-            if (this.rehash) {
-                remappedHex = this.rehash(mappedHex)
-                remappedHex = hexidecimalToString(remappedHex)
-            }
             if (this.visionMode !== visionTypes.none) {
                 // var colOverwrite = hexidecimalToString(mappedHex)
                 var colOverwrite = this.hexNumToFormated(mappedHex)
@@ -128,7 +121,6 @@ export class htmlScene {
 
             // element.querySelector(".index").innerHTML = decIndex
             // element.querySelector(".hexNum").innerHTML = hexIndex;
-            // element.querySelector(".rehash").innerHTML = remappedHex;
 
             // element.querySelector(".colName").textContent = colorName;
             // element.querySelector(".colHex").textContent  = tmp;
