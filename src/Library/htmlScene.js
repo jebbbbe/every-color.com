@@ -53,19 +53,19 @@ export class htmlScene {
         }
         switch (this.visionMode) {
             case visionTypes.none:
-                this.colorAsist = undefined
+                this.applyVisionMode = undefined
                 break
             case visionTypes.protanopia:
-                this.colorAsist = hashes.protanopia
+                this.applyVisionMode = hashes.protanopia
                 break
             case visionTypes.deuteranopia:
-                this.colorAsist = hashes.deuteranopia
+                this.applyVisionMode = hashes.deuteranopia
                 break
             case visionTypes.tritanopia:
-                this.colorAsist = hashes.tritanopia
+                this.applyVisionMode = hashes.tritanopia
                 break
             case visionTypes.monochromacy:
-                this.colorAsist = hashes.monochromacy
+                this.applyVisionMode = hashes.monochromacy
                 break
             default:
                 throw new Error("Unsupported vision type")
@@ -95,7 +95,7 @@ export class htmlScene {
             if (this.visionMode !== visionTypes.none) {
                 var colOverwrite = this.hexNumToFormated(mappedHex)
                 var newColorOverwrite = hexidecimalToString(mappedHex)
-                mappedHex = this.colorAsist(mappedHex)
+                mappedHex = this.applyVisionMode(mappedHex)
             }
 
             const colorStringForText = this.hexNumToFormated(mappedHex)

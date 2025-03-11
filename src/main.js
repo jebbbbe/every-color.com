@@ -64,6 +64,7 @@ window.addEventListener("load", async function () {
             state.isFullscreen = false
             inlineSvg(elements.iconFullscreen, icons.content.fullscreen)
         }
+        blurCurrentElement()
     }).addEvent()
     const togglePlay = new toggleButton(elements.iconPlay, { isPlaying: false, isIncreaseing: true, wasResized: false, wakeLock:null }, async function (state) {
         if (state.isPlaying == false) {
@@ -84,6 +85,7 @@ window.addEventListener("load", async function () {
         } else {
             pausePlay()
         }
+        blurCurrentElement()
     }).addEvent()
     window.togglePlay = togglePlay
     document.addEventListener("fullscreenchange", handleFullscreenChange)
