@@ -29,7 +29,6 @@ window.addEventListener("load", async function () {
         scrollbar: scrollbar,
         icons: icons,
         elements,
-        elements,
     }
 
     // Buttons
@@ -65,7 +64,7 @@ window.addEventListener("load", async function () {
             inlineSvg(elements.iconFullscreen, icons.content.fullscreen)
         }
     }).addEvent()
-    const togglePlay = new toggleButton(elements.iconPlay, { isPlaying: false, isIncreaseing: true, wasResized: false }, async function (state) {
+    const togglePlay = new toggleButton(elements.iconPlay, { isPlaying: false, isIncreaseing: true, wasResized: false, wakeLock:null }, async function (state) {
         if (state.isPlaying == false) {
             state.isPlaying = true
             animationController.play()
@@ -79,6 +78,7 @@ window.addEventListener("load", async function () {
                 });
             } catch (err) {
                 // if wake lock request fails - usually system related, such as battery
+                state.wakeLock = null
             }
         } else {
             pausePlay()
