@@ -42,6 +42,7 @@ window.addEventListener("load", async function () {
             document.documentElement.style.removeProperty("--row-font-size")
             state.toggleValue = true
         }
+        blurCurrentElement()
     }).addEvent()
     const toggleFullscreen = new toggleButton(elements.iconFullscreen, { isFullscreen: false }, function (state) {
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
@@ -273,6 +274,9 @@ window.addEventListener("load", async function () {
             }, 400)
         }
         // remove focus from elem to remove color
+        blurCurrentElement()
+    }
+    function blurCurrentElement(){
         const focusedElement = document.activeElement
         if (focusedElement) {
             focusedElement.blur()

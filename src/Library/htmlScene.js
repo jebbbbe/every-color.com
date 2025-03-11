@@ -89,14 +89,10 @@ export class htmlScene {
         for (let i = 0; i < max; i++) {
             element = this.htmlArray[i]
             const index = offset + i
-            // const hexIndex = "0x" + index.toString(16).padStart(6, "0");
-            // const decIndex = index.toString(10).padStart(8, "0");
             const hexNumber = getHexidecimal(index)
             let mappedHex = this.hash(hexNumber)
 
-            let remappedHex = ""
             if (this.visionMode !== visionTypes.none) {
-                // var colOverwrite = hexidecimalToString(mappedHex)
                 var colOverwrite = this.hexNumToFormated(mappedHex)
                 var newColorOverwrite = hexidecimalToString(mappedHex)
                 mappedHex = this.colorAsist(mappedHex)
@@ -108,65 +104,21 @@ export class htmlScene {
             if (hexToColorNames.has(newColorOverwrite ?? newColor)) {
                 colorName = hexToColorNames.get(newColorOverwrite ?? newColor)
             }
-            let tmp = colOverwrite ?? colorStringForText
-            /*
-            tmp = colOverwrite ?? colorStringForText 
-            + "   " + selectFormat("RGB String")(mappedHex) 
-            + "   " + selectFormat("RGB Vector")(mappedHex)
-            + "   " + selectFormat("HSV")(mappedHex)
-            + "   " + selectFormat("RGB int")(mappedHex)
-            + "   " + selectFormat("RGB int")(mappedHex)
-            */
-            // tmp = tmp.toUpperCase()
 
-            // element.querySelector(".index").innerHTML = decIndex
-            // element.querySelector(".hexNum").innerHTML = hexIndex;
-
-            // element.querySelector(".colName").textContent = colorName;
-            // element.querySelector(".colHex").textContent  = tmp;
-
-            // let colNameElement = element.querySelector(".colName");
             let colNameElement = this.titleElements[i]
             let colNameTextNode = colNameElement.firstChild || colNameElement.appendChild(document.createTextNode(""))
             colNameTextNode.nodeValue = colorName
             colNameElement = null
             colNameTextNode = null
 
-            // let colHexElement = element.querySelector(".colHex");
             let colHexElement = this.colorElements[i]
             let colHexTextNode = colHexElement.firstChild || colHexElement.appendChild(document.createTextNode(""))
-            colHexTextNode.nodeValue = tmp
+            colHexTextNode.nodeValue = colOverwrite ?? colorStringForText
             colHexElement = null
             colHexTextNode = null
 
-            // const colHex = element.querySelector(".colHex")
-            // window.test = colHex
-            // console.log(colHex)
-            // colName.firstChild.nodeValue = colorName;
-            // const colHex = element.querySelector(".colHex")
-            // colHex.firstChild.nodeValue  = tmp;
-            // element.querySelector(".colHex").innerHTML = tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp  + " " +tmp;
-
-            /*
-            let colNameElem = element.querySelector(".colName").textContent
-            if (!colNameElem._textNode) {
-                colNameElem._textNode = document.createTextNode("");
-                colNameElem.appendChild(colNameElem._textNode);
-            }
-            colNameElem._textNode.nodeValue = colorName
-            colNameElem = null
-            let colHexElem = element.querySelector(".colHex").textContent
-            if (!colHexElem._textNode) {
-                colHexElem._textNode = document.createTextNode("");
-                colHexElem.appendChild(colHexElem._textNode);
-            }
-            colHexElem._textNode.nodeValue = tmp
-            colHexElem = null
-            */
-
             element.style.backgroundColor = newColor
             element.style.color = getOppositeColor(newColor)
-
             // hover -- added 6 ms to css reculation in animation
             // element.style.setProperty('--hover-color', getRandomHexColor());
             // element.style.setProperty('--focus-color', getRandomHexColor());
