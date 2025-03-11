@@ -65,15 +65,26 @@ window.addEventListener("load", async function () {
             inlineSvg(elements.iconFullscreen, icons.content.fullscreen)
         }
     }).addEvent()
-    const togglePlay = new toggleButton(elements.iconPlay, { isPlaying: false, isIncreaseing: true, wasResized: false }, function (state) {
+    const togglePlay = new toggleButton(elements.iconPlay, { isPlaying: false, isIncreaseing: true, wasResized: false }, async function (state) {
         if (state.isPlaying == false) {
             state.isPlaying = true
             animationController.play()
             inlineSvg(elements.iconPlay, icons.content.pause)
+            try {
+                state.wakeLock = await navigator.wakeLock.request("screen");
+                // listen for our release event
+                state.wakeLock.addEventListener("release", () => {
+                    // if wake lock is released alter the UI accordingly
+                    state.wakeLock = null
+                });
+            } catch (err) {
+                // if wake lock request fails - usually system related, such as battery
+            }
         } else {
             pausePlay()
         }
     }).addEvent()
+    window.togglePlay = togglePlay
     document.addEventListener("fullscreenchange", handleFullscreenChange)
     document.addEventListener("webkitfullscreenchange", handleFullscreenChange)
     document.addEventListener("mozfullscreenchange", handleFullscreenChange)
@@ -91,6 +102,11 @@ window.addEventListener("load", async function () {
         toggle.state.isPlaying = false
         animationController.pause()
         inlineSvg(elements.iconPlay, icons.content.play)
+        if (toggle.state.wakeLock !== null) {
+            toggle.state.wakeLock.release().then(() => {
+                toggle.state.wakeLock = null;
+            });
+        }
     }
 
     //dropdowns
