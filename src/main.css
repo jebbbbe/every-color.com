@@ -223,26 +223,16 @@ label {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-/* .icon-tray a:hover svg{
-    opacity:0.5;
-}
-.icon-tray a:focus svg{
-    opacity:1.0;
-} */
 @media (hover: hover) and (pointer: fine) {
     .icon-tray a:hover svg {
       opacity: 0.5;
     }
 }
 @media (hover: hover) and (pointer: fine) {
-.icon-tray a:hover svg {
-    opacity: 0.5;
+    .icon-tray a:hover svg {
+        opacity: 0.5;
+    }
 }
-}
-
-/* .icon-tray button:hover {
-    opacity:0.5;
-} */
 .settings-btn {
     background: none;
     border: none;
