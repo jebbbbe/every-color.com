@@ -1,7 +1,8 @@
-import { elements, constants,hashTypes, visionTypes, colorFormats } from "./constants.js";
-import * as hashes from "./hash.js"
-import { hexToColorNames } from "./cssColors.js"
-import {selectFormat } from "./colorFormats.js"
+import { elements, constants, hashTypes, visionTypes, colorFormats } from "./constants.js"
+import * as hashes from "./color/hash.js"
+import * as vision from "./color/vision.js"
+import { hexToColorNames } from "./color/cssColors.js"
+import { selectFormat } from "./color/colorFormats.js"
 
 export class htmlScene {
     constructor(displayMode, colorFormat, visibleIndex) {
@@ -43,8 +44,6 @@ export class htmlScene {
             this.hash = (i) => hashes.mapToGradientII(i)
         } else if (this.displayMode === hashTypes.gradientIV) {
             this.hash = (i) => hashes.mapToGradientIV(i)
-        } else if (this.displayMode === hashTypes.gradientV) {
-            this.hash = (i) => hashes.mapToGradientV(i)
         }
     }
     setvisionMode(newMode = undefined) {
@@ -56,16 +55,16 @@ export class htmlScene {
                 this.applyVisionMode = undefined
                 break
             case visionTypes.protanopia:
-                this.applyVisionMode = hashes.protanopia
+                this.applyVisionMode = vision.protanopia
                 break
             case visionTypes.deuteranopia:
-                this.applyVisionMode = hashes.deuteranopia
+                this.applyVisionMode = vision.deuteranopia
                 break
             case visionTypes.tritanopia:
-                this.applyVisionMode = hashes.tritanopia
+                this.applyVisionMode = vision.tritanopia
                 break
             case visionTypes.monochromacy:
-                this.applyVisionMode = hashes.monochromacy
+                this.applyVisionMode = vision.monochromacy
                 break
             default:
                 throw new Error("Unsupported vision type")
@@ -134,70 +133,70 @@ export class htmlScene {
         this.visibleIndex.prev = this.visibleIndex.curr
     }
 }
-function getHexidecimal(decimal){
-    return parseInt(decimal.toString(16), 16);
+function getHexidecimal(decimal) {
+    return parseInt(decimal.toString(16), 16)
 }
-function hexidecimalToString(hexa){
-    return "#" + hexa.toString(16).padStart(6, "0");
+function hexidecimalToString(hexa) {
+    return "#" + hexa.toString(16).padStart(6, "0")
 }
 
 function randomHexColor() {
-    return Math.floor(Math.random() * 0x1000000);
+    return Math.floor(Math.random() * 0x1000000)
 }
 function getRandomHexColor() {
-    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`
 }
 
 function rgbToGreyscale(rgbStr) {
     // Extract numeric values from the string
-    const result = rgbStr.match(/\d+/g);
+    const result = rgbStr.match(/\d+/g)
     if (!result || result.length < 3) {
-      throw new Error("Invalid rgb string format.");
+        throw new Error("Invalid rgb string format.")
     }
-    const [r, g, b] = result.map(Number);
-  
+    const [r, g, b] = result.map(Number)
+
     // Use the Rec. 709 luminance formula
-    const grey = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    return grey;
-  }
+    const grey = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+    return grey
+}
 
 function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "";
+    const letters = "0123456789ABCDEF"
+    let color = ""
     for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * 16)]
     }
-    return parseInt(color);
+    return parseInt(color)
 }
 
 function getOppositeColor(hexColor) {
     // Remove '#' if present
-    hexColor = hexColor.replace(/^#/, "");
+    hexColor = hexColor.replace(/^#/, "")
 
-    let r, g, b;
+    let r, g, b
 
     // Handle 3-digit HEX (e.g. #abc)
     if (hexColor.length === 3) {
-        r = parseInt(hexColor.charAt(0) + hexColor.charAt(0), 16);
-        g = parseInt(hexColor.charAt(1) + hexColor.charAt(1), 16);
-        b = parseInt(hexColor.charAt(2) + hexColor.charAt(2), 16);
+        r = parseInt(hexColor.charAt(0) + hexColor.charAt(0), 16)
+        g = parseInt(hexColor.charAt(1) + hexColor.charAt(1), 16)
+        b = parseInt(hexColor.charAt(2) + hexColor.charAt(2), 16)
     }
     // Handle 6-digit HEX (e.g. #a1b2c3)
     else if (hexColor.length === 6) {
-        r = parseInt(hexColor.substr(0, 2), 16);
-        g = parseInt(hexColor.substr(2, 2), 16);
-        b = parseInt(hexColor.substr(4, 2), 16);
+        r = parseInt(hexColor.substr(0, 2), 16)
+        g = parseInt(hexColor.substr(2, 2), 16)
+        b = parseInt(hexColor.substr(4, 2), 16)
     }
     // Invalid input
     else {
-        throw new Error("Invalid hex color provided: " + hexColor);
+        throw new Error("Invalid hex color provided: " + hexColor)
     }
 
     // Invert each channel by subtracting from 255
-    const newR = (255 - r).toString(16).padStart(2, "0");
-    const newG = (255 - g).toString(16).padStart(2, "0");
-    const newB = (255 - b).toString(16).padStart(2, "0");
+    const newR = (255 - r).toString(16).padStart(2, "0")
+    const newG = (255 - g).toString(16).padStart(2, "0")
+    const newB = (255 - b).toString(16).padStart(2, "0")
 
     // Construct final color
-    return `#${newR}${newG}${newB}`;
+    return `#${newR}${newG}${newB}`
 }

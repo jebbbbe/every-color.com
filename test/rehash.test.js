@@ -1,4 +1,4 @@
-import * as hashes from "../src/Library/hash.js"
+import * as hashes from "../src/Library/color/hash.js"
 import { constants, hashTypes, visionTypes } from "../src/Library/constants.js";
 import { selectHash } from "./hash.test.js"
 
@@ -6,9 +6,9 @@ import { selectHash } from "./hash.test.js"
 
 function testReHash(hash = hashTypes.gradientI, verbose = false){
     let [hashFunciton,rehashFunciton] = selectHash(hash)
-    if( rehashFunciton === undefined )return 0; //just return correct ans if funtion inst defined, i dont care about those results
+    if( rehashFunciton === undefined )return undefined; //just return correct ans if funtion inst defined, i dont care about those results
     let count = 0
-    for(let i = 0; i<constants.absoluteMax; i++){
+    for(let i = 0; i<constants.absoluteMax; i+=1){
         const hash = hashFunciton(i)
         const rehash = rehashFunciton(hash)
         if(rehash !== i){
@@ -20,7 +20,7 @@ function testReHash(hash = hashTypes.gradientI, verbose = false){
 
 describe('rehash functions', () => {
     test('none', () => {
-        expect(testReHash(hashTypes.none)).toBe(0);
+        expect(testReHash(hashTypes.none)).toBe(undefined);
     });
     test('gradientI', () => {
         expect(testReHash(hashTypes.gradientI)).toBe(0);
@@ -33,8 +33,5 @@ describe('rehash functions', () => {
     });
     test('gradientIV', () => {
         expect(testReHash(hashTypes.gradientIV)).toBe(0);
-    });
-    test('gradientV', () => {
-        expect(testReHash(hashTypes.gradientV)).toBe(0);
     });
 });

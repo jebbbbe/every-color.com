@@ -10,7 +10,7 @@ import {
     hexNumToHsl,
     hexNumToHsv,
     hexNumToHsb,
-} from "../src/Library/colorFormats.js";
+} from "../src/Library/color/colorFormats.js";
 
 
 const testNumbers = [

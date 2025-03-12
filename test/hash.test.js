@@ -1,4 +1,4 @@
-import * as hashes from "../src/Library/hash.js"
+import * as hashes from "../src/Library/color/hash.js"
 import { constants, hashTypes, visionTypes } from "../src/Library/constants.js";
 
 function hexNumToArry(hexNumber) {
@@ -29,10 +29,10 @@ export function selectHash(hash = hashTypes.gradientI){
         var rehashFunciton = i => hashes.unmapToGradientII(i)
     }else if ( hash === hashTypes.gradientIII ){
         var hashFunciton = i =>  hashes.mapToGradientIII(i)
+        var rehashFunciton = i => hashes.unmapToGradientIII(i)
     }else if ( hash === hashTypes.gradientIV ){
         var hashFunciton = i =>  hashes.mapToGradientIV(i)
-    }else if ( hash === hashTypes.gradientV ){
-        var hashFunciton = i =>  hashes.mapToGradientV(i)
+        var rehashFunciton = i => hashes.unmapToGradientIV(i)
     }
     return [hashFunciton,rehashFunciton]
 }
@@ -40,7 +40,7 @@ function testHash(hash = hashTypes.gradientI, verbose = false){
     let [hashFunciton,rehashFunciton] = selectHash(hash)
     let array = []
     let prev = hashFunciton(0)
-    for(let i = 1; i<constants.absoluteMax; i++){
+    for(let i = 1; i<constants.absoluteMax; i+=1){
         const curr = hashFunciton(i)
         const d = testColorDifference(prev, curr)
         if(d > 1){
@@ -68,8 +68,5 @@ describe('hash functions', () => {
     });
     test('gradientIV', () => {
         expect(testHash(hashTypes.gradientIV,verbose)).toBe(0); // winner
-    });
-    test('gradientV', () => {
-        expect(testHash(hashTypes.gradientV,verbose)).toBe(255);
     });
 });

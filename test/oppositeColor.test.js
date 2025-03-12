@@ -4,7 +4,7 @@ import {
     getContrastRatiofromRGB,
 } from "../src/Library/oppositeColor.js";
 
-import {getFloatArray} from "../src/Library/colorFormats.js"
+import {getFloatArray} from "../src/Library/color/colorFormats.js"
 
 
 
