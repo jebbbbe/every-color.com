@@ -6,14 +6,8 @@ export const constants = {
 }
 
 export const hashTypes = {
-    none: "none",
-    random: "random",
-    gradientI: "gradient I",
-    gradientII: "gradient II",
-    gradientII: "gradient II",
-    gradientIII: "gradient III",
-    gradientIV: "gradient IV",
-    gradientV: "gradient V",
+    gradientIV: "Gradient",
+    none: "In Order",
 }
 
 export const visionTypes = {
