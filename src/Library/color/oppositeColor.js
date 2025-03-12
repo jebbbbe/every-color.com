@@ -15,8 +15,7 @@ const contrastRequirementsWCAG = {
     },
 }
 
-function getOppositeColor(hexColor) {
-    // old
+export function getOppositeColor(hexColor) {
     // Remove '#' if present
     hexColor = hexColor.replace(/^#/, "")
 
@@ -93,17 +92,15 @@ export function getContrastRatiofromRGB(rgb1, rgb2) {
 }
 
 export function randomColorFromBackground(hexNum, contrastRatio) {
-    // 3, 4.5, 7
     const rgb = getFloatArray(hexNum)
     for (let i = 0; i < 3; i++) {
         rgb[i] = gammaCorrect(rgb[i])
     }
     const lum = relativeLuminance(rgb)
     return generateRandomInContrastRange(lum, contrastRatio)
-}
-
-export function generateRandomInContrastRange(L, R, rand = Math.random) {
-    let f_min = 0,
+    
+    function generateRandomInContrastRange(L, R, rand = Math.random) {
+        let f_min = 0,
         f_max = 1
 
     let lowerBound = (L + 0.05) / R - 0.05
@@ -134,6 +131,7 @@ export function generateRandomInContrastRange(L, R, rand = Math.random) {
     b = inverseGammaCorrect(b * (Y / 0.0722))
 
     return [Math.max(0, Math.min(1, r)), Math.max(0, Math.min(1, g)), Math.max(0, Math.min(1, b))]
+    }
 }
 
 function getOppositeBackgroundCWithContrast(hexNum, backgroundHexNum, contrastRatio = 4.75) {}

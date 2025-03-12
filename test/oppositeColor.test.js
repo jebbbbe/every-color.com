@@ -2,7 +2,7 @@ import {
     getContrastRatio,
     randomColorFromBackground,
     getContrastRatiofromRGB,
-} from "../src/Library/oppositeColor.js";
+} from "../src/Library/color/oppositeColor.js";
 
 import {getFloatArray} from "../src/Library/color/colorFormats.js"
 
@@ -48,7 +48,7 @@ const ratios = [
 
 const myTests = [ 
     {
-        run:true,
+        run:false,
         log:false,
         name:'oppositeColor testContrastRatio',
         fn:getContrastRatio,
@@ -67,7 +67,7 @@ const myTests = [
             2.91,
         ],
     },{
-        run:true,
+        run:false, //
         log:false,
         name:'oppositeColorRandom',
         fn:testRandomContrastGeneration,

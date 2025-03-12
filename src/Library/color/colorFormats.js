@@ -26,11 +26,18 @@ export function getIntArray(hexNum) {
     return [r, g, b]
 }
 
-export function getFloatArray(hexNum, p = 3) {
+export function getStringFloatArray(hexNum, p = 3) {
     const array = getIntArray(hexNum)
     array[0] = (array[0] / 255).toFixed(p)
     array[1] = (array[1] / 255).toFixed(p)
     array[2] = (array[2] / 255).toFixed(p)
+    return array
+}
+export function getFloatArray(hexNum) {
+    const array = getIntArray(hexNum)
+    array[0] = (array[0] / 255)
+    array[1] = (array[1] / 255)
+    array[2] = (array[2] / 255)
     return array
 }
 export function forceDecimalFloat(rgb) {
@@ -57,12 +64,12 @@ export function hexNumToRgbInt(hexNum) {
     return `[${rgb[0]}, ${rgb[1]}, ${rgb[2]}]`
 }
 export function hexNumToRgbfloat(hexNum, p = 3) {
-    const rgb = getFloatArray(hexNum, p)
+    const rgb = getStringFloatArray(hexNum, p)
     forceDecimalFloat(rgb)
     return `[${rgb[0]}, ${rgb[1]}, ${rgb[2]}]`
 }
 export function hexNumToRgbVector(hexNum, p = 3) {
-    const rgb = getFloatArray(hexNum, p)
+    const rgb = getStringFloatArray(hexNum, p)
     forceDecimalFloat(rgb)
     return `vec3(${rgb[0]}, ${rgb[1]}, ${rgb[2]});`
 }
