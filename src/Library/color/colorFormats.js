@@ -55,6 +55,12 @@ export function hexNumToHexString(hexNum) {
 export function hexNumToIndex(hexNum) {
     return hexNum
 }
+export function hexStringToHexNum(hexString) {
+    if (hexString.startsWith('#')) {
+      hexString = hexString.slice(1);
+    }
+    return Number("0x" + hexString);
+  }
 export function hexNumToRgbString(hexNum) {
     const rgb = getIntArray(hexNum)
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
