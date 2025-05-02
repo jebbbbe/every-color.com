@@ -8,6 +8,14 @@ import { inlineSvg, requestAllIcons } from "/Library/dom/svg.js"
 import { toggleButton } from "/Library/dom/toggleButton.js"
 import { IntervalAnimationController } from "/Library/animationController.js"
 
+// import {getSafeOpposite} from "/Library/color/safeOpposite.js"
+// getSafeOpposite(0x000000)
+// getSafeOpposite(0x3f3f3f)
+// getSafeOpposite(0x7f7f7f)
+// getSafeOpposite(0xbfbfbf)
+// getSafeOpposite(0xffffff)
+// ee
+
 const iconsLoaded = requestAllIcons()
 window.addEventListener("load", async function () {
     await iconsLoaded

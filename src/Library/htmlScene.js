@@ -2,6 +2,7 @@ import { elements, constants, hashTypes, visionTypes, colorFormats } from "./con
 import * as hashes from "./color/hash.js"
 import * as vision from "./color/vision.js"
 import * as opposite from "./color/oppositeColor.js"
+import { getSafeOpposite } from "./color/safeOpposite.js"
 import { hexToColorNames } from "./color/cssColors.js"
 import { selectFormat } from "./color/colorFormats.js"
 
@@ -118,7 +119,12 @@ export class htmlScene {
             colHexTextNode = null
 
             element.style.backgroundColor = newColor
-            element.style.color = opposite.getOppositeColor(newColor)
+            // element.style.color = opposite.getOppositeColor(newColor)
+            element.style.color =  getSafeOpposite(mappedHex)
+            
+            // console.log(newColor, opposite.getOppositeColor(newColor))
+            // console.log(newColor, getSafeOpposite(mappedHex))
+            
             // hover -- added 6 ms to css reculation in animation
             // element.style.setProperty('--hover-color', getRandomHexColor());
             // element.style.setProperty('--focus-color', getRandomHexColor());
