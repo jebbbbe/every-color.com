@@ -119,8 +119,8 @@ export class htmlScene {
             colHexTextNode = null
 
             element.style.backgroundColor = newColor
-            // element.style.color = opposite.getOppositeColor(newColor)
-            element.style.color =  getSafeOpposite(mappedHex)
+            element.style.color = opposite.getOppositeColor(newColor)
+            // element.style.color =  getSafeOpposite(mappedHex)
             
             // console.log(newColor, opposite.getOppositeColor(newColor))
             // console.log(newColor, getSafeOpposite(mappedHex))
