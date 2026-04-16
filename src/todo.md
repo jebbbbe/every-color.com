@@ -1,0 +1,19 @@
+## todo
+ - [ ] use alpha checkbox
+ - [ ] continuous inverse colors gradient
+ - [x] Finalize website Layout
+ - [x] Fix scroll Animation
+ - [x] darkmode!
+ - [x] mobile scroll events!
+ - [x] Fix color contrast funciton
+ - [x] Buy Domain
+ - [x] next.js Hosting?
+ - [x] click to copy
+ - [x] scrollbar styling
+ - [x] Color Gradient Mapping
+ - [x] dev/live settings
+ - [x] start testing
+ - [x] change color format
+ - [x] settings dropdown
+ - [x] generate opposite colors
+ - [x] settings + external Links

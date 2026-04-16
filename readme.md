@@ -1,47 +1,38 @@
-npm install vite --save-dev
-npm install three@0.124.0
-npm install dat.gui
+# every-color.com
 
+A website for every color
 
-# domains
+## Formats
 
-❌ everycolor.com 
-❌ everyimage.com 
+The site supports multiple color representations:
 
-✔️ every-color.com 
-✔️ every-image.com 
+- Hexidecimal Number `0xff00ff`
+- Hexidecimal String `#ff00ff`
+- RGB String `rgb(255, 87, 51)`
+- RGB int `[255,0,255]`
+- RGB Float `[1.0,0.123213,1.0]`
+- RGB Vector `vec3(1.0,0.123213,1.0);`
+- HSL `hsl(14, 100%, 60%)`
+- HSV `hsv(14, 80%, 100%)`
+- HSB `hsb(14, 80%, 100%)`
+- Index `16777215`
 
-❌ everysinglecolor.com 
-✔️ everysinglecolor.com 
+## Color Order
 
-❌ allthecolors.com
-❌ alltheiamges.com
+Gradient
 
-✔️ everypossiblecolor.com
-✔️ everypossibleimage.com
+Colors are reordered using a bijection so that gradients appear continuous while scrolling.
 
-## todo
- - [x] Fix scroll Animation
- - [ ] Finalize website Layout
- - [ ] scrollbar styling
- - [ ] darkmode!
- - [ ] mobile scroll events!
- - [x] settings + external Links
- - [ ] Fix color contrast funciton
- - [ ] next.js Hosting?
- - [ ] Buy Domain
- - [x] Color Gradient Mapping
- - [x] dev/live settings
- - [ ] use alpha checkbox
- - [ ] sql server for color names
- - [ ] loader for names...
- - [ ] www webpage explainer blog post
- - [x] start testing
- - [x] change color format
- - [x] settings dropdown
- - [x] generate opposite colors
- - [ ] click to copy
- - [ ] any DB stuff
- - [ ] blog post on website..?
+In Order
 
- phase 1 no backend.. prop eaysier for now i dont want to spend forever on this
+[Every color](https://every-color.com/) is displayed in numeric order from 0 to 16,777,215, forming a discontinuous gradient.
+
+## Vision Options
+
+The site includes simulations for different types of color vision:
+
+- Default
+- Protanopia
+- Deuteranopia
+- Tritanopia
+- Monochromacy
