@@ -95,6 +95,15 @@ window.addEventListener("load", async function () {
         }
         blurCurrentElement()
     }).addEvent()
+    for (const button of [elements.iconDescription, elements.iconCode]) {
+        button.addEventListener("click", function () {
+            const href = button.dataset.href
+            if (href) {
+                window.open(href, "_blank", "noopener,noreferrer")
+            }
+            blurCurrentElement()
+        })
+    }
     window.togglePlay = togglePlay
     document.addEventListener("fullscreenchange", handleFullscreenChange)
     document.addEventListener("webkitfullscreenchange", handleFullscreenChange)

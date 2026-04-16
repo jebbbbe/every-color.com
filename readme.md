@@ -1,8 +1,8 @@
-# every-color.com
+# [every-color.com](https://every-color.com)
 
-A website for every color
+A website for exploring every possible 24-bit RGB color.
 
-## Formats
+## Color Formats
 
 The site supports multiple color representations:
 
@@ -17,15 +17,15 @@ The site supports multiple color representations:
 - HSB `hsb(14, 80%, 100%)`
 - Index `16777215`
 
-## Color Order
+## Color Ordering
 
-Gradient
+### Gradient Order
 
-Colors are reordered using a bijection so that gradients appear continuous while scrolling.
+Colors are reordered using a bijective mapping that places visually similar colors near one another, producing a smooth and continuous gradient while scrolling.
 
-In Order
+### Numeric Order
 
-[Every color](https://every-color.com/) is displayed in numeric order from 0 to 16,777,215, forming a discontinuous gradient.
+In the default view, colors are displayed in numeric order from `0` to `16,777,215`. This ordering creates abrupt transitions between colors due to the structure of RGB color space.
 
 ## Vision Options
 

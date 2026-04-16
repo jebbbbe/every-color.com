@@ -29,8 +29,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
-        <!-- <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet"> -->
-        <!-- <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> -->
     </head>
     <body>
         <div class="loader"></div>
@@ -45,12 +43,12 @@
                 <div class="row-box">
                     <h1 class="title">EVERY COLOR</h1>
                      <div class="icon-tray">
-                        <a id="play-button" alt="Play Icon" aria-label="Play Color Animation"></a>
-                        <a id="fullscreen-button" alt="Fullscreen Icon" aria-label="Enter FullScreen"></a>
-                        <a id="hide-text-button" alt="Hide Text Icon" aria-label="Hide Text"></a>
-                        <a id="desciption-button" target="_blank" rel="noopener noreferrer" href="https://jessebassett.com" alt="Desciption Icon" aria-label="Enter FullScreen"></a>
-                        <a id="code-button" target="_blank" rel="noopener noreferrer" href="https://github.com/jebbbbe/every-color.com" alt="Code Icon" aria-label="View Code Source"></a>
-                        <button id="openSettings" class="settings-btn" aria-label="Open Settings" alt="Settings Icon"></button>
+                        <button id="play-button" type="button" aria-label="Play Color Animation"></button>
+                        <button id="fullscreen-button" type="button" aria-label="Enter FullScreen"></button>
+                        <button id="hide-text-button" type="button" aria-label="Hide Text"></button>
+                        <button id="desciption-button" type="button" data-href="https://jessebassett.com/projects/every-color" aria-label="Open Jesse Bassett Website"></button>
+                        <button id="code-button" type="button" data-href="https://github.com/jebbbbe/every-color.com" aria-label="View Code Source"></button>
+                        <button id="openSettings" type="button" class="settings-btn" aria-label="Open Settings"></button>
                     </div>
                 </div>
             </header>
@@ -77,7 +75,7 @@
         <div id="settingsModal" class="modal">
             <div class="modal-content">
                 <span id="closeModal" class="close">&times;</span>
-                <p>SETTINGS</p>
+                <p>Settings</p>
                 <div class="settings-container">
 
                     <form id="colorFormat" class="settings-form">
@@ -96,10 +94,6 @@
             </div>
         </div>
 
-
-
-
-        
         <script type="module" src="./main.js" defer></script>
     </body>
 </html>

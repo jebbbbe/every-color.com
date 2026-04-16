@@ -207,8 +207,12 @@ label {
     /* height: var(--icon-tray-height); */
     padding-right: var(--side-padding-right);
 }
-.icon-tray a{
+.icon-tray button{
+    appearance: none;
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -224,20 +228,17 @@ label {
     padding-bottom: 10px;
 }
 @media (hover: hover) and (pointer: fine) {
-    .icon-tray a:hover svg {
+    .icon-tray button:hover svg {
       opacity: 0.5;
     }
 }
 @media (hover: hover) and (pointer: fine) {
-    .icon-tray a:hover svg {
+    .icon-tray button:hover svg {
         opacity: 0.5;
     }
 }
 .settings-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0px;
+    padding: 0;
 }
 .settings-btn svg {
     transition: transform 0.3s ease, filter 0.3s ease;
@@ -278,7 +279,7 @@ label {
     position: absolute;
     top: 10px;
     right: 15px;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
 }
 .settings-container {
